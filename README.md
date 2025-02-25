@@ -1,7 +1,6 @@
 # Logan Schneider
 This is a website for projects that I am working on.
 
-![Profile](/Assets/alaska.JPG)
 
 ### Technical Skills: R, Python, SQL, Tableau, SAS
 
@@ -14,3 +13,13 @@ This is a website for projects that I am working on.
 - 
 
 [Publication](https://pubmed.ncbi.nlm.nih.gov/39637387/)
+
+
+## Projects
+### Snow water equalivalent predictions in Utah 
+
+
+### Pickleball analyltics
+
+
+### Financial Analysis
