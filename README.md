@@ -1,6 +1,8 @@
 # Logan Schneider
 This is a website for projects that I am working on.
 
+![Profile](/Assets/alaska.JPG)
+
 ### Technical Skills: R, Python, SQL, Tableau, SAS
 
 ## Education
@@ -10,4 +12,5 @@ This is a website for projects that I am working on.
 ## Work Experience
 **Biostatisician I at Myriad Genetics in Salt Lake City (_July 2022 - Present_)**
 - 
-- 
+
+[Publication](https://pubmed.ncbi.nlm.nih.gov/39637387/)
