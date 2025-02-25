@@ -29,7 +29,11 @@ This is important because Utah is a desert and predicting how much water is avai
 3. Create Predictions of the amount of water contained in Snow throughout Utah using a Generalized additive model.
 4. Combine by weighting National Products (SNODAS) and Generalized additive model based on the distance from Snow Telemetry stations.
 
+This picture shows the overall process of creating predictions using a Generalized additive model and a weights from the Snow Telemetry stations and combining with SNODAS to get the combined
+![Overall Process](/Assets/rsnodas_process.png)
 
+This shows how the median and standard deviation of the errors varies from year to year. Overall there was some improvement by weighting 
+![Caption](/Assets/Median_SD_Errors.png)
 
 You can read more about my thesis by going to this [website](https://digitalcommons.usu.edu/etd2023/6/) and clicking the download button.
 
