@@ -37,7 +37,7 @@ This shows how the median and standard deviation of the errors varies from year 
 
 You can read more about my thesis by going to this [website](https://digitalcommons.usu.edu/etd2023/6/) and clicking the download button.
 
-### Pickleball analyltics
+### Pickleball Analytics
 
 
 ### Financial Analysis
