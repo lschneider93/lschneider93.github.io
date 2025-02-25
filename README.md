@@ -5,6 +5,7 @@ This is a website for projects that I am working on.
 
 ## Education
 BS in a composite of Mathematics and Statistics from Utah State University (_May 2019_)
+
 MS in Statistics from Utah State University (_May 2019_)
 
 ## Work Experience
