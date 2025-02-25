@@ -20,7 +20,9 @@ This is a website for projects that I am working on.
 ## Projects
 ### Thesis: Snow water equalivalent predictions in Utah 
 
-I created a github package that allows users to access, clean, visualize, and analyze data from Snow Data Assimulation System (SNODAS), University of Arizon (UA), Parameter-elevation Regression on Independe Slopes Model (PRISM), and Snow Telemetry (SNOTEL) stations.
+I created a github package **R** that allows users to access, clean, visualize, and analyze data from Snow Data Assimulation System (SNODAS), University of Arizon (UA), Parameter-elevation Regression on Independe Slopes Model (PRISM), and Snow Telemetry (SNOTEL) stations.
+
+This is important because Utah is a desert and predicting how much water is available is important.  Utah is one area that national products struggle to predict because of it's mountains.  The goal of this project is to make downloading national data, creating your own predictiongs, and combining with other national products to make another prediction.  This will hopefully help others in their own research and improve the predictions throughout Utah and other places.
 
 1. Install rsnodas from GitHub
 2. Download SNODAS, PRISM, and SNOTEL data
