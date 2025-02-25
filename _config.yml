@@ -1,6 +1,6 @@
 title: Logan Schneider
-#logo: /assets/img/headshot_circle.png
-#description: text below image
+logo: /Assets/alaska.JPG
+description: Logan Schneider 
 #show_downloads: true
-#show_downloads: false
+show_downloads: false
 theme: jekyll-theme-minimal
