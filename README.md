@@ -49,8 +49,8 @@ In order to Calculate the number of crimes committed in a certain area, we creat
 
 Here are the key Graphics from this Project showing the regions where each type of crime (Car stolen, Battery, Petty Theft, and Assault with a weapon) was committed.
 
-![Caption](/Assets/LA_CRIME/Car_Stolen.png)
-![Caption](/Assets/LA_CRIME/LA_Petty_Theft.png)
+![Caption](/Assets/LA_CRIME/LA_Car_Stolen.png)
+![Caption](/Assets/LA_CRIME/Petty_Theft.png)
 
 
 ### Fraud Detection: Comparison on Model performance
