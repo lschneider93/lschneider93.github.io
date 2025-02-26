@@ -40,7 +40,7 @@ You can read more about my thesis by going to this [website](https://digitalcomm
 
 The Github package is free to use and can be seen looking at my profile or clicking this [link](https://github.com/lschneider93/rsnodas)
 
-### LA Crime Data
+### LA Crime Data (_March 2022_)
 
 This project was a collaboration with a fellow graduate student, Tom Kerby, from Utah State University. 
 The data was from a Kaggle dataset and using Google API, we were able to create figures using google Maps.
