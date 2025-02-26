@@ -42,6 +42,7 @@ The Github package is free to use and can be seen looking at my profile or click
 
 ### Fraud Detection: Comparison on Model performance
 
+This is being updated. Thank you for your patience!
 
 ### Pickleball Analytics (_April 2024 - Current_)
 
