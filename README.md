@@ -5,7 +5,7 @@ This is a website for projects that I am working on.
 ### Technical Skills: R, Python, SQL, Tableau, SAS
 
 ## Education
-- BS in Mathematics and Statistics composite | Utah State University (_May 2019_)
+- BS in Math/Stats composite | Utah State University (_May 2019_)
 - MS in Statistics | Utah State University (_May 2022_)
 
 ## Work Experience
@@ -39,7 +39,16 @@ You can read more about my thesis by going to this [website](https://digitalcomm
 
 The Github package is free to use and can be seen looking at my profile or clicking this [link](https://github.com/lschneider93/rsnodas)
 
-### Pickleball Analytics
+
+### Fraud Detection: Comparison on Model performance
 
 
-### Financial Analysis
+### Pickleball Analytics (_April 2024 - Current_)
+
+Pickleball has been growing in popularity for the last few years. After a knee injury in January 2022, I started playing pickleball with a crutch and big knee brace around April 2022. 
+
+Pickleball is a sport that is not like tennis and doesn't have all the fancy eagle eye and years of people analyzing the sport.  This has just been a side project to better understand the game of pickleball by analyzing the pros.
+
+I've made models to detect the players and pickleball position. I'm currently working on improving these models and will probably write more in the future.  
+
+
