@@ -32,12 +32,27 @@ This is important because Utah is a desert and predicting how much water is avai
 This picture shows the overall process of creating predictions using a Generalized additive model and a weights from the Snow Telemetry stations and combining with SNODAS to get the combined
 ![Overall Process](/Assets/rsnodas_process.png)
 
-This shows how the median and standard deviation of the errors varies from year to year. Overall there was some improvement by weighting 
-![Caption](/Assets/Median_SD_Errors.png)
+This shows how the median and standard deviation of the errors varies from year to year. Overall there was marginal improvement by weighting. The weighting helped when SNODAS was very off in certain years as the GAM model provided some stability. However, SNODAS generally makes a good estimation of the amount of water present in the snow.
+
+![Standard deviation and median of errors of all models](/Assets/Median_SD_Errors.png)
 
 You can read more about my thesis by going to this [website](https://digitalcommons.usu.edu/etd2023/6/) and clicking the download button.
 
 The Github package is free to use and can be seen looking at my profile or clicking this [link](https://github.com/lschneider93/rsnodas)
+
+### LA Crime Data
+
+This project was a collaboration with a fellow graduate student, Tom Kerby, from Utah State University. 
+The data was from a Kaggle dataset and using Google API, we were able to create figures using google Maps.
+
+In order to Calculate the number of crimes committed in a certain area, we created custom bins and those could vary with size.
+
+Here are the key Graphics from this Project showing the regions where each type of crime was committed.
+
+![Caption](/Assets/Median_SD_Errors.png)
+![Caption](/Assets/Median_SD_Errors.png)
+![Caption](/Assets/Median_SD_Errors.png)
+![Caption](/Assets/Median_SD_Errors.png)
 
 
 ### Fraud Detection: Comparison on Model performance
