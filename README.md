@@ -49,8 +49,30 @@ In order to Calculate the number of crimes committed in a certain area, we creat
 
 Here are the key Graphics from this Project showing the regions where each type of crime (Car stolen, Battery, Petty Theft, and Assault with a weapon) was committed.
 
-![Caption](/Assets/LA_CRIME/LA_Car_Stolen.png)
-![Caption](/Assets/LA_CRIME/Petty_Theft.png)
+![Caption](/Assets/LA_CRIME/Cars_Stolen_Petty_Theft.png)
+
+
+### Car Crash and Machine Learning methods comparison
+
+This project compares the performance of different methods in predicting the serverity of injuries. There was an column labeled "INJURY" and with the entries being "None" "Minimal" "Minor" 'Major', and "Fatal".  The data came from Kaggle and the data cleaning and processing was minimal but involved investigating each column and seeing the entries and removing entries due to lack of information (removing entries with 'INJURY' being blank). 
+
+I would like to point out that this data was imbalanced and this will provide some difficulty in predicting the severity of the injury.
+| None | Minimal | Minor | Major | Fatal |
+| --- | --- | --- | --- | --- |
+| 4,268 | 967 | 793 | 4,148 | 593 |
+
+After cleaning the data the following methods were applied:
+
+1) Random Forest (Regression, Classification, and Binary)
+2) Neural Network (Classification)
+3) Support Vector Machines
+4) K-Nearest Neighbors
+
+What other methods would be interesting to include? 
+- Logisitic Regression: This would be a good baseline method to show because the coefficients are interpretable. I want to acknowledge this but also let the reader understand that this project was to display the Machine Learning techniques.  This could be added in the comparison.
+- Decision Trees: This provide easy to interpret results and can have great graphics that are very understandable.
+- Gradient Boosting: This one will be added as you can tune to account for the class imbalances.  I've worked with these in the past and will train and compare results.
+- Other ideas?
 
 
 ### Fraud Detection: Comparison on Model performance
@@ -60,9 +82,7 @@ This is being updated. Thank you for your patience!
 ### Pickleball Analytics (_April 2024 - Current_)
 
 Pickleball has been growing in popularity for the last few years. After a knee injury in January 2022, I started playing pickleball with a crutch and big knee brace around April 2022. 
-
-Pickleball is a sport that is not like tennis and doesn't have all the fancy eagle eye and years of people analyzing the sport.  This has just been a side project to better understand the game of pickleball by analyzing the pros.
-
-I've made models to detect the players and pickleball position. I'm currently working on improving these models and will probably write more in the future.  
+Pickleball is a sport that doesn't have all the fancy eagle eye and years of people analyzing the sport.  This has just been a side project to better understand the game of pickleball by analyzing the pros and hopefully learn from them.
+I've made models to detect the players and pickleball position. This involves more computer vision. I'm currently working on improving these models and will probably write more in the future.  
 
 
