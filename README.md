@@ -60,7 +60,8 @@ I would like to point out that this data was imbalanced and this will provide so
 | None | Minimal | Minor | Major | Fatal |
 | ---  |  --- | --- |  --- |   --- |
 | 4,268 | 967 | 793 | 4,148 | 593 |
-|  ---  |  ---| ---|  ---  | --- |
+
+
 After cleaning the data the following methods were applied:
 
 1) Random Forest (Regression, Classification, and Binary)
