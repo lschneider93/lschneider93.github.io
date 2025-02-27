@@ -81,8 +81,11 @@ This is being updated. Thank you for your patience!
 
 ### Pickleball Analytics (_April 2024 - Current_)
 
-Pickleball has been growing in popularity for the last few years. After a knee injury in January 2022, I started playing pickleball with a crutch and big knee brace around April 2022. 
-Pickleball is a sport that doesn't have all the fancy eagle eye and years of people analyzing the sport.  This has just been a side project to better understand the game of pickleball by analyzing the pros and hopefully learn from them.
-I've made models to detect the players and pickleball position. This involves more computer vision. I'm currently working on improving these models and will probably write more in the future.  
+Pickleball has grown in popularity over the last few years. 
+
+After a knee injury in January 2022, I started playing pickleball with a crutch and big knee brace around April 2022 and fell in love with the sport. Honestly, people say that I'm addicted.
+
+Currently, Pickleball doesn't have all the years of development and analysis that other sports have. I've been working on learning computer vision models and that invovles detecting players and location of the ball in relation to the court.
+I'm currently working on improving these models and will probably write more in the future.  
 
 
