@@ -9,7 +9,7 @@ This is a website for projects that I am working on.
 - MS in Statistics | Utah State University (_May 2022_)
 
 ## Work Experience
-**Biostatisician I at Myriad Genetics in Salt Lake City (_July 2022 - Present_)**
+**Biostatisician I at Myriad Genetics in Salt Lake City (_July 2022 - October 2025_)**
 - Led discussions and articulated statistical findings to a technical and non-technical audiences
 - Conducted statistical modeling utilizing conditional logistic regression, Cox regression for survival analysis, and mixed models.
 - Creating Data visualizations to help inform audiences what the data is telling us.
