@@ -1,92 +1,627 @@
-# Logan Schneider
-This is a website for projects that I am working on.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logan Schneider — Data Scientist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0E1A;
+      --bg-elevated: #111628;
+      --bg-card: #151A2E;
+      --bg-card-hover: #1C2240;
+      --accent: #4AE3B5;
+      --accent-soft: rgba(74, 227, 181, 0.10);
+      --accent-glow: rgba(74, 227, 181, 0.20);
+      --accent-secondary: #7C8CF8;
+      --accent-warm: #F8A44C;
+      --accent-rose: #E36ADB;
+      --accent-sky: #4AC2E3;
+      --text: #CDD5E0;
+      --text-dim: #7A8599;
+      --text-bright: #F0F4F8;
+      --border: rgba(255,255,255,0.06);
+      --border-accent: rgba(74,227,181,0.15);
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --radius: 12px;
+      --radius-lg: 16px;
+    }
 
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-### Technical Skills: R, Python, SQL, Tableau, SAS
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-## Education
-- BS in Math/Stats composite | Utah State University (_May 2019_)
-- MS in Statistics | Utah State University (_May 2022_)
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
 
-## Work Experience
-**Biostatisician I at Myriad Genetics in Salt Lake City (_July 2022 - October 2025_)**
-- Led discussions and articulated statistical findings to a technical and non-technical audiences
-- Conducted statistical modeling utilizing conditional logistic regression, Cox regression for survival analysis, and mixed models.
-- Creating Data visualizations to help inform audiences what the data is telling us.
+    a { color: var(--accent); text-decoration: none; transition: all 0.25s ease; }
+    a:hover { color: var(--text-bright); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
 
-[Recent Publication: Online Screening and Virtual Patient Education for Hereditary Cancer Risk Assessment and Testing](https://pubmed.ncbi.nlm.nih.gov/39637387/)
+    /* Navigation */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.1rem 2rem;
+      backdrop-filter: blur(24px) saturate(1.2);
+      background: rgba(10, 14, 26, 0.85);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: var(--serif); font-weight: 700; font-size: 1.1rem; color: var(--text-bright); letter-spacing: -0.02em; }
+    .logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a { color: var(--text-dim); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+    nav ul a:hover { color: var(--accent); }
 
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 5rem; position: relative;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -30%; right: -15%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+      opacity: 0.12; filter: blur(90px); pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -10%; left: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,140,248,0.12) 0%, transparent 65%);
+      opacity: 0.1; filter: blur(80px); pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center; position: relative; z-index: 2; }
+    .hero-text { max-width: 620px; }
 
-## Projects
-### Thesis: Snow water equalivalent predictions in Utah (_August 2022_)
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.78rem; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.6s 0.15s forwards;
+    }
+    .eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent); border-radius: 1px; }
 
-I created a github package **R** that allows users to access, clean, visualize, and analyze data from Snow Data Assimulation System (SNODAS), University of Arizon (UA), Parameter-elevation Regression on Independe Slopes Model (PRISM), and Snow Telemetry (SNOTEL) stations.
+    .hero h1 {
+      font-family: var(--serif); font-size: clamp(2.6rem, 5.5vw, 4rem);
+      font-weight: 700; line-height: 1.12; color: var(--text-bright);
+      letter-spacing: -0.03em; margin-bottom: 1.25rem;
+      opacity: 0; animation: fadeUp 0.6s 0.25s forwards;
+    }
+    .hero h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
 
-This is important because Utah is a desert and predicting how much water is available is important.  Utah is one area that national products struggle to predict because of it's mountains.  The goal of this project is to make downloading national data, creating your own predictiongs, and combining with other national products to make another prediction.  This will hopefully help others in their own research and improve the predictions throughout Utah and other places.
+    .hero .subtitle {
+      font-size: 1.05rem; color: var(--text-dim); line-height: 1.75; margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.6s 0.45s forwards;
+    }
 
-1. Install rsnodas from GitHub
-2. Download SNODAS, PRISM, and SNOTEL data
-3. Create Predictions of the amount of water contained in Snow throughout Utah using a Generalized additive model.
-4. Combine by weighting National Products (SNODAS) and Generalized additive model based on the distance from Snow Telemetry stations.
+    /* Profile card */
+    .profile-card {
+      width: 260px; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.75rem; text-align: center;
+      opacity: 0; animation: fadeUp 0.6s 0.5s forwards; position: relative;
+    }
+    .profile-card::before {
+      content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .profile-photo {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-soft), rgba(124,140,248,0.1));
+      margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; border: 3px solid var(--border); overflow: hidden;
+    }
+    .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-card h3 { font-family: var(--serif); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 0.2rem; }
+    .profile-card .role { font-size: 0.82rem; color: var(--accent); margin-bottom: 0.8rem; }
+    .profile-card .location { font-size: 0.78rem; color: var(--text-dim); display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
+    .profile-links {
+      display: flex; justify-content: center; gap: 0.6rem; margin-top: 1rem;
+      padding-top: 1rem; border-top: 1px solid var(--border);
+    }
+    .profile-links a {
+      font-size: 0.75rem; font-weight: 600; color: var(--text-dim);
+      padding: 0.35rem 0.7rem; border-radius: 6px; border: 1px solid var(--border); transition: all 0.25s;
+    }
+    .profile-links a:hover { color: var(--accent); border-color: var(--border-accent); background: var(--accent-soft); }
 
-This picture shows the overall process of creating predictions using a Generalized additive model and a weights from the Snow Telemetry stations and combining with SNODAS to get the combined
-![Overall Process](/Assets/rsnodas_process.png)
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.75rem 1.5rem;
+      border-radius: 8px; font-family: var(--sans); font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.01em; cursor: pointer; border: none; transition: all 0.3s;
+    }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-primary:hover { background: #5AEFC3; color: var(--bg); transform: translateY(-2px); box-shadow: 0 8px 25px var(--accent-glow); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.12); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-This shows how the median and standard deviation of the errors varies from year to year. Overall there was marginal improvement by weighting. The weighting helped when SNODAS was very off in certain years as the GAM model provided some stability. However, SNODAS generally makes a good estimation of the amount of water present in the snow.
+    /* Credentials */
+    .credentials {
+      display: flex; gap: 1px; background: var(--border); border-radius: var(--radius);
+      overflow: hidden; margin-top: -3rem; margin-bottom: 5rem; position: relative; z-index: 3;
+      opacity: 0; animation: fadeUp 0.6s 0.6s forwards;
+    }
+    .cred { flex: 1; background: var(--bg-card); padding: 1.5rem; text-align: center; }
+    .cred-value { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; color: var(--text-bright); }
+    .cred-label { font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem; }
 
-![Standard deviation and median of errors of all models](/Assets/Median_SD_Errors.png)
+    /* Section headers */
+    section { padding: 4.5rem 0; }
+    .section-label { font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.6rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 700; color: var(--text-bright); letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .section-subtitle { font-size: 0.95rem; color: var(--text-dim); max-width: 560px; margin-bottom: 2.5rem; }
 
-You can read more about my thesis by going to this [website](https://digitalcommons.usu.edu/etd2023/6/) and clicking the download button.
+    /* Featured Project */
+    .featured {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      overflow: hidden; margin-bottom: 2rem; transition: all 0.4s ease; position: relative;
+    }
+    .featured:hover { border-color: var(--border-accent); box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px var(--border-accent); transform: translateY(-3px); }
+    .featured-badge {
+      position: absolute; top: 1.25rem; left: 1.25rem; z-index: 5;
+      background: var(--accent); color: var(--bg); font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; padding: 0.3rem 0.65rem; border-radius: 5px;
+    }
+    .featured-visual {
+      height: 260px; background: linear-gradient(135deg, #111628 0%, #1a2545 40%, #162035 100%);
+      display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+    }
+    .featured-visual::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(74,227,181,0.06) 0%, transparent 60%), radial-gradient(ellipse at 70% 30%, rgba(124,140,248,0.05) 0%, transparent 60%);
+    }
+    .featured-visual::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, var(--bg-card)); }
+    .featured-visual .icon-display { position: relative; z-index: 1; display: flex; gap: 1.5rem; align-items: center; }
+    .featured-visual .icon-display span { font-size: 3.5rem; filter: drop-shadow(0 4px 20px rgba(74,227,181,0.2)); }
 
-The Github package is free to use and can be seen looking at my profile or clicking this [link](https://github.com/lschneider93/rsnodas)
+    .featured-body { padding: 2rem 2.5rem 2.5rem; }
+    .featured-body h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--text-bright); letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+    .featured-body .project-meta { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 1rem; }
+    .featured-body p { color: var(--text); font-size: 0.92rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .impact {
+      display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-soft);
+      color: var(--accent); padding: 0.4rem 0.9rem; border-radius: 6px; font-size: 0.8rem;
+      font-weight: 600; margin-bottom: 1.25rem; border: 1px solid rgba(74,227,181,0.1);
+    }
 
-### LA Crime Data (_March 2022_)
+    /* Tags */
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .tag {
+      font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 0.25rem 0.6rem; border-radius: 4px; border: 1px solid;
+    }
+    .tag-cv { color: var(--accent-rose); border-color: rgba(227,106,219,0.25); background: rgba(227,106,219,0.07); }
+    .tag-ml { color: var(--accent); border-color: rgba(74,227,181,0.25); background: rgba(74,227,181,0.07); }
+    .tag-stats { color: var(--accent-warm); border-color: rgba(248,164,76,0.25); background: rgba(248,164,76,0.07); }
+    .tag-viz { color: var(--accent-sky); border-color: rgba(74,194,227,0.25); background: rgba(74,194,227,0.07); }
+    .tag-r { color: var(--accent-secondary); border-color: rgba(124,140,248,0.25); background: rgba(124,140,248,0.07); }
+    .tag-python { color: #F7D44C; border-color: rgba(247,212,76,0.25); background: rgba(247,212,76,0.07); }
 
-This project was a collaboration with a fellow graduate student, Tom Kerby, from Utah State University. 
-The data was from a Kaggle dataset and using Google API, we were able to create figures using google Maps.
+    .project-links a { font-size: 0.82rem; font-weight: 600; margin-right: 1.5rem; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .project-links a .arrow { transition: transform 0.2s; display: inline-block; }
+    .project-links a:hover .arrow { transform: translateX(3px); }
 
-In order to Calculate the number of crimes committed in a certain area, we created custom bins and those could vary with size.
+    /* Project Grid */
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .project-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.75rem; transition: all 0.35s ease; position: relative; overflow: hidden;
+    }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; opacity: 0; transition: opacity 0.3s; }
+    .project-card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
+    .project-card:hover::before { opacity: 1; }
+    .project-card.accent-green::before { background: var(--accent); }
+    .project-card.accent-blue::before { background: var(--accent-secondary); }
+    .project-card.accent-orange::before { background: var(--accent-warm); }
+    .project-card.accent-sky::before { background: var(--accent-sky); }
+    .project-card.accent-rose::before { background: var(--accent-rose); }
 
-Here are the key Graphics from this Project showing the regions where each type of crime (Car stolen, Battery, Petty Theft, and Assault with a weapon) was committed.
+    .project-card .card-num { font-family: var(--serif); font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.85rem; letter-spacing: 0.05em; }
+    .project-card h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--text-bright); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .project-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 1rem; }
 
-![Caption](/Assets/LA_CRIME/Cars_Stolen_Petty_Theft.png)
+    /* Experience */
+    .experience-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 2.25rem; margin-bottom: 1.5rem; position: relative;
+    }
+    .experience-card::before {
+      content: ''; position: absolute; left: 0; top: 2rem; bottom: 2rem; width: 3px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-secondary)); border-radius: 2px;
+    }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+    .exp-header h3 { font-family: var(--serif); font-size: 1.2rem; color: var(--text-bright); font-weight: 600; }
+    .exp-header .company { font-size: 0.9rem; color: var(--accent); margin-top: 0.15rem; }
+    .exp-date { font-size: 0.78rem; color: var(--text-dim); background: rgba(255,255,255,0.04); padding: 0.3rem 0.75rem; border-radius: 5px; white-space: nowrap; }
+    .exp-highlights { list-style: none; margin-top: 0.75rem; }
+    .exp-highlights li { font-size: 0.88rem; color: var(--text); padding: 0.4rem 0; padding-left: 1.25rem; position: relative; line-height: 1.6; }
+    .exp-highlights li::before { content: ''; position: absolute; left: 0; top: 0.85rem; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.5; }
+    .publication-link {
+      display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem;
+      padding: 0.5rem 1rem; background: var(--accent-soft); border: 1px solid rgba(74,227,181,0.1);
+      border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--accent);
+    }
+    .publication-link:hover { background: rgba(74,227,181,0.15); color: var(--text-bright); }
 
+    /* Skills */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .skill-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+    .skill-card h3 { font-family: var(--serif); font-size: 0.95rem; font-weight: 600; color: var(--accent); margin-bottom: 1rem; }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .pill { font-size: 0.76rem; color: var(--text-dim); background: rgba(255,255,255,0.04); padding: 0.3rem 0.65rem; border-radius: 5px; border: 1px solid var(--border); transition: all 0.2s; }
+    .pill:hover { color: var(--text); border-color: rgba(255,255,255,0.12); }
 
-### Car Crash and Machine Learning methods comparison
+    /* Education */
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .edu-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
+    .edu-card h4 { font-family: var(--serif); font-size: 1rem; color: var(--text-bright); margin-bottom: 0.15rem; }
+    .edu-card .school { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.1rem; }
+    .edu-card .year { font-size: 0.78rem; color: var(--text-dim); }
 
-This project compares the performance of different methods in predicting the serverity of injuries. There was an column labeled "INJURY" and with the entries being "None" "Minimal" "Minor" 'Major', and "Fatal".  The data came from Kaggle and the data cleaning and processing was minimal but involved investigating each column and seeing the entries and removing entries due to lack of information (removing entries with 'INJURY' being blank). 
+    /* Contact */
+    .contact-section { text-align: center; padding: 6rem 0 4rem; position: relative; }
+    .contact-section::before {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+      opacity: 0.06; filter: blur(80px); pointer-events: none;
+    }
+    .contact-section h2 { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--text-bright); margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+    .contact-section p { color: var(--text-dim); font-size: 1rem; max-width: 420px; margin: 0 auto 2rem; }
+    .contact-buttons { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
 
-I would like to point out that this data was imbalanced and this will provide some difficulty in predicting the severity of the injury.
-| None | Minimal | Minor | Major | Fatal |
-| ---  |  --- | --- |  --- |   --- |
-| 4,268 | 967 | 793 | 4,148 | 593 |
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.75rem; color: var(--text-dim); }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 1rem 0; }
 
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
-After cleaning the data the following methods were applied:
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .profile-card { display: none; }
+      .project-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .edu-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .credentials { flex-direction: column; }
+      nav ul { display: none; }
+      .hero-actions { flex-direction: column; }
+      .hero h1 { font-size: 2.2rem; }
+      .featured-body { padding: 1.5rem; }
+      .exp-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
 
-1) Random Forest (Regression, Classification, and Binary)
-2) Neural Network (Classification)
-3) Support Vector Machines
-4) K-Nearest Neighbors
+<nav>
+  <div class="nav-inner">
+    <div class="logo">logan<span>.</span>schneider</div>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
-What other methods would be interesting to include? 
-- Logisitic Regression: This would be a good baseline method to show because the coefficients are interpretable. I want to acknowledge this but also let the reader understand that this project was to display the Machine Learning techniques.  This could be added in the comparison.
-- Decision Trees: This provide easy to interpret results and can have great graphics that are very understandable.
-- Gradient Boosting: This one will be added as you can tune to account for the class imbalances.  I've worked with these in the past and will train and compare results.
-- Other ideas?
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="eyebrow">Data Scientist · Biostatistician</div>
+        <h1>Statistics that <em>drive decisions</em>, models that <em>ship.</em></h1>
+        <p class="subtitle">
+          M.S. Statistics with 3+ years at Myriad Genetics building survival models, 
+          clinical analyses, and data products. I turn complex data into clear, actionable insight 
+          for technical and non-technical audiences alike.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View My Work ↓</a>
+          <a href="https://github.com/lschneider93" class="btn btn-ghost" target="_blank">GitHub</a>
+          <a href="#contact" class="btn btn-ghost">Contact Me</a>
+        </div>
+      </div>
+      <div class="profile-card">
+        <div class="profile-photo">
+          <!-- Replace src with your actual photo URL -->
+          👨‍💻
+        </div>
+        <h3>Logan Schneider</h3>
+        <div class="role">Data Scientist</div>
+        <div class="location">📍 Salt Lake City, UT</div>
+        <div class="profile-links">
+          <a href="https://github.com/lschneider93" target="_blank">GitHub</a>
+          <a href="#" target="_blank">LinkedIn</a>
+          <a href="#">Resume</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<div class="container">
+  <div class="credentials">
+    <div class="cred">
+      <div class="cred-value">M.S. Statistics</div>
+      <div class="cred-label">Utah State University</div>
+    </div>
+    <div class="cred">
+      <div class="cred-value">3+ Years</div>
+      <div class="cred-label">Myriad Genetics</div>
+    </div>
+    <div class="cred">
+      <div class="cred-value">Published</div>
+      <div class="cred-label">Research Author</div>
+    </div>
+    <div class="cred">
+      <div class="cred-value">R · Python · SQL</div>
+      <div class="cred-label">Core Stack</div>
+    </div>
+  </div>
+</div>
 
-### Fraud Detection: Comparison on Model performance
+<!-- Projects -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-subtitle">
+      Selected work spanning computer vision, spatial statistics, machine learning, and geospatial analysis.
+    </p>
 
-This is being updated. Thank you for your patience!
+    <!-- FEATURED: Pickleball Analytics -->
+    <div class="featured">
+      <div class="featured-badge">★ Featured</div>
+      <div class="featured-visual">
+        <div class="icon-display">
+          <span>🏓</span>
+          <span>🎯</span>
+          <span>📹</span>
+        </div>
+      </div>
+      <div class="featured-body">
+        <h3>Pickleball Analytics — Computer Vision Tracking</h3>
+        <div class="project-meta">April 2024 – Present · Active Development</div>
+        <div class="impact">🎯 Player detection & ball tracking using deep learning</div>
+        <p>
+          Building computer vision models to detect player positions and track ball location 
+          relative to the court in pickleball gameplay footage. Applying object detection and 
+          tracking algorithms to bring sports analytics to a rapidly growing sport that lacks 
+          the analytical infrastructure of established leagues. Involves video processing, 
+          model training, and real-time inference pipelines.
+        </p>
+        <div class="tags">
+          <span class="tag tag-cv">Computer Vision</span>
+          <span class="tag tag-python">Python</span>
+          <span class="tag tag-ml">Deep Learning</span>
+          <span class="tag tag-viz">Video Analysis</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/lschneider93" target="_blank">View Code <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
 
-### Pickleball Analytics (_April 2024 - Current_)
+    <div class="project-grid">
 
-Pickleball has grown in popularity over the last few years. 
+      <!-- Thesis: Snow Water Equivalent -->
+      <div class="project-card accent-green">
+        <div class="card-num">02 · M.S. Thesis · Aug 2022</div>
+        <h3>Snow Water Equivalent Predictions in Utah</h3>
+        <p>
+          Created the rsnodas R package to access, clean, and analyze data from SNODAS, PRISM, 
+          and SNOTEL stations. Developed an ensemble model combining Generalized Additive Models 
+          with national data products, weighted by station density, to improve snowpack water 
+          predictions in Utah's mountainous terrain where national models struggle.
+        </p>
+        <div class="tags">
+          <span class="tag tag-stats">GAMs</span>
+          <span class="tag tag-r">R Package</span>
+          <span class="tag tag-ml">Ensemble</span>
+          <span class="tag tag-viz">Geospatial</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/lschneider93" target="_blank">R Package <span class="arrow">→</span></a>
+          <a href="#" target="_blank">Thesis <span class="arrow">→</span></a>
+        </div>
+      </div>
 
-After a knee injury in January 2022, I started playing pickleball with a crutch and big knee brace around April 2022 and fell in love with the sport. Honestly, people say that I'm addicted.
+      <!-- Car Crash ML -->
+      <div class="project-card accent-orange">
+        <div class="card-num">03 · ML Classification</div>
+        <h3>Car Crash Injury Severity Prediction</h3>
+        <p>
+          Compared Random Forest, Neural Networks, SVM, and KNN for multi-class prediction of 
+          crash injury severity (None/Minimal/Minor/Major/Fatal) on ~10K imbalanced records. 
+          Explored class imbalance handling and model performance trade-offs across methods.
+        </p>
+        <div class="tags">
+          <span class="tag tag-ml">Classification</span>
+          <span class="tag tag-python">Python</span>
+          <span class="tag tag-stats">Imbalanced Data</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/lschneider93" target="_blank">Code <span class="arrow">→</span></a>
+        </div>
+      </div>
 
-Currently, Pickleball doesn't have all the years of development and analysis that other sports have. I've been working on learning computer vision models and that invovles detecting players and location of the ball in relation to the court.
-I'm currently working on improving these models and will probably write more in the future.  
+      <!-- LA Crime -->
+      <div class="project-card accent-sky">
+        <div class="card-num">04 · Geospatial · Mar 2022</div>
+        <h3>LA Crime Geospatial Analysis</h3>
+        <p>
+          Collaborative analysis of Los Angeles crime patterns using Kaggle data and Google Maps API. 
+          Built custom spatial bins to map crime density for car theft, battery, petty theft, 
+          and assault with a weapon across LA neighborhoods.
+        </p>
+        <div class="tags">
+          <span class="tag tag-viz">Geospatial Viz</span>
+          <span class="tag tag-r">R</span>
+          <span class="tag tag-stats">Spatial Analysis</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/lschneider93" target="_blank">Code <span class="arrow">→</span></a>
+        </div>
+      </div>
 
+      <!-- Suggested: Churn -->
+      <div class="project-card accent-rose" style="border-style: dashed; opacity: 0.55;">
+        <div class="card-num">05 · Coming Soon</div>
+        <h3>Customer Churn Prediction (Python)</h3>
+        <p>
+          End-to-end Python ML pipeline using Telco Churn data: EDA, feature engineering, 
+          model comparison (XGBoost, Logistic Regression, Random Forest), SHAP explainability, 
+          and actionable retention recommendations.
+        </p>
+        <div class="tags">
+          <span class="tag tag-python">Python</span>
+          <span class="tag tag-ml">Scikit-learn</span>
+          <span class="tag tag-viz">SHAP</span>
+        </div>
+        <div class="project-links">
+          <a href="#">In Progress <span class="arrow">→</span></a>
+        </div>
+      </div>
 
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Professional Background</h2>
+    <p class="section-subtitle">3+ years applying statistical methods to clinical genomics research.</p>
+
+    <div class="experience-card">
+      <div class="exp-header">
+        <div>
+          <h3>Biostatistician I</h3>
+          <div class="company">Myriad Genetics — Salt Lake City, UT</div>
+        </div>
+        <div class="exp-date">Jul 2022 – Oct 2025</div>
+      </div>
+      <ul class="exp-highlights">
+        <li>Led statistical analyses and presented findings to cross-functional teams of technical and non-technical stakeholders</li>
+        <li>Built statistical models using conditional logistic regression, Cox regression for survival analysis, and mixed-effects models for clinical genomics research</li>
+        <li>Designed data visualizations that translated complex analytical findings into clear, actionable insights for diverse audiences</li>
+      </ul>
+      <a href="#" class="publication-link" target="_blank">
+        📄 Publication: Online Screening and Virtual Patient Education for Hereditary Cancer Risk Assessment
+      </a>
+    </div>
+
+    <div style="margin-top: 2.5rem;">
+      <div class="section-label">Education</div>
+      <div class="edu-grid" style="margin-top: 1rem;">
+        <div class="edu-card">
+          <h4>M.S. in Statistics</h4>
+          <div class="school">Utah State University</div>
+          <div class="year">May 2022</div>
+        </div>
+        <div class="edu-card">
+          <h4>B.S. in Math/Stats Composite</h4>
+          <div class="school">Utah State University</div>
+          <div class="year">May 2019</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Technical Stack</div>
+    <h2 class="section-title">Skills & Tools</h2>
+    <div class="skills-grid" style="margin-top: 1.5rem;">
+      <div class="skill-card">
+        <h3>Languages</h3>
+        <div class="skill-pills">
+          <span class="pill">Python</span>
+          <span class="pill">R</span>
+          <span class="pill">SQL</span>
+          <span class="pill">SAS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>ML & Statistics</h3>
+        <div class="skill-pills">
+          <span class="pill">Scikit-learn</span>
+          <span class="pill">PyTorch</span>
+          <span class="pill">XGBoost</span>
+          <span class="pill">Survival Analysis</span>
+          <span class="pill">Mixed Models</span>
+          <span class="pill">GAMs</span>
+          <span class="pill">Computer Vision</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Data & Visualization</h3>
+        <div class="skill-pills">
+          <span class="pill">Tableau</span>
+          <span class="pill">ggplot2</span>
+          <span class="pill">Pandas</span>
+          <span class="pill">NumPy</span>
+          <span class="pill">Matplotlib</span>
+          <span class="pill">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <h2>Let's connect.</h2>
+    <p>
+      I'm actively seeking data scientist roles. I'd love to discuss how my statistics 
+      and ML experience can benefit your team.
+    </p>
+    <div class="contact-buttons">
+      <a href="mailto:your-email@gmail.com" class="btn btn-primary">Email Me</a>
+      <a href="#" class="btn btn-ghost" target="_blank">LinkedIn</a>
+      <a href="https://github.com/lschneider93" class="btn btn-ghost" target="_blank">GitHub</a>
+      <a href="#" class="btn btn-ghost">Resume (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2025 Logan Schneider · Built with purpose.
+  </div>
+</footer>
+
+</body>
+</html>
