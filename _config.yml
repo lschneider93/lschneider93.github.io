@@ -1,6 +1,5 @@
-title: Logan Schneider
-logo: /Assets/alaska.JPG
-description: Logan Schneider 
-#show_downloads: true
-show_downloads: false
-theme: jekyll-theme-minimal
+
+# GitHub Pages configuration
+# This disables the default Jekyll theme so index.html renders standalone
+
+plugins: []
