@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logan Schneider — Data Scientist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0A0E1A;--bg-card:#151A2E;--accent:#4AE3B5;--accent-soft:rgba(74,227,181,0.10);--accent-glow:rgba(74,227,181,0.20);--accent-secondary:#7C8CF8;--accent-warm:#F8A44C;--accent-rose:#E36ADB;--accent-sky:#4AC2E3;--text:#CDD5E0;--text-dim:#7A8599;--text-bright:#F0F4F8;--border:rgba(255,255,255,0.06);--border-accent:rgba(74,227,181,0.15);--serif:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--radius:12px;--radius-lg:16px}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+    a{color:var(--accent);text-decoration:none;transition:all 0.25s ease}a:hover{color:var(--text-bright)}
+    .container{max-width:1100px;margin:0 auto;padding:0 2rem}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 2rem;backdrop-filter:blur(24px) saturate(1.2);background:rgba(10,14,26,0.85);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-family:var(--serif);font-weight:700;font-size:1.1rem;color:var(--text-bright);letter-spacing:-0.02em}.logo span{color:var(--accent)}
+    nav ul{list-style:none;display:flex;gap:1.75rem}nav ul a{color:var(--text-dim);font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase}nav ul a:hover{color:var(--accent)}
+    .hero{min-height:auto;display:flex;align-items:center;padding-top:7rem;padding-bottom:3.5rem;position:relative}
+    .hero::before{content:'';position:absolute;top:-30%;right:-15%;width:700px;height:700px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 65%);opacity:0.12;filter:blur(90px);pointer-events:none}
+    .hero::after{content:'';position:absolute;bottom:-10%;left:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(124,140,248,0.12) 0%,transparent 65%);opacity:0.1;filter:blur(80px);pointer-events:none}
+    .hero-grid{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;position:relative;z-index:2}
+    .hero-text{max-width:640px}
+    .eyebrow{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.78rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:1.25rem;opacity:0;animation:fadeUp 0.6s 0.15s forwards}
+    .eyebrow::before{content:'';width:24px;height:2px;background:var(--accent);border-radius:1px}
+    .hero h1{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:700;line-height:1.15;color:var(--text-bright);letter-spacing:-0.03em;margin-bottom:1rem;opacity:0;animation:fadeUp 0.6s 0.25s forwards}
+    .hero h1 em{font-style:italic;font-weight:300;color:var(--accent)}
+    .hero .subtitle{font-size:1rem;color:var(--text-dim);line-height:1.75;margin-bottom:2rem;opacity:0;animation:fadeUp 0.6s 0.35s forwards}
+    .hero .subtitle strong{color:var(--text);font-weight:600}
+    .hero-actions{display:flex;gap:0.75rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.6s 0.45s forwards}
+    .profile-card{width:240px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem 1.25rem;text-align:center;opacity:0;animation:fadeUp 0.6s 0.5s forwards;position:relative;overflow:hidden}
+    .profile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent-secondary))}
+    .profile-photo{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--accent-soft),rgba(124,140,248,0.1));margin:0.5rem auto 0.75rem;display:flex;align-items:center;justify-content:center;font-size:2.2rem;border:3px solid var(--border);overflow:hidden}
+    .profile-photo img{width:100%;height:100%;object-fit:cover}
+    .profile-card h3{font-family:var(--serif);font-size:1.05rem;color:var(--text-bright);margin-bottom:0.2rem}
+    .profile-card .role{font-size:0.8rem;color:var(--accent);margin-bottom:0.6rem}
+    .profile-card .location{font-size:0.76rem;color:var(--text-dim);display:flex;align-items:center;justify-content:center;gap:0.3rem}
+    .profile-links{display:flex;justify-content:center;gap:0.5rem;margin-top:0.85rem;padding-top:0.85rem;border-top:1px solid var(--border)}
+    .profile-links a{font-size:0.72rem;font-weight:600;color:var(--text-dim);padding:0.3rem 0.6rem;border-radius:6px;border:1px solid var(--border);transition:all 0.25s}
+    .profile-links a:hover{color:var(--accent);border-color:var(--border-accent);background:var(--accent-soft)}
+    .btn{display:inline-flex;align-items:center;gap:0.45rem;padding:0.75rem 1.5rem;border-radius:8px;font-family:var(--sans);font-size:0.85rem;font-weight:600;cursor:pointer;border:none;transition:all 0.3s}
+    .btn-primary{background:var(--accent);color:var(--bg)}.btn-primary:hover{background:#5AEFC3;color:var(--bg);transform:translateY(-2px);box-shadow:0 8px 25px var(--accent-glow)}
+    .btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.12)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+    .credentials{display:flex;gap:1px;background:var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:3rem;position:relative;z-index:3;opacity:0;animation:fadeUp 0.6s 0.6s forwards}
+    .cred{flex:1;background:var(--bg-card);padding:1.1rem;text-align:center}
+    .cred-value{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text-bright)}
+    .cred-label{font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-top:0.2rem}
+    section{padding:3rem 0}
+    .section-label{font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.6rem}
+    .section-title{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;color:var(--text-bright);letter-spacing:-0.02em;margin-bottom:0.5rem}
+    .section-subtitle{font-size:0.93rem;color:var(--text-dim);max-width:580px;margin-bottom:1.75rem;line-height:1.7}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:1rem 0}
+    .featured{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:2rem;transition:all 0.4s ease}
+    .featured:hover{border-color:var(--border-accent);box-shadow:0 20px 60px rgba(0,0,0,0.3),0 0 0 1px var(--border-accent);transform:translateY(-3px)}
+    .featured-badge{display:inline-flex;align-items:center;gap:0.3rem;background:var(--accent);color:var(--bg);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:0.3rem 0.65rem;border-radius:5px;margin-bottom:0.75rem}
+    .featured-body{padding:1.75rem 2rem 2rem}
+    .featured-body h3{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--text-bright);margin-bottom:0.4rem}
+    .featured-body .project-meta{font-size:0.78rem;color:var(--text-dim);margin-bottom:0.75rem}
+    .featured-body p{color:var(--text);font-size:0.9rem;line-height:1.75;margin-bottom:1rem}
+    .impact{display:inline-flex;align-items:center;gap:0.5rem;background:var(--accent-soft);color:var(--accent);padding:0.4rem 0.9rem;border-radius:6px;font-size:0.78rem;font-weight:600;margin-bottom:1rem;border:1px solid rgba(74,227,181,0.1)}
+    .takeaway{font-size:0.85rem;color:var(--accent);font-weight:500;font-style:italic;margin-bottom:1rem;padding-left:0.75rem;border-left:2px solid var(--accent)}
+    .tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
+    .tag{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;padding:0.25rem 0.6rem;border-radius:4px;border:1px solid}
+    .tag-cv{color:var(--accent-rose);border-color:rgba(227,106,219,0.25);background:rgba(227,106,219,0.07)}
+    .tag-ml{color:var(--accent);border-color:rgba(74,227,181,0.25);background:rgba(74,227,181,0.07)}
+    .tag-stats{color:var(--accent-warm);border-color:rgba(248,164,76,0.25);background:rgba(248,164,76,0.07)}
+    .tag-viz{color:var(--accent-sky);border-color:rgba(74,194,227,0.25);background:rgba(74,194,227,0.07)}
+    .tag-r{color:var(--accent-secondary);border-color:rgba(124,140,248,0.25);background:rgba(124,140,248,0.07)}
+    .tag-python{color:#F7D44C;border-color:rgba(247,212,76,0.25);background:rgba(247,212,76,0.07)}
+    .project-links a{font-size:0.82rem;font-weight:600;margin-right:1.5rem;display:inline-flex;align-items:center;gap:0.35rem}
+    .project-links a .arrow{transition:transform 0.2s;display:inline-block}.project-links a:hover .arrow{transform:translateX(3px)}
+    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin:1rem 0 1.25rem}
+    .video-item{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--border);background:var(--bg)}
+    .video-item video{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
+    .video-label{position:absolute;bottom:0;left:0;right:0;padding:0.4rem 0.65rem;background:linear-gradient(transparent,rgba(0,0,0,0.85));font-size:0.7rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:0.06em;z-index:2}
+    .project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+    .project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;transition:all 0.35s ease;position:relative;overflow:hidden}
+    .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity 0.3s}
+    .project-card:hover{border-color:rgba(255,255,255,0.1);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+    .project-card:hover::before{opacity:1}
+    .project-card.accent-green::before{background:var(--accent)}.project-card.accent-orange::before{background:var(--accent-warm)}.project-card.accent-sky::before{background:var(--accent-sky)}.project-card.accent-rose::before{background:var(--accent-rose)}
+    .project-card .card-num{font-family:var(--serif);font-size:0.72rem;color:var(--text-dim);margin-bottom:0.75rem}
+    .project-card h3{font-family:var(--serif);font-size:1.05rem;font-weight:600;color:var(--text-bright);margin-bottom:0.4rem}
+    .project-card p{font-size:0.84rem;color:var(--text-dim);line-height:1.65;margin-bottom:0.6rem}
+    .project-card p strong{color:var(--text);font-weight:600}
+    .project-images{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin:0.75rem 0 1rem}
+    .project-images img{width:100%;height:auto;border-radius:6px;border:1px solid var(--border);object-fit:cover}
+    .experience-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;position:relative}
+    .experience-card::before{content:'';position:absolute;left:0;top:2rem;bottom:2rem;width:3px;background:linear-gradient(to bottom,var(--accent),var(--accent-secondary));border-radius:2px}
+    .exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem}
+    .exp-header h3{font-family:var(--serif);font-size:1.15rem;color:var(--text-bright);font-weight:600}
+    .exp-header .company{font-size:0.88rem;color:var(--accent);margin-top:0.15rem}
+    .exp-date{font-size:0.78rem;color:var(--text-dim);background:rgba(255,255,255,0.04);padding:0.3rem 0.75rem;border-radius:5px;white-space:nowrap}
+    .exp-highlights{list-style:none;margin-top:0.5rem}
+    .exp-highlights li{font-size:0.87rem;color:var(--text);padding:0.35rem 0 0.35rem 1.25rem;position:relative;line-height:1.6}
+    .exp-highlights li::before{content:'';position:absolute;left:0;top:0.82rem;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:0.5}
+    .publication-link{display:inline-flex;align-items:center;gap:0.4rem;margin-top:1rem;padding:0.5rem 1rem;background:var(--accent-soft);border:1px solid rgba(74,227,181,0.1);border-radius:8px;font-size:0.82rem;font-weight:600;color:var(--accent)}
+    .publication-link:hover{background:rgba(74,227,181,0.15);color:var(--text-bright)}
+    .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    .edu-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+    .edu-card h4{font-family:var(--serif);font-size:1rem;color:var(--text-bright);margin-bottom:0.15rem}
+    .edu-card .school{font-size:0.85rem;color:var(--accent);margin-bottom:0.1rem}
+    .edu-card .year{font-size:0.78rem;color:var(--text-dim)}
+    .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}
+    .process-step{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem}
+    .process-step .step-num{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--accent);opacity:0.3;margin-bottom:0.5rem}
+    .process-step h4{font-family:var(--serif);font-size:0.9rem;font-weight:600;color:var(--text-bright);margin-bottom:0.4rem}
+    .process-step p{font-size:0.8rem;color:var(--text-dim);line-height:1.6}
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .skill-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+    .skill-card h3{font-family:var(--serif);font-size:0.92rem;font-weight:600;color:var(--accent);margin-bottom:0.85rem}
+    .skill-pills{display:flex;flex-wrap:wrap;gap:0.35rem}
+    .pill{font-size:0.76rem;color:var(--text-dim);background:rgba(255,255,255,0.04);padding:0.3rem 0.65rem;border-radius:5px;border:1px solid var(--border);transition:all 0.2s}
+    .pill:hover{color:var(--text);border-color:rgba(255,255,255,0.12)}
+    .about-content{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem}
+    .about-content p{font-size:0.92rem;color:var(--text);line-height:1.75;margin-bottom:1rem}.about-content p:last-child{margin-bottom:0}
+    .contact-section{text-align:center;padding:4rem 0 3rem;position:relative}
+    .contact-section::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 65%);opacity:0.06;filter:blur(80px);pointer-events:none}
+    .contact-section h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--text-bright);margin-bottom:0.75rem}
+    .contact-section p{color:var(--text-dim);font-size:0.95rem;max-width:500px;margin:0 auto 2rem;line-height:1.7}
+    .contact-buttons{display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap}
+    footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:0.75rem;color:var(--text-dim)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:2rem}.profile-card{display:none}.project-grid,.skills-grid,.edu-grid{grid-template-columns:1fr}.process-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.credentials{flex-direction:column}nav ul{display:none}.hero-actions{flex-direction:column}.hero h1{font-size:2.2rem}.featured-body{padding:1.25rem}.exp-header{flex-direction:column}.video-grid,.project-images,.process-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<nav><div class="nav-inner"><div class="logo">logan<span>.</span>schneider</div><ul><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#process">Approach</a></li><li><a href="#skills">Skills</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul></div></nav>
+
+<section class="hero"><div class="container"><div class="hero-grid"><div class="hero-text">
+  <div class="eyebrow">Data Scientist · Biostatistician</div>
+  <h1>Voicing the <em>story</em> your data is <em>telling.</em></h1>
+  <p class="subtitle">Data scientist with an M.S. in Statistics and <strong>3+ years analyzing cancer research data at Myriad Genetics</strong>. I build and interpret statistical models that turn complex data into clear, actionable insight.</p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">View My Work ↓</a>
+    <a href="https://github.com/lschneider93" class="btn btn-ghost" target="_blank">GitHub</a>
+    <a href="#contact" class="btn btn-ghost">Contact Me</a>
+  </div>
+</div><div class="profile-card">
+  <div class="profile-photo">👨‍💻</div>
+  <h3>Logan Schneider</h3>
+  <div class="role">Data Scientist</div>
+  <div class="location">📍 Orem, Utah</div>
+  <div class="profile-links">
+    <a href="https://github.com/lschneider93" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/logan-schneider-a2a740b6/" target="_blank">LinkedIn</a>
+    <a href="resume.pdf" target="_blank">Resume</a>
+  </div>
+</div></div></div></section>
+
+<div class="container"><div class="credentials">
+  <div class="cred"><div class="cred-value">M.S. Statistics</div><div class="cred-label">Utah State University</div></div>
+  <div class="cred"><div class="cred-value">3+ Years</div><div class="cred-label">Cancer Research Data</div></div>
+  <div class="cred"><div class="cred-value">Published</div><div class="cred-label">Research Co-Author</div></div>
+  <div class="cred"><div class="cred-value">R · Python · SQL</div><div class="cred-label">Core Stack</div></div>
+</div></div>
+
+<!-- Experience -->
+<section id="experience"><div class="container">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">Professional Background</h2>
+  <div class="experience-card">
+    <div class="exp-header"><div><h3>Biostatistician I</h3><div class="company">Myriad Genetics — Salt Lake City, UT</div></div><div class="exp-date">Jul 2022 – Oct 2025</div></div>
+    <ul class="exp-highlights">
+      <li>Built statistical models (Cox regression, mixed effects, logistic regression) and interpreted the results in writing and in presentations</li>
+      <li>Led analyses and presented findings to technical and non-technical stakeholders</li>
+      <li>Generated data visualizations that clearly presented and explained findings</li>
+      <li>Co-author on published research on hereditary cancer risk assessment in OB/GYN clinics</li>
+    </ul>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" class="publication-link" target="_blank">📄 View Publication on PubMed</a>
+  </div>
+  <div style="margin-top:2rem"><div class="section-label">Education</div><div class="edu-grid" style="margin-top:1rem">
+    <div class="edu-card"><h4>M.S. in Statistics</h4><div class="school">Utah State University</div><div class="year">May 2022</div></div>
+    <div class="edu-card"><h4>B.S. in Math/Stats Composite</h4><div class="school">Utah State University</div><div class="year">May 2019</div></div>
+  </div></div>
+</div></section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- Projects -->
+<section id="projects"><div class="container">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-title">Featured Projects</h2>
+  <p class="section-subtitle">Work ranging from computer vision and geospatial analysis to medical research and machine learning.</p>
+
+  <div class="featured"><div class="featured-body">
+    <div class="featured-badge">★ Featured</div>
+    <h3>Pickleball Analytics — Computer Vision Tracking</h3>
+    <div class="project-meta">April 2024 – Present · Active Development</div>
+    <div class="impact">🎯 Player tracking, ball detection & court mapping</div>
+    <p><strong>Problem:</strong> Sports like tennis have years of data and models that track player and ball movement. Pickleball doesn't have that yet — and the sport is growing fast.</p>
+    <p><strong>Approach:</strong> Developing computer vision models to track players, body movements, and ball location relative to the pickleball court from game footage.</p>
+    <p><strong>Result:</strong> Working prototypes for ball tracking, player keypoint detection, and court mapping — with each iteration improving accuracy and logic.</p>
+    <div class="takeaway">Key takeaway: Building, testing, and refining through multiple iterations — each version gets closer to meaningful game analytics.</div>
+    <div class="video-grid">
+      <div class="video-item"><div class="video-label">Ball Tracking</div><video autoplay loop muted playsinline><source src="videos/ball-tracking.mp4" type="video/mp4"></video></div>
+      <div class="video-item"><div class="video-label">Player Keypoints</div><video autoplay loop muted playsinline><source src="videos/player-keypoints.mp4" type="video/mp4"></video></div>
+      <div class="video-item"><div class="video-label">Court Detection</div><video autoplay loop muted playsinline><source src="videos/court-tracking.mp4" type="video/mp4"></video></div>
+    </div>
+    <div class="tags"><span class="tag tag-cv">Computer Vision</span><span class="tag tag-python">Python</span><span class="tag tag-ml">Deep Learning</span><span class="tag tag-viz">Video Analysis</span></div>
+    <div class="project-links"><a href="https://github.com/lschneider93" target="_blank">View Code <span class="arrow">→</span></a></div>
+  </div></div>
+
+  <div class="project-grid">
+    <div class="project-card accent-green">
+      <div class="card-num">02 · M.S. Thesis · Aug 2022</div>
+      <h3>Snow Water Equivalent Predictions in Utah</h3>
+      <p><strong>Problem:</strong> National snow water models struggle with Utah's mountainous terrain, making water availability predictions unreliable for a desert state that depends on snowmelt.</p>
+      <p><strong>Approach:</strong> Created an R package (rsnodas) that lets users access national gridded data (PRISM and SNODAS), build their own models, and combine predictions with SNOTEL station data using an ensemble weighting method.</p>
+      <p><strong>Result:</strong> An open-source tool that enables researchers to explore and improve SWE predictions across Utah and similar terrain.</p>
+      <div class="takeaway">Key takeaway: The ensemble of national gridded data and GAMs showed marginal improvements in median and SD of errors — honest results that highlight where future research should focus.</div>
+      <div class="project-images"><img src="images/swe-process.png" alt="SWE ensemble model process"><img src="images/swe-map.png" alt="Utah SWE prediction map"></div>
+      <div class="tags"><span class="tag tag-stats">GAMs</span><span class="tag tag-r">R Package</span><span class="tag tag-ml">Ensemble</span><span class="tag tag-viz">Geospatial</span></div>
+      <div class="project-links"><a href="https://github.com/lschneider93" target="_blank">R Package <span class="arrow">→</span></a><a href="https://digitalcommons.usu.edu/etd2023/6/" target="_blank">Thesis <span class="arrow">→</span></a></div>
+    </div>
+
+    <div class="project-card accent-orange">
+      <div class="card-num">03 · ML Classification</div>
+      <h3>Car Crash Injury Severity Prediction</h3>
+      <p><strong>Problem:</strong> Can we predict how severe a car crash injury will be from accident records? And which model best balances accuracy with interpretability for safety policy decisions?</p>
+      <p><strong>Approach:</strong> Used Random Forest, SVM, and Neural Networks on ~10K records with imbalanced severity classes. Evaluated performance trade-offs across methods.</p>
+      <div class="takeaway">Key takeaway: Random Forest and Gradient Boosting performed best while maintaining interpretability for safety policy decisions.</div>
+      <div class="tags"><span class="tag tag-ml">Classification</span><span class="tag tag-python">Python</span><span class="tag tag-stats">Imbalanced Data</span></div>
+      <div class="project-links"><a href="https://github.com/lschneider93" target="_blank">Code <span class="arrow">→</span></a></div>
+    </div>
+
+    <div class="project-card accent-sky">
+      <div class="card-num">04 · Geospatial · Mar 2022</div>
+      <h3>LA Crime Geospatial Analysis</h3>
+      <p><strong>Problem:</strong> Where are different types of crime concentrated across Los Angeles, and can we visualize patterns that help understand neighborhood safety?</p>
+      <p><strong>Approach:</strong> Used Kaggle data and Google Maps API to build custom spatial bins mapping crime density for car theft, battery, petty theft, and assault across LA.</p>
+      <p><strong>Result:</strong> Clear geographic visualizations showing distinct clustering patterns for each crime type across neighborhoods.</p>
+      <div class="takeaway">Key takeaway: Custom spatial binning revealed patterns that standard choropleth maps would miss — the right visualization choice matters as much as the analysis.</div>
+      <div class="tags"><span class="tag tag-viz">Geospatial Viz</span><span class="tag tag-r">R</span><span class="tag tag-stats">Spatial Analysis</span></div>
+      <div class="project-links"><a href="https://github.com/lschneider93" target="_blank">Code <span class="arrow">→</span></a></div>
+    </div>
+
+    <div class="project-card accent-rose" style="border-style:dashed;opacity:0.55">
+      <div class="card-num">05 · Coming Soon</div>
+      <h3>Customer Churn Prediction (Python)</h3>
+      <p><strong>Problem:</strong> Businesses across industries struggle to understand why customers leave their product — and identifying at-risk customers before they churn can save significant revenue.</p>
+      <p><strong>Approach:</strong> Investigating multiple ML models to understand which methods best help businesses identify customers likely to leave, with a focus on interpretability and actionable recommendations.</p>
+      <div class="tags"><span class="tag tag-python">Python</span><span class="tag tag-ml">Scikit-learn</span><span class="tag tag-viz">SHAP</span></div>
+      <div class="project-links"><a href="#">In Progress <span class="arrow">→</span></a></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- How I Work -->
+<section id="process"><div class="container">
+  <div class="section-label">Approach</div>
+  <h2 class="section-title">How I Work with Data</h2>
+  <p class="section-subtitle">Every project starts with a question and ends with a clear answer someone can act on.</p>
+  <div class="process-grid">
+    <div class="process-step"><div class="step-num">01</div><h4>Ask the Right Question</h4><p>What are we trying to answer, in plain English? For example: how can we use game footage to help pickleball players understand which shots they're struggling with?</p></div>
+    <div class="process-step"><div class="step-num">02</div><h4>Understand the Data</h4><p>How was the data collected? What assumptions come with it? Explore each column, create visuals to spot issues, and understand what's trustworthy before modeling.</p></div>
+    <div class="process-step"><div class="step-num">03</div><h4>Model & Validate</h4><p>Fit the right model for the question — not the fanciest one. Check assumptions, evaluate performance, and ask: does this actually help answer the original question?</p></div>
+    <div class="process-step"><div class="step-num">04</div><h4>Communicate Clearly</h4><p>What visuals and language help someone who isn't a statistician understand the findings? The insight only matters if people can act on it.</p></div>
+  </div>
+</div></section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- Skills -->
+<section id="skills"><div class="container">
+  <div class="section-label">Technical Stack</div>
+  <h2 class="section-title">Skills & Tools</h2>
+  <div class="skills-grid" style="margin-top:1.5rem">
+    <div class="skill-card"><h3>Languages</h3><div class="skill-pills"><span class="pill">Python</span><span class="pill">R</span><span class="pill">SQL</span><span class="pill">SAS</span></div></div>
+    <div class="skill-card"><h3>Machine Learning & Statistics</h3><div class="skill-pills"><span class="pill">Scikit-learn</span><span class="pill">PyTorch</span><span class="pill">XGBoost</span><span class="pill">Survival Analysis</span><span class="pill">Mixed Models</span><span class="pill">GAMs</span></div></div>
+    <div class="skill-card"><h3>Data & Visualization</h3><div class="skill-pills"><span class="pill">ggplot2</span><span class="pill">Pandas</span><span class="pill">NumPy</span><span class="pill">Matplotlib</span><span class="pill">Tableau</span></div></div>
+  </div>
+</div></section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- About -->
+<section id="about"><div class="container">
+  <div class="section-label">Personal</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-content" style="margin-top:1.25rem">
+    <p>I'm a statistician and data scientist with experience analyzing a wide range of data — from medical research and geospatial modeling to sports analytics and public safety. My work focuses on building models that help researchers and decision-makers better understand their data.</p>
+    <p>I enjoy tackling problems that sit at the intersection of statistics, machine learning, and real-world decision making.</p>
+    <p>Outside of work, I build projects exploring sports analytics, take my dogs on hikes, go backpacking, play pickleball (surprising, I know), and read or listen to a good book.</p>
+  </div>
+</div></section>
+
+<!-- Contact -->
+<section id="contact" class="contact-section"><div class="container">
+  <h2>Let's connect.</h2>
+  <p>I'm currently exploring data scientist and analytics roles where I can apply statistics, machine learning, and data storytelling to meaningful problems. If you'd like to discuss research, data science, or potential opportunities, I'd love to connect.</p>
+  <div class="contact-buttons">
+    <a href="mailto:loganschneider93@gmail.com" class="btn btn-primary">Email Me</a>
+    <a href="https://www.linkedin.com/in/logan-schneider-a2a740b6/" class="btn btn-ghost" target="_blank">LinkedIn</a>
+    <a href="https://github.com/lschneider93" class="btn btn-ghost" target="_blank">GitHub</a>
+    <a href="resume.pdf" class="btn btn-ghost" target="_blank">Resume (PDF)</a>
+  </div>
+</div></section>
+
+<footer><div class="container">© 2026 Logan Schneider</div></footer>
+</body>
+</html>
