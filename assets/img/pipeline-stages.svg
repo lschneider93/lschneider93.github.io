@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" font-family="Georgia, serif" role="img" aria-label="Eight-stage pipeline: detect, scenes, court, track, events, shots, stats, render — each stage cached">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4AE3B5"/>
+    </marker>
+  </defs>
+  <rect width="960" height="300" fill="#0A0E1A" rx="12"/>
+  <text x="480" y="42" text-anchor="middle" fill="#F0F4F8" font-size="20" font-style="italic">One camera in → annotated rally + stat sheet out</text>
+
+  <!-- top row -->
+  <g font-size="15" text-anchor="middle">
+    <g>
+      <rect x="40" y="80" width="180" height="54" rx="10" fill="#151A2E" stroke="#4AE3B5" stroke-opacity="0.5"/>
+      <text x="130" y="103" fill="#F0F4F8">1 · detect</text>
+      <text x="130" y="122" fill="#96A0B5" font-size="11" font-family="Verdana, sans-serif">3 YOLO11 models, one pass</text>
+    </g>
+    <g>
+      <rect x="270" y="80" width="180" height="54" rx="10" fill="#151A2E" stroke="#4AE3B5" stroke-opacity="0.5"/>
+      <text x="360" y="103" fill="#F0F4F8">2 · scenes</text>
+      <text x="360" y="122" fill="#96A0B5" font-size="11" font-family="Verdana, sans-serif">camera-cut segmentation</text>
+    </g>
+    <g>
+      <rect x="500" y="80" width="180" height="54" rx="10" fill="#151A2E" stroke="#4AE3B5" stroke-opacity="0.5"/>
+      <text x="590" y="103" fill="#F0F4F8">3 · court</text>
+      <text x="590" y="122" fill="#96A0B5" font-size="11" font-family="Verdana, sans-serif">homography + line refinement</text>
+    </g>
+    <g>
+      <rect x="730" y="80" width="180" height="54" rx="10" fill="#151A2E" stroke="#4AE3B5" stroke-opacity="0.5"/>
+      <text x="820" y="103" fill="#F0F4F8">4 · track</text>
+      <text x="820" y="122" fill="#96A0B5" font-size="11" font-family="Verdana, sans-serif">Kalman + RTS smoothing</text>
+    </g>
+    <line x1="220" y1="107" x2="266" y2="107" stroke="#4AE3B5" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="450" y1="107" x2="496" y2="107" stroke="#4AE3B5" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="680" y1="107" x2="726" y2="107" stroke="#4AE3B5" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+
+  <!-- connector down -->
+  <path d="M 820 134 L 820 160 L 130 160 L 130 186" fill="none" stroke="#4AE3B5" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- bottom row -->
+  <g font-size="15" text-anchor="middle">
+    <g>
+      <rect x="40" y="190" width="180" height="54" rx="10" fill="#151A2E" stroke="#4AE3B5" stroke-opacity="0.5"/>
+      <text x="130" y="213" fill="#F0F4F8">5 · events</text>
+      <text x="130" y="232" fill="#96A0B5" font-size="11" font-family="Verdana, sans-serif">bounces &amp; hits, court ft/s</text>
+    </g>
+    <g>
+      <rect x="270" y="190" width="180" height="54" rx="10" fill="#151A2E" stroke="#4AE3B5" stroke-opacity="0.5"/>
+      <text x="360" y="213" fill="#F0F4F8">6 · shots</text>
+      <text x="360" y="232" fill="#96A0B5" font-size="11" font-family="Verdana, sans-serif">serve anchoring, classification</text>
+    </g>
+    <g>
+      <rect x="500" y="190" width="180" height="54" rx="10" fill="#151A2E" stroke="#4AE3B5" stroke-opacity="0.5"/>
+      <text x="590" y="213" fill="#F0F4F8">7 · stats</text>
+      <text x="590" y="232" fill="#96A0B5" font-size="11" font-family="Verdana, sans-serif">rally.json stat sheet</text>
+    </g>
+    <g>
+      <rect x="730" y="190" width="180" height="54" rx="10" fill="#151A2E" stroke="#4AE3B5" stroke-opacity="0.5"/>
+      <text x="820" y="213" fill="#F0F4F8">8 · render</text>
+      <text x="820" y="232" fill="#96A0B5" font-size="11" font-family="Verdana, sans-serif">annotated video overlay</text>
+    </g>
+    <line x1="220" y1="217" x2="266" y2="217" stroke="#4AE3B5" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="450" y1="217" x2="496" y2="217" stroke="#4AE3B5" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="680" y1="217" x2="726" y2="217" stroke="#4AE3B5" stroke-width="2" marker-end="url(#arr)"/>
+  </g>
+
+  <text x="480" y="280" text-anchor="middle" fill="#96A0B5" font-size="12" font-family="Verdana, sans-serif">Every stage cached and keyed on config + video fingerprint — detection runs once, tuning iterations re-run in seconds</text>
+</svg>

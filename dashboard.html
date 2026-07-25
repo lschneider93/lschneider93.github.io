@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Public Health Dashboard · Logan Schneider</title>
+  <meta name="description" content="A live public-health dashboard by Logan Schneider: CDC emergency-department respiratory illness trends (COVID-19, flu, RSV) by state, and openFDA drug adverse-event data — fetched client-side, no backend.">
+  <link rel="canonical" href="https://lschneider93.github.io/dashboard.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Live Public Health Dashboard — Logan Schneider">
+  <meta property="og:description" content="CDC respiratory illness trends and openFDA drug safety data, fetched live in your browser. No backend, no build step.">
+  <meta property="og:url" content="https://lschneider93.github.io/dashboard.html">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">logan<span>.</span>schneider</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a class="nav-live" href="dashboard.html" aria-current="page"><span class="live-dot" aria-hidden="true"></span>Live Dashboard</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<div class="container">
+
+<header class="page-hero">
+  <p class="eyebrow" style="opacity:1;animation:none"><span class="live-dot" aria-hidden="true"></span> Live Data · Client-Side · No Backend</p>
+  <h1>Public health, <em>fetched live.</em></h1>
+  <p class="lede">This page pulls current data from two federal APIs directly in your browser — CDC emergency-department visit trends for respiratory illness, and FDA drug adverse-event reports. There's no server behind it: just JavaScript, two public APIs, a cache, and a statistician's caveats where they belong.</p>
+</header>
+
+<div class="dash-tabs" role="tablist" aria-label="Data source">
+  <button class="dash-tab" role="tab" id="tab-cdc" aria-controls="panel-cdc" aria-selected="true">CDC Respiratory Illness</button>
+  <button class="dash-tab" role="tab" id="tab-fda" aria-controls="panel-fda" aria-selected="false">openFDA Drug Safety</button>
+</div>
+
+<!-- ============ CDC panel ============ -->
+<section id="panel-cdc" role="tabpanel" aria-labelledby="tab-cdc">
+  <div id="cdc-banner" aria-live="polite"></div>
+
+  <div class="dash-controls">
+    <label>Geography
+      <select id="cdc-state"></select>
+    </label>
+  </div>
+
+  <div class="stat-tiles">
+    <div class="stat-tile"><b id="tile-combined">—</b><span>Combined % of ED visits</span></div>
+    <div class="stat-tile"><b id="tile-covid">—</b><span>COVID-19</span></div>
+    <div class="stat-tile"><b id="tile-flu">—</b><span>Influenza</span></div>
+    <div class="stat-tile"><b id="tile-rsv">—</b><span>RSV</span></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Respiratory illness ED visits — trailing two years</h3>
+    <p class="chart-sub">Percent of emergency-department visits attributed to each pathogen (smoothed), week ending <span id="cdc-week">—</span>. Source: CDC NSSP.</p>
+    <div id="cdc-trend" class="chart-slot" aria-label="Line chart of COVID-19, influenza, and RSV emergency department visit percentages over time"></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Latest week by state</h3>
+    <p class="chart-sub">Combined COVID + flu + RSV share of ED visits, most recent reporting week.</p>
+    <div id="cdc-map" class="chart-slot" aria-label="United States choropleth map of combined respiratory illness emergency department visit percentage by state"></div>
+  </div>
+
+  <p class="note"><strong>Read this like an epidemiologist:</strong> these are percentages of ED visits, not case counts — they measure healthcare-seeking behavior as much as disease burden. Reporting lags by about a week, and smoothed values revise as late data arrives. Source: <a href="https://data.cdc.gov/Public-Health-Surveillance/2023-Respiratory-Virus-Response-NSSP-Emergency-Dep/rdmq-nq56/about_data" target="_blank" rel="noopener">CDC NSSP ED visit trajectories</a>, updated weekly.</p>
+</section>
+
+<!-- ============ openFDA panel ============ -->
+<section id="panel-fda" role="tabpanel" aria-labelledby="tab-fda" hidden>
+  <div id="fda-banner" aria-live="polite"></div>
+
+  <div class="dash-controls">
+    <label>Drug (generic name)
+      <input id="fda-drug" list="drug-options" value="Metformin" autocomplete="off" spellcheck="false">
+    </label>
+    <datalist id="drug-options"></datalist>
+    <button id="fda-go" class="btn btn-primary" type="button">Look Up</button>
+  </div>
+
+  <div class="stat-tiles">
+    <div class="stat-tile"><b id="tile-total">—</b><span>Total reports on file</span></div>
+    <div class="stat-tile"><b id="tile-serious">—</b><span>Marked serious</span></div>
+    <div class="stat-tile"><b id="tile-serious-pct">—</b><span>Serious share</span></div>
+  </div>
+
+  <div class="dash-grid-2">
+    <div class="chart-card">
+      <h3>Most-reported reactions — <span id="fda-current-drug">Metformin</span></h3>
+      <p class="chart-sub">Top adverse reactions co-reported with this drug (FAERS, all time).</p>
+      <div id="fda-reactions" class="chart-slot" aria-label="Bar chart of the most frequently reported adverse reactions for the selected drug"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Reports over time</h3>
+      <p class="chart-sub">Monthly adverse-event reports received, trailing two years.</p>
+      <div id="fda-time" class="chart-slot" aria-label="Line chart of monthly adverse event report counts for the selected drug"></div>
+    </div>
+  </div>
+
+  <p class="note"><strong>The biostatistician's disclaimer:</strong> FAERS is a spontaneous reporting system. Reports are unverified, causality is not established, and reporting rates are shaped by media attention, litigation, and how long a drug has been on the market. <em>Counts here are not incidence rates</em> — a drug with more reports is not necessarily less safe. Source: <a href="https://open.fda.gov/apis/drug/event/" target="_blank" rel="noopener">openFDA drug adverse events</a>.</p>
+</section>
+
+<details class="how">
+  <summary>How this dashboard works (for the technically curious)</summary>
+  <div class="how-body">
+    <p>No backend, no build step. The page fetches JSON from <code>data.cdc.gov/resource/rdmq-nq56.json</code> (Socrata/SODA query parameters) and <code>api.fda.gov/drug/event.json</code> (count queries only — no individual reports are downloaded). Responses are cached in <code>localStorage</code> with a TTL of 12–24 hours; if a live fetch fails, the page falls back to cached data and says so. Charts are Plotly.js. Panels render lazily on first activation, because Plotly mis-sizes charts drawn into hidden elements — the kind of detail you learn by shipping.</p>
+    <p>Source: <a href="https://github.com/lschneider93/lschneider93.github.io/tree/main/js" target="_blank" rel="noopener">js/ on GitHub</a> — <code>cdc.js</code> and <code>openfda.js</code> are small fetch/transform modules; <code>dashboard.js</code> orchestrates.</p>
+  </div>
+</details>
+
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="projects/pickleball.html">Pickleball Case Study</a>
+      <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p>© <span id="year">2026</span> Logan Schneider · Data: CDC NSSP &amp; openFDA · Built by hand — HTML, CSS, and vanilla JS.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+<script src="js/site.js" defer></script>
+<script src="js/cdc.js" defer></script>
+<script src="js/openfda.js" defer></script>
+<script src="js/dashboard.js" defer></script>
+</body>
+</html>

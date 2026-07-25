@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lschneider93.github.io/sitemap.xml

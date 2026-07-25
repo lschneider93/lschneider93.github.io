@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pickleball Computer Vision — Case Study · Logan Schneider</title>
+  <meta name="description" content="Case study: a computer vision pipeline that turns single-camera pickleball footage into annotated rally video and stats — three YOLO11 models, Kalman tracking, court homography, and honest, measured line calls.">
+  <link rel="canonical" href="https://lschneider93.github.io/projects/pickleball.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Pickleball Computer Vision — Case Study">
+  <meta property="og:description" content="One camera in → annotated rally + stat sheet out. Measured F1, hand-labeled truth sets, and line calls that admit uncertainty.">
+  <meta property="og:url" content="https://lschneider93.github.io/projects/pickleball.html">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/poster-ball-tracking.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="logo" href="../index.html">logan<span>.</span>schneider</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a class="nav-live" href="../dashboard.html"><span class="live-dot" aria-hidden="true"></span>Live Dashboard</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<div class="container">
+
+<header class="page-hero">
+  <p class="eyebrow" style="opacity:1;animation:none">Case Study · Computer Vision · Jan 2026 – Present</p>
+  <h1>Pickleball analytics from <em>one camera.</em></h1>
+  <p class="lede">A computer vision pipeline that turns a single rally clip — tripod or broadcast footage — into an annotated video with ball trail, court overlay, bounce markers with line calls, and shot labels, plus a complete stat sheet. Built solo, measured honestly.</p>
+
+  <div class="metric-strip">
+    <div class="m"><b>3 models</b><span>one decode pass</span></div>
+    <div class="m"><b>8 stages</b><span>cached pipeline</span></div>
+    <div class="m"><b>F1 0.60</b><span>bounce detection</span></div>
+    <div class="m"><b>155 clips</b><span>labeled court truth set</span></div>
+    <div class="m"><b>12 / 12</b><span>golden-clip regression</span></div>
+  </div>
+</header>
+
+<div class="tldr">
+  <h2>TL;DR — for the 30-second read</h2>
+  <ul>
+    <li>Input: one camera angle of a pickleball rally. Output: annotated video + machine-readable stats (shot types, line calls, rally structure).</li>
+    <li>Three YOLO11 models (ball, player keypoints, court) run in a single video decode pass; Kalman filtering and camera-cut segmentation make broadcast footage tractable.</li>
+    <li>Every accuracy claim is measured against hand-labeled ground truth and tracked release-over-release — including the numbers that got worse.</li>
+    <li>The design signature: when measurement uncertainty exceeds the ball's radius, the system calls the ball <strong>CLOSE</strong> in amber instead of guessing — never a confident wrong answer.</li>
+    <li>Code is private (active project with product ambitions); a public showcase repo documents the architecture, metrics, and iteration story.</li>
+  </ul>
+</div>
+
+<div class="prose">
+
+<h2>Demos</h2>
+<div class="video-grid">
+  <div class="video-item"><span class="video-label">Ball Tracking</span><video controls preload="none" muted playsinline poster="../assets/img/poster-ball-tracking.jpg" aria-label="Demo video: Kalman-smoothed ball trail rendered over a rally"><source src="../assets/video/ball-tracking.mp4" type="video/mp4"></video></div>
+  <div class="video-item"><span class="video-label">Player Keypoints</span><video controls preload="none" muted playsinline poster="../assets/img/poster-player-keypoints.jpg" aria-label="Demo video: player body keypoint detection during play"><source src="../assets/video/player-keypoints.mp4" type="video/mp4"></video></div>
+  <div class="video-item"><span class="video-label">Court Detection</span><video controls preload="none" muted playsinline poster="../assets/img/poster-court-tracking.jpg" aria-label="Demo video: court line detection and homography overlay"><source src="../assets/video/court-tracking.mp4" type="video/mp4"></video></div>
+</div>
+
+<h2>Why this project</h2>
+<p>Tennis has a decade of tracking data, commercial systems, and published models. Pickleball — the fastest-growing sport in the U.S. — has almost none of that. That gap is a rare chance to build sports-analytics infrastructure from scratch: the detection models, the geometry, the event logic, and the evaluation methodology all had to be designed, not downloaded.</p>
+<p>It's also the project where my two skill sets meet. The computer vision is modern deep learning; the discipline that makes it trustworthy — ground truth, precision/recall, uncertainty quantification, honest negative results — is biostatistics.</p>
+
+<h2>The iteration story: v1 → v2</h2>
+<p>The first version worked, and I threw it away. That decision is the most important one in the project.</p>
+<div class="two-col">
+  <div class="col-card">
+    <span class="version-tag v1-tag">v1 · Feb – Apr 2026</span>
+    <h3>Web service prototype</h3>
+    <p>A FastAPI + Celery backend: upload footage, queue jobs, train YOLO detectors, track the ball with a Kalman filter. It proved the concept — and buried every experiment inside a service architecture. Each tuning change meant re-running everything, so I couldn't iterate fast enough to make the models good.</p>
+  </div>
+  <div class="col-card">
+    <span class="version-tag v2-tag">v2 · Jul 2026 – Present</span>
+    <h3>Cached analysis pipeline</h3>
+    <p>A fully local 8-stage pipeline where every stage's output is cached and keyed on the configuration plus a video fingerprint. Expensive detection runs once (~2–4 minutes per clip); every downstream tuning iteration re-runs in seconds. Iteration speed is what turned this from a demo into a measured system.</p>
+  </div>
+</div>
+
+<h2>Architecture</h2>
+<figure class="figure">
+  <img src="../assets/img/pipeline-stages.svg" alt="Diagram of the eight pipeline stages: detect, scenes, court, track, events, shots, stats, render" width="960" height="300">
+  <figcaption>The eight-stage pipeline. Each stage caches its output, so changing event logic never re-runs detection.</figcaption>
+</figure>
+<h3>Detection — three models, one decode</h3>
+<p>Decoding video is expensive, so one pass feeds three YOLO11 models at different sampling rates: the ball detector sees every frame (it moves fastest), the player model every second frame, and the court keypoint model sparsely — the court doesn't move between camera cuts.</p>
+<h3>Broadcast footage is the hard part</h3>
+<p>Real match footage switches camera angles constantly. A scene-segmentation stage detects hard cuts and dissolves from a lightweight grayscale decode, and everything downstream — court fitting, tracking, event detection — operates per camera segment. Camera angles the system can't verify are marked <em>untrusted</em> and left honestly unanalyzed rather than analyzed wrongly.</p>
+<h3>Geometry and tracking</h3>
+<p>Each segment gets a court homography refined against the painted lines themselves, pooling line evidence across multiple frames (typical residual: 2–4 pixels). Ball tracks are smoothed with a constant-acceleration Kalman filter plus RTS smoothing, then projected into court coordinates — so event thresholds are expressed in real feet per second, treating the near and far court equally.</p>
+
+<h2>Line calls, honestly</h2>
+<p>The projection from pixels to court coordinates carries error — roughly half a foot near the camera, one to two feet at the far baseline. A pickleball is under two inches wide. So for balls landing near a line, the measurement uncertainty is larger than the thing being measured.</p>
+<blockquote class="pullquote">When the uncertainty band around a landing spot crosses the line, the system doesn't guess. It renders an amber CLOSE — and only a clear OUT ends a rally. The goal on the canonical test clip: the correct call or an honest CLOSE — never a confident wrong one.</blockquote>
+<p>This is a statistician's design decision inside a computer vision system: report the interval, not just the point estimate. It's also what I'd want from any model making decisions that matter.</p>
+
+<h2>Evaluation — measured, not asserted</h2>
+<p>Three harnesses keep the project honest: a golden-clip regression suite (12 clips with known rally structure), an event-level precision/recall evaluation against hand-labeled bounces and hits, and a per-clip QA health report that surfaces the worst clips first.</p>
+<div class="table-wrap">
+<table class="data">
+  <thead><tr><th>Harness</th><th>Current result</th><th>Reading</th></tr></thead>
+  <tbody>
+    <tr><td>Golden-clip regression</td><td><b>12/12 pass</b></td><td>Rally structure, calls, and segmentation stay correct release-over-release</td></tr>
+    <tr><td>Bounce detection (70 labeled bounces)</td><td><b>P 0.72 · R 0.51 · F1 0.60</b></td><td>Precision is strong; recall on side-view footage is the open gap</td></tr>
+    <tr><td>Hit detection (118 labeled hits)</td><td><b>P 0.54 · R 0.52 · F1 0.53</b></td><td>Held steady while the truth set got harder; occluded contacts are the weak layer</td></tr>
+    <tr><td>Court truth set</td><td><b>155 hand-labeled clips</b></td><td>Clicked court corners used to evaluate and retrain the court model</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="note">Metrics are tracked in a history file across releases, and numbers are only compared within the same truth set. When a same-day reading turned out to be contaminated by stale artifacts, it was voided and documented rather than reported. Honest bookkeeping is a feature.</p>
+
+<h2>The data flywheel</h2>
+<p>The current phase is an MLOps loop: purpose-built labeling tools produce ground truth (court corners, ball positions, event timing, player identity), evaluation harnesses measure candidate model weights against that truth, and only weights that measurably improve get promoted. In the last evaluation round, the court model was promoted; the ball and player models were held — because the numbers said so.</p>
+
+<h2>Known gaps</h2>
+<ul>
+  <li><strong>Hit recall under occlusion</strong> — contacts hidden behind a foreground player leave no kinematic trace; fixing this needs occlusion-heavy retraining data (in progress via the labeling tools).</li>
+  <li><strong>Monocular height limits</strong> — one camera can't fully resolve ball height, so kitchen volleys can occasionally show a phantom bounce, and lob/dink labels rely on noisy height proxies.</li>
+  <li><strong>Untrusted segments stay unanalyzed</strong> — close-ups and extreme side angles are flagged rather than force-fit. By design, but it leaves broadcast gaps.</li>
+  <li><strong>No player identity yet; replays aren't deduplicated</strong> — stats are per side, and a replayed rally counts twice.</li>
+</ul>
+
+<h2>Stack &amp; tooling</h2>
+<p>Python · PyTorch (Apple MPS) · YOLO11 · OpenCV · Kalman/RTS smoothing · ffmpeg. Built with AI-assisted development tools as force multipliers — with every result validated against hand-labeled ground truth and tracked metrics. The architecture decisions, the evaluation methodology, and the statistical judgment are mine.</p>
+
+<p style="margin:2.5rem 0"><a class="btn btn-primary" href="../index.html#projects">← All Projects</a>
+<a class="btn btn-ghost" href="../dashboard.html">Live Dashboard</a></p>
+
+</div>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-links">
+      <a href="../index.html">Home</a>
+      <a href="../dashboard.html">Live Dashboard</a>
+      <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p>© <span id="year">2026</span> Logan Schneider · Built by hand — HTML, CSS, and vanilla JS.</p>
+  </div>
+</footer>
+
+<script src="../js/site.js" defer></script>
+</body>
+</html>
