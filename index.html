@@ -141,7 +141,9 @@
       <p class="card-num">03 · ML Classification · Jul 2026</p>
       <h3>Customer Churn Prediction</h3>
       <p><strong>Problem:</strong> Identifying at-risk customers before they churn can save significant revenue — but a churn model is only useful if it's interpretable enough to act on.</p>
-      <p><strong>Approach:</strong> IBM Telco data: cleaning (including its infamous <em>TotalCharges</em> quirk), an odds-ratio logistic baseline, XGBoost, SHAP interpretation, and a cost-based retention strategy with a revenue-at-risk estimate.</p>
+      <p><strong>Approach:</strong> IBM Telco data: cleaning (including its infamous <em>TotalCharges</em> quirk), an odds-ratio logistic baseline with VIF diagnostics, tuned XGBoost, SHAP interpretation, and a cost-based retention strategy with break-even analysis.</p>
+      <div class="metric-chips"><span class="metric-chip"><strong>0.85</strong> ROC-AUC</span><span class="metric-chip"><strong>$1.63M</strong> revenue at risk identified</span></div>
+      <div class="takeaway">Key takeaway: the tuned XGBoost beat an interpretable logistic model by only ~1% AUC — a gap that doesn't justify abandoning interpretability. The multicollinearity bug it caught along the way is the real story.</div>
       <div class="tags"><span class="tag tag-python">Python</span><span class="tag tag-ml">XGBoost</span><span class="tag tag-viz">SHAP</span><span class="tag tag-stats">Business Framing</span></div>
       <div class="project-links"><span class="link-pending" title="Repository publishing shortly">Repo — publishing</span></div>
     </article>
