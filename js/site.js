@@ -17,6 +17,29 @@
     });
   }
 
+  var ddToggle = document.querySelector('.nav-dd-toggle');
+  var dd = document.querySelector('.nav-dd');
+  if (ddToggle && dd) {
+    ddToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = dd.classList.toggle('open');
+      ddToggle.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', function (e) {
+      if (dd.classList.contains('open') && !dd.contains(e.target) && e.target !== ddToggle) {
+        dd.classList.remove('open');
+        ddToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && dd.classList.contains('open')) {
+        dd.classList.remove('open');
+        ddToggle.setAttribute('aria-expanded', 'false');
+        ddToggle.focus();
+      }
+    });
+  }
+
   var year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 

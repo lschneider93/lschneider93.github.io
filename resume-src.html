@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Logan Schneider — Resume</title>
+<meta name="robots" content="noindex">
+<style>
+  @page { size: Letter; margin: 0.45in 0.55in; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Georgia, 'Times New Roman', serif; font-size: 9.4pt; line-height: 1.28; color: #111827; }
+  a { color: #0F6B57; text-decoration: none; }
+  header { text-align: center; margin-bottom: 7pt; }
+  h1 { font-size: 18pt; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 2pt; }
+  .contact { font-size: 8.9pt; color: #374151; }
+  .contact a { color: #0F6B57; }
+  .summary { font-size: 9.2pt; color: #1F2937; text-align: center; max-width: 6.8in; margin: 4pt auto 0; }
+  h2 { font-size: 9.8pt; letter-spacing: 0.09em; text-transform: uppercase; border-bottom: 1.2px solid #111827; padding-bottom: 1.5pt; margin: 7pt 0 4pt; }
+  .entry { margin-bottom: 4.5pt; }
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .entry-head .title { font-weight: 700; font-size: 9.9pt; }
+  .entry-head .date { font-size: 8.9pt; color: #374151; white-space: nowrap; }
+  .org { font-style: italic; font-size: 9.3pt; color: #374151; margin-bottom: 1.5pt; }
+  ul { margin: 1.5pt 0 0 13pt; }
+  li { margin-bottom: 1.2pt; }
+  .proj .entry-head .title a { color: #111827; }
+  .proj .links { font-size: 9.2pt; }
+  .skills-row { margin-bottom: 2pt; }
+  .skills-row b { font-size: 9.4pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>LOGAN SCHNEIDER</h1>
+  <p class="contact">Orem, UT &nbsp;·&nbsp; (801) 360-0588 &nbsp;·&nbsp; <a href="mailto:loganschneider93@gmail.com">loganschneider93@gmail.com</a> &nbsp;·&nbsp; <a href="https://lschneider93.github.io">lschneider93.github.io</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/logan-schneider-a2a740b6/">LinkedIn</a> &nbsp;·&nbsp; <a href="https://github.com/lschneider93">GitHub</a></p>
+  <p class="summary">Data scientist and biostatistician (M.S. Statistics) with 3+ years of cancer-research biostatistics at Myriad Genetics, building validated machine-learning and computer-vision systems — models measured against ground truth, with uncertainty quantified and limits communicated.</p>
+</header>
+
+<h2>Experience</h2>
+
+<div class="entry">
+  <div class="entry-head"><span class="title">Biostatistician I</span><span class="date">Jul 2022 – Oct 2025</span></div>
+  <p class="org">Myriad Genetics — Salt Lake City, UT</p>
+  <ul>
+    <li>Built and applied predictive models — survival analysis, logistic regression, and mixed-effects models — across all stages of research studies, from sample-size and power calculations through final analysis.</li>
+    <li>Ensured data integrity across clinical datasets: resolved discrepancies and enforced data-quality standards to support reliable inputs for publication analyses.</li>
+    <li>Validated peers' workflows, results, and interpretations to ensure accuracy and reproducibility.</li>
+    <li>Communicated findings through study reports and presentations tailored to research and clinical audiences.</li>
+    <li>Co-authored <i>Online Screening and Virtual Patient Education for Hereditary Cancer Risk Assessment and Testing</i> (<a href="https://pubmed.ncbi.nlm.nih.gov/39637387/">PubMed</a>).</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="entry-head"><span class="title">Statistics Advisor &amp; Graduate Student Instructor</span><span class="date">Aug 2020 – Aug 2022</span></div>
+  <p class="org">Utah State University — Logan, UT</p>
+  <ul>
+    <li>Advised a Ph.D. candidate on statistical methods, visualizations, and interpretation of results for their research.</li>
+    <li>Investigated systematic bias in national gridded snow products and built models to improve prediction accuracy in Utah.</li>
+    <li>Instructed Calculus I and Statistics courses of 30–50 students.</li>
+  </ul>
+</div>
+
+<h2>Projects</h2>
+
+<div class="entry proj">
+  <div class="entry-head"><span class="title">Pickleball Analytics — Computer Vision System</span><span class="date">Jan 2026 – Present</span></div>
+  <ul>
+    <li>Built an 8-stage Python pipeline (YOLO11, OpenCV, Kalman filtering, court homography) that turns single-camera game footage into annotated rally video and structured shot statistics.</li>
+    <li>Evaluated against a 155-clip hand-labeled truth set with precision/recall tracked per release; designed uncertainty-aware line calls that flag ambiguous results instead of guessing. <span class="links"><a href="https://lschneider93.github.io/projects/pickleball.html">Case study</a></span></li>
+  </ul>
+</div>
+
+<div class="entry proj">
+  <div class="entry-head"><span class="title">Live Public Health Dashboard</span><span class="date">2026</span></div>
+  <ul>
+    <li>Client-side dashboard (JavaScript, Plotly.js) fetching live CDC respiratory-illness and openFDA adverse-event data with caching and error handling — no backend. <span class="links"><a href="https://lschneider93.github.io/dashboard.html">Live</a></span></li>
+  </ul>
+</div>
+
+<div class="entry proj">
+  <div class="entry-head"><span class="title">Customer Churn Prediction</span><span class="date">2026</span></div>
+  <ul>
+    <li>End-to-end churn analysis (Python, XGBoost, SHAP): 0.85 ROC-AUC, VIF-diagnosed multicollinearity in the baseline, and a cost-based retention strategy with break-even analysis identifying $1.63M revenue at risk.</li>
+  </ul>
+</div>
+
+<div class="entry proj">
+  <div class="entry-head"><span class="title">rsnodas — Snow Water Equivalent R Package (M.S. Thesis)</span><span class="date">2021 – 2022</span></div>
+  <ul>
+    <li>Published an open-source R package to download national gridded data (SNODAS, PRISM), blend it with SNOTEL observations, and map SWE across Utah at 1 km resolution with an ensemble of GAMs. <span class="links"><a href="https://github.com/lschneider93/rsnodas">GitHub</a> · <a href="https://digitalcommons.usu.edu/etd2023/6/">Thesis</a></span></li>
+  </ul>
+</div>
+
+<div class="entry proj">
+  <div class="entry-head"><span class="title">Earlier Work</span><span class="date">2020 – 2021</span></div>
+  <p class="org" style="font-style:normal">Sentiment analysis of Disneyland reviews (NLP, Python); car-crash injury-severity prediction comparing Random Forest, SVM, KNN, and neural networks.</p>
+</div>
+
+<h2>Education</h2>
+
+<div class="entry">
+  <div class="entry-head"><span class="title">M.S. in Statistics — Utah State University</span><span class="date">2022</span></div>
+  <p class="org">Thesis: An Ensemble Approach for Mapping Snow Water Equivalent in Utah (published 2023)</p>
+</div>
+<div class="entry">
+  <div class="entry-head"><span class="title">B.S. in Mathematics/Statistics, Minor in Russian — Utah State University</span><span class="date">2019</span></div>
+</div>
+
+<h2>Technical Skills &amp; Languages</h2>
+
+<p class="skills-row"><b>Core:</b> R (survival analysis, mixed models, GAMs, ggplot2), Python (pandas, scikit-learn, XGBoost, SHAP), model evaluation &amp; validation, computer vision (YOLO, OpenCV)</p>
+<p class="skills-row"><b>Working knowledge:</b> SQL, SAS, Tableau, JavaScript, Plotly, PyTorch, REST APIs, LaTeX, Git &nbsp;·&nbsp; <b>Languages:</b> English (native), Russian (fluent)</p>
+
+</body>
+</html>
