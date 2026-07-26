@@ -18,7 +18,7 @@
   function writeCache(url, data) {
     try {
       localStorage.setItem(cacheKey(url), JSON.stringify({ fetchedAt: Date.now(), data: data }));
-    } catch (e) { /* quota / private browsing — degrade to no cache */ }
+    } catch (e) { /* quota / private browsing: degrade to no cache */ }
   }
 
   // Resolves {data, stale:boolean, fetchedAt}. Fresh cache -> no network.
@@ -86,7 +86,7 @@
 
   function markStale(bannerEl, result, retryFn) {
     if (result.stale) {
-      showBanner(bannerEl, 'warn', 'Live fetch failed — showing cached data from ' + fmtDate(result.fetchedAt) + '.', retryFn);
+      showBanner(bannerEl, 'warn', 'Live fetch failed. Showing cached data from ' + fmtDate(result.fetchedAt) + '.', retryFn);
     } else {
       clearBanner(bannerEl);
     }
@@ -113,10 +113,10 @@
 
       if (s.latestRaw) {
         slot('cdc-week').textContent = s.latestRaw.week;
-        slot('tile-covid').textContent = s.latestRaw.covid !== null ? s.latestRaw.covid.toFixed(2) + '%' : '—';
-        slot('tile-flu').textContent = s.latestRaw.flu !== null ? s.latestRaw.flu.toFixed(2) + '%' : '—';
-        slot('tile-rsv').textContent = s.latestRaw.rsv !== null ? s.latestRaw.rsv.toFixed(2) + '%' : '—';
-        slot('tile-combined').textContent = s.latestRaw.combined !== null ? s.latestRaw.combined.toFixed(2) + '%' : '—';
+        slot('tile-covid').textContent = s.latestRaw.covid !== null ? s.latestRaw.covid.toFixed(2) + '%' : '–';
+        slot('tile-flu').textContent = s.latestRaw.flu !== null ? s.latestRaw.flu.toFixed(2) + '%' : '–';
+        slot('tile-rsv').textContent = s.latestRaw.rsv !== null ? s.latestRaw.rsv.toFixed(2) + '%' : '–';
+        slot('tile-combined').textContent = s.latestRaw.combined !== null ? s.latestRaw.combined.toFixed(2) + '%' : '–';
       }
 
       Plotly.react(trendSlot, [
@@ -210,15 +210,15 @@
       anyStale = anyStale || result.stale;
       var s = OpenFDA.toSerious(result.data.results);
       var total = s.serious + s.nonSerious;
-      slot('tile-total').textContent = total ? total.toLocaleString() : '—';
-      slot('tile-serious').textContent = s.serious ? s.serious.toLocaleString() : '—';
-      slot('tile-serious-pct').textContent = total ? ((100 * s.serious) / total).toFixed(1) + '%' : '—';
+      slot('tile-total').textContent = total ? total.toLocaleString() : '–';
+      slot('tile-serious').textContent = s.serious ? s.serious.toLocaleString() : '–';
+      slot('tile-serious-pct').textContent = total ? ((100 * s.serious) / total).toFixed(1) + '%' : '–';
     });
 
     Promise.all([pReactions, pTime, pSerious]).then(function () {
       if (epoch !== fdaEpoch) return;
       if (anyStale) {
-        showBanner(banner, 'warn', 'Live fetch failed for some charts — showing cached data.', renderFda);
+        showBanner(banner, 'warn', 'Live fetch failed for some charts. Showing cached data.', renderFda);
       } else {
         clearBanner(banner);
       }
@@ -227,7 +227,7 @@
       if (epoch !== fdaEpoch) return;
       reactionsSlot.classList.remove('skeleton');
       timeSlot.classList.remove('skeleton');
-      showBanner(banner, 'error', 'No results for "' + drug + '" — try a generic name like metformin or ibuprofen.', null);
+      showBanner(banner, 'error', 'No results for "' + drug + '". Try a generic name like metformin or ibuprofen.', null);
     });
 
     fdaRendered = true;

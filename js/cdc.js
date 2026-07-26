@@ -1,6 +1,6 @@
 // CDC NSSP emergency-department visit data (Socrata dataset rdmq-nq56).
 // Percent of ED visits attributed to COVID-19, influenza, and RSV, weekly by state.
-// All numeric fields arrive as strings — parseFloat everything.
+// All numeric fields arrive as strings; parseFloat everything.
 (function (global) {
   'use strict';
 

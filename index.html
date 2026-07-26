@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logan Schneider — Data Scientist &amp; Biostatistician</title>
-  <meta name="description" content="Logan Schneider — Data Scientist &amp; Biostatistician building trustworthy ML and AI systems. Cancer-research biostatistics, computer vision, churn modeling, and a live public-health dashboard — with validated, measured results.">
+  <title>Logan Schneider | Data Scientist &amp; Biostatistician</title>
+  <meta name="description" content="Logan Schneider, Data Scientist and Biostatistician. 3+ years of cancer research biostatistics at Myriad Genetics, computer vision models for pickleball analytics, and a published open-source R package.">
   <meta name="author" content="Logan Schneider">
   <link rel="canonical" href="https://lschneider93.github.io/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Logan Schneider — Data Scientist &amp; Biostatistician">
-  <meta property="og:description" content="Turning complex data into clear insights and confident decisions — validated models, quantified uncertainty, and a live public-health dashboard.">
+  <meta property="og:title" content="Logan Schneider | Data Scientist &amp; Biostatistician">
+  <meta property="og:description" content="Turning complex data into clear insights. Validated models, quantified uncertainty, and honest results.">
   <meta property="og:url" content="https://lschneider93.github.io/">
   <meta property="og:image" content="https://lschneider93.github.io/assets/img/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Logan Schneider — Data Scientist &amp; Biostatistician">
-  <meta name="twitter:description" content="Turning complex data into clear insights and confident decisions — validated models, quantified uncertainty, and a live public-health dashboard.">
+  <meta name="twitter:title" content="Logan Schneider | Data Scientist &amp; Biostatistician">
+  <meta name="twitter:description" content="Turning complex data into clear insights. Validated models, quantified uncertainty, and honest results.">
   <meta name="twitter:image" content="https://lschneider93.github.io/assets/img/og-image.png">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -55,14 +55,12 @@
         <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
         <ul class="nav-dd" id="projects-menu">
           <li><a href="#projects">All Projects</a></li>
-          <li><a href="projects/pickleball.html">Pickleball Computer Vision</a></li>
-          <li><a href="dashboard.html">Live Public Health Dashboard</a></li>
+          <li><a href="projects/pickleball.html">Pickleball Analytics</a></li>
           <li><a href="#proj-churn">Customer Churn Prediction</a></li>
           <li><a href="#proj-rsnodas">Snow Water Equivalent &amp; rsnodas</a></li>
           <li><a href="#proj-lacrime">LA Crime Geospatial</a></li>
         </ul>
       </li>
-      <li><a class="nav-live" href="dashboard.html"><span class="live-dot" aria-hidden="true"></span>Live Dashboard</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#about">About</a></li>
@@ -76,12 +74,11 @@
 
 <section class="hero"><div class="container"><div class="hero-grid"><div class="hero-text">
   <p class="eyebrow">Data Science · Biostatistics · Machine Learning</p>
-  <h1>Turning complex data into clear insights and <em>confident decisions.</em></h1>
-  <p class="subtitle">I combine <strong>3+ years of cancer-research biostatistics at Myriad Genetics</strong> with machine learning and computer vision to build validated models, quantify uncertainty, and translate results into clear actions — so teams can move faster without sacrificing trust.</p>
+  <h1>Turning complex data into clear <em>insights.</em></h1>
+  <p class="subtitle"><strong>Biostatistician | Data Scientist | M.S. Statistics.</strong> 3+ years analyzing cancer research data and building computer vision models, with a published open-source GitHub R package.</p>
   <div class="hero-actions">
     <a href="#projects" class="btn btn-primary">Review My Strongest Work ↓</a>
     <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Resume</a>
-    <a href="dashboard.html" class="btn btn-ghost"><span class="live-dot" aria-hidden="true"></span> Live Dashboard</a>
   </div>
 </div>
 <div class="profile-card">
@@ -109,19 +106,20 @@
 <section id="projects"><div class="container">
   <p class="section-label">Portfolio</p>
   <h2 class="section-title">Featured Projects</h2>
-  <p class="section-subtitle">Three projects, three kinds of evidence: an active computer-vision system, a live dashboard you can use right now, and a complete, measured analysis.</p>
+  <p class="section-subtitle">Real footage, real data, and honest evaluation.</p>
 
   <article class="featured" id="proj-pickleball"><div class="featured-body">
     <span class="featured-badge">★ Flagship</span>
-    <h3>Pickleball Analytics — Computer Vision Rally Tracking</h3>
+    <h3>Pickleball Analytics</h3>
+    <p class="card-sub">Converting gameplay footage into data and coachable insights.</p>
     <p class="project-meta">January 2026 – Present · Active Development</p>
     <div class="metric-chips">
       <span class="metric-chip"><strong>155-clip</strong> hand-labeled truth set</span>
       <span class="metric-chip"><strong>3</strong> integrated detection models</span>
       <span class="metric-chip chip-warm">Uncertainty-aware line calls</span>
     </div>
-    <p>An eight-stage Python pipeline that turns one camera angle of game footage into an annotated rally video and a structured stat sheet: Kalman-filtered ball tracking, player keypoints, court homography, bounce and hit events, and shot classification.</p>
-    <p>Every accuracy claim is evaluated against hand-labeled ground truth and tracked release-over-release — and when measurement uncertainty exceeds the ball's radius, the system reports an honest amber <strong>CLOSE</strong> instead of a confident wrong call.</p>
+    <p>Multiple computer vision models take game footage from multiple camera angles and translate it into an annotated rally video with shot classification, ball location, and court positioning.</p>
+    <p>Along the way I have learned to calculate court homography, evaluate model error, and apply tracking algorithms that improve model output.</p>
     <div class="video-grid">
       <div class="video-item"><span class="video-label">Ball Tracking</span><video controls preload="none" muted playsinline poster="assets/img/poster-ball-tracking.jpg" aria-label="Demo video: ball tracking overlay on a pickleball rally"><source src="assets/video/ball-tracking.mp4" type="video/mp4"></video></div>
       <div class="video-item"><span class="video-label">Player Keypoints</span><video controls preload="none" muted playsinline poster="assets/img/poster-player-keypoints.jpg" aria-label="Demo video: player keypoint detection"><source src="assets/video/player-keypoints.mp4" type="video/mp4"></video></div>
@@ -129,50 +127,38 @@
     </div>
     <div class="tags"><span class="tag tag-cv">Computer Vision</span><span class="tag tag-python">Python</span><span class="tag tag-ml">YOLO11</span><span class="tag tag-ml">Kalman Filtering</span><span class="tag tag-viz">Homography</span></div>
     <div class="project-links">
-      <a href="projects/pickleball.html">Read the Case Study <span class="arrow">→</span></a>
-      <span class="link-pending" title="Showcase repository publishing shortly">Showcase repo — publishing</span>
+      <a href="projects/pickleball.html">Read more about this project <span class="arrow">→</span></a>
+      <span class="link-pending" title="Showcase repository publishing shortly">Showcase repo publishing soon</span>
     </div>
   </div></article>
 
   <div class="project-grid">
 
-    <article class="project-card accent-green" id="proj-dashboard">
-      <p class="card-num">02 · Live Data · Running Now</p>
-      <h3>Public Health Dashboard <span class="status-badge status-live"><span class="live-dot" aria-hidden="true"></span> Live</span></h3>
-      <p>A client-side dashboard — no backend, no build step — that fetches CDC emergency-department respiratory data (COVID, flu, RSV) and openFDA drug adverse-event reports live in your browser, with caching, error states, and a biostatistician's caveats attached.</p>
-      <div class="metric-chips"><span class="metric-chip chip-sky"><strong>2</strong> live federal APIs</span><span class="metric-chip chip-sky"><strong>50-state</strong> trends &amp; map</span></div>
-      <div class="tags"><span class="tag tag-viz">Plotly.js</span><span class="tag tag-python">JavaScript</span><span class="tag tag-stats">Epidemiology</span><span class="tag tag-viz">REST APIs</span></div>
-      <div class="project-links"><a href="dashboard.html">Open the Dashboard <span class="arrow">→</span></a></div>
-    </article>
-
     <article class="project-card accent-blue" id="proj-churn">
-      <p class="card-num">03 · ML Classification · Complete</p>
+      <p class="card-num">02 · ML Classification · Complete</p>
       <h3>Customer Churn Prediction</h3>
-      <p>End-to-end churn modeling on IBM Telco data: cleaning, an odds-ratio logistic baseline with VIF diagnostics, tuned XGBoost, SHAP interpretation, and a cost-based retention strategy with break-even analysis.</p>
+      <p>End-to-end churn modeling on IBM Telco data: an interpretable logistic baseline, tuned XGBoost, and SHAP interpretation. The result feeds a cost-based retention strategy with a break-even analysis.</p>
       <div class="metric-chips"><span class="metric-chip"><strong>0.85</strong> ROC-AUC</span><span class="metric-chip"><strong>$1.63M</strong> revenue at risk identified</span></div>
-      <div class="takeaway">The tuned XGBoost beat an interpretable logistic model by only ~1% AUC — a gap that doesn't justify abandoning interpretability.</div>
+      <div class="takeaway">The tuned XGBoost beat the interpretable logistic model by about 1% AUC, a gap that doesn't justify abandoning interpretability.</div>
       <div class="tags"><span class="tag tag-python">Python</span><span class="tag tag-ml">XGBoost</span><span class="tag tag-viz">SHAP</span><span class="tag tag-stats">Business Framing</span></div>
-      <div class="project-links"><span class="link-pending" title="Repository publishing shortly">Repo — publishing</span></div>
+      <div class="project-links"><span class="link-pending" title="Repository publishing shortly">Repo publishing soon</span></div>
     </article>
 
-  </div>
-
-  <h3 class="subsection-title">More Projects</h3>
-  <div class="project-grid">
-
-    <article class="project-card compact accent-green" id="proj-rsnodas">
-      <p class="card-num">M.S. Thesis · Package on GitHub · Thesis published 2023</p>
+    <article class="project-card accent-green" id="proj-rsnodas">
+      <p class="card-num">03 · M.S. Thesis · Thesis published 2023</p>
       <h3>Snow Water Equivalent Mapping in Utah</h3>
-      <p>Built <strong>rsnodas</strong>, an open-source R package that blends national gridded data (SNODAS, PRISM) with SNOTEL station observations to map snow water equivalent with an ensemble of GAMs. The ensemble showed marginal error improvements — honest results that point future research in the right direction.</p>
+      <p>Built <strong>rsnodas</strong>, an open-source R package that downloads national gridded data (SNODAS, PRISM), blends it with SNOTEL station observations, and maps snow water equivalent across Utah with an ensemble of GAMs.</p>
+      <div class="takeaway">The ensemble showed marginal error improvements. Honest results that point future research in the right direction.</div>
       <div class="project-images"><img src="assets/img/rsnodas-process.png" alt="Ensemble SWE mapping panels: GAM, SNODAS, station density, and blended prediction" loading="lazy" width="1027" height="794"><img src="assets/img/median-sd-errors.png" alt="Median and standard deviation of prediction errors across models" loading="lazy" width="1200" height="927"></div>
       <div class="tags"><span class="tag tag-stats">GAMs</span><span class="tag tag-r">R Package</span><span class="tag tag-viz">Geospatial</span></div>
       <div class="project-links"><a href="https://github.com/lschneider93/rsnodas" target="_blank" rel="noopener">R Package <span class="arrow">→</span></a><a href="https://digitalcommons.usu.edu/etd2023/6/" target="_blank" rel="noopener">Thesis <span class="arrow">→</span></a></div>
     </article>
 
-    <article class="project-card compact accent-sky" id="proj-lacrime">
-      <p class="card-num">Geospatial Analysis · 2022</p>
+    <article class="project-card accent-sky" id="proj-lacrime">
+      <p class="card-num">04 · Geospatial Analysis · 2022</p>
       <h3>LA Crime Geospatial Analysis</h3>
-      <p>Custom spatial binning over Kaggle crime data and the Google Maps API, mapping density for car theft, battery, petty theft, and assault across Los Angeles — revealing clustering patterns that standard choropleth maps would miss.</p>
+      <p>Custom spatial binning over Kaggle crime data and the Google Maps API, mapping density for car theft, battery, petty theft, and assault across Los Angeles.</p>
+      <div class="takeaway">Custom binning revealed patterns that standard choropleth maps would miss. The right visualization choice matters as much as the analysis.</div>
       <div class="project-images single"><img src="assets/img/la-crime-theft-map.jpg" alt="Custom-binned density map of car theft and petty theft across Los Angeles" loading="lazy" width="1200" height="742"></div>
       <div class="tags"><span class="tag tag-viz">Geospatial Viz</span><span class="tag tag-r">R</span></div>
     </article>
@@ -182,9 +168,10 @@
   <div class="building-strip">
     <h3>Currently building</h3>
     <ul>
-      <li><strong>Medicare provider fraud detection</strong> — wrangling 558K claims + 138K beneficiary records into provider-level features for imbalanced classification with calibrated gradient boosting.</li>
-      <li><strong>Drug reviews — three eras of NLP</strong> — TF-IDF → fine-tuned DistilBERT → LLM/RAG with a measured evaluation harness, answering "when do you actually need the LLM?"</li>
-      <li><strong>Car crash injury severity</strong> — rebuilding my earlier coursework as a public notebook: 12K records, an 85/14/1 class imbalance, and per-class recall where it matters.</li>
+      <li><strong>Public health dashboard</strong>: live CDC and openFDA data explorer, in progress.</li>
+      <li><strong>Medicare provider fraud detection</strong>: provider-level features from 558K claims for imbalanced classification.</li>
+      <li><strong>Drug reviews, three eras of NLP</strong>: TF-IDF, then DistilBERT, then LLM and RAG with a measured evaluation harness.</li>
+      <li><strong>Car crash injury severity</strong>: rebuilding earlier coursework as a public notebook with per-class recall on a 12K-record imbalanced dataset.</li>
     </ul>
   </div>
 
@@ -198,22 +185,21 @@
   <h2 class="section-title">Professional Background</h2>
 
   <div class="experience-card">
-    <div class="exp-header"><div><h3>Biostatistician I</h3><p class="company">Myriad Genetics — Salt Lake City, UT</p></div><span class="exp-date">Jul 2022 – Oct 2025</span></div>
+    <div class="exp-header"><div><h3>Biostatistician I</h3><p class="company">Myriad Genetics, Salt Lake City, UT</p></div><span class="exp-date">Jul 2022 – Oct 2025</span></div>
     <ul class="exp-highlights">
-      <li>Built and applied predictive models — survival analysis (Cox), logistic regression, and mixed-effects models — across all stages of research studies, from sample-size and power calculations through final analysis</li>
-      <li>Ensured data integrity across clinical datasets: resolved discrepancies and enforced data-quality standards so publication analyses ran on reliable inputs</li>
-      <li>Validated peers' workflows, results, and interpretations to ensure accuracy and reproducibility across the team</li>
-      <li>Communicated findings through study reports and presentations tailored to research and clinical audiences</li>
+      <li>Built and applied predictive models (survival analysis, logistic regression, mixed effects) across all stages of research studies, from sample-size and power calculations through final analysis</li>
+      <li>Ensured data integrity across clinical datasets and enforced data-quality standards for publication analyses</li>
+      <li>Validated peers' workflows, results, and interpretations to ensure accuracy and reproducibility</li>
       <li>Co-author on published research on hereditary cancer risk assessment in OB/GYN clinics</li>
     </ul>
     <a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" class="publication-link" target="_blank" rel="noopener">View Publication on PubMed ↗</a>
   </div>
 
   <div class="experience-card">
-    <div class="exp-header"><div><h3>Statistics Advisor &amp; Graduate Student Instructor</h3><p class="company">Utah State University — Logan, UT</p></div><span class="exp-date">Aug 2020 – Aug 2022</span></div>
+    <div class="exp-header"><div><h3>Statistics Advisor &amp; Graduate Student Instructor</h3><p class="company">Utah State University, Logan, UT</p></div><span class="exp-date">Aug 2020 – Aug 2022</span></div>
     <ul class="exp-highlights">
-      <li>Advised a Ph.D. candidate on statistical methods, visualization, and interpretation of results for their research</li>
-      <li>Investigated systematic bias in national gridded snow products and built models to improve prediction accuracy in Utah — work that became my M.S. thesis and the rsnodas package</li>
+      <li>Advised a Ph.D. candidate on statistical methods, visualization, and interpretation of results</li>
+      <li>Investigated systematic bias in national gridded snow products, work that became my M.S. thesis and the rsnodas package</li>
       <li>Taught Calculus I and Statistics courses of 30–50 students</li>
     </ul>
   </div>
@@ -245,7 +231,7 @@
     <div class="skill-card">
       <h3>Computer Vision &amp; Applied AI</h3>
       <div class="skill-pills"><span class="pill">YOLO11</span><span class="pill">OpenCV</span><span class="pill">Kalman Filtering</span><span class="pill">Homography</span><span class="pill">NLP</span><span class="pill">LLM Evaluation</span></div>
-      <p style="font-size:.78rem;margin-top:.8rem"><a href="projects/pickleball.html">Evidence: pickleball CV case study →</a></p>
+      <p style="font-size:.78rem;margin-top:.8rem"><a href="projects/pickleball.html">Evidence: pickleball analytics project →</a></p>
     </div>
   </div>
   <div class="skill-card" style="margin-top:1.25rem">
@@ -261,14 +247,14 @@
   <p class="section-label">Approach</p>
   <h2 class="section-title">How I Turn Data Into Decisions</h2>
   <div class="process-grid">
-    <div class="process-step"><div class="step-num" aria-hidden="true">01</div><h3>Define the Decision</h3><p>What action will this analysis support? What would success look like — and which errors would be most costly to make?</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">01</div><h3>Define the Decision</h3><p>What action will this analysis support? What would success look like, and which errors would be most costly?</p></div>
     <div class="process-step"><div class="step-num" aria-hidden="true">02</div><h3>Audit the Evidence</h3><p>Understand how the data was collected, identify missingness and bias, verify definitions, and challenge assumptions before modeling.</p></div>
     <div class="process-step"><div class="step-num" aria-hidden="true">03</div><h3>Build &amp; Validate</h3><p>Start with an interpretable baseline, compare appropriate alternatives, and evaluate against the metric that matters to the decision.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">04</div><h3>Communicate the Limits</h3><p>Translate findings into clear recommendations — while documenting uncertainty, trade-offs, and where the result should not be trusted.</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">04</div><h3>Communicate the Limits</h3><p>Translate findings into clear recommendations while documenting uncertainty, trade-offs, and where the result should not be trusted.</p></div>
   </div>
   <div class="ai-callout">
     <h3>AI-accelerated. Statistically validated.</h3>
-    <p>I use AI development tools to move faster — but generated output doesn't decide what ships. I verify systems against hand-labeled ground truth, measure precision and recall, test calibration, and document failure modes before recommending action.</p>
+    <p>I use AI development tools to move faster, but generated output doesn't decide what ships. I verify systems against hand-labeled ground truth, measure precision and recall, test calibration, and document failure modes before recommending action.</p>
   </div>
 </div></section>
 
@@ -279,8 +265,7 @@
   <p class="section-label">Personal</p>
   <h2 class="section-title">About Me</h2>
   <div class="about-content">
-    <p>I'm a statistician and data scientist who brings clinical-research rigor to machine-learning problems. At Myriad Genetics I supported cancer research through statistical analysis, data-quality review, and published work; today I apply that same discipline to computer vision, NLP, and analytics projects.</p>
-    <p>My approach is consistent: define the decision, understand the data, establish a meaningful baseline, validate performance, and communicate what the evidence can — and cannot — support.</p>
+    <p>I'm a statistician and data scientist who brings clinical-research rigor to machine learning problems. At Myriad Genetics I supported cancer research through statistical analysis, data-quality review, and published work; today I apply that same discipline to computer vision, NLP, and analytics projects. My approach is consistent: define the decision, understand the data, establish a baseline, validate performance, and communicate what the evidence can and cannot support.</p>
     <p>Outside of work, I build sports-analytics projects, play pickleball (surprising, I know), compete in racquetball at the national level, snowboard, hike with my dogs, and read or listen to a good book. I'm also fluent in Russian.</p>
   </div>
 </div></section>
@@ -288,7 +273,7 @@
 <!-- Contact -->
 <section id="contact" class="contact-section"><div class="container">
   <h2>Let's solve a meaningful data problem.</h2>
-  <p class="contact-copy">I'm exploring data-science and biostatistics roles where rigorous analysis, practical machine learning, and clear communication can improve important decisions — especially in healthcare, research, sports analytics, and responsible AI.</p>
+  <p class="contact-copy">I'm exploring data science and biostatistics roles where rigorous analysis, practical machine learning, and clear communication improve important decisions.</p>
   <div class="contact-buttons">
     <a href="mailto:loganschneider93@gmail.com?subject=Role%20opportunity" class="btn btn-primary">Discuss a Role</a>
     <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download My Resume</a>
@@ -302,12 +287,11 @@
   <div class="container">
     <div class="foot-links">
       <a href="index.html">Home</a>
-      <a href="dashboard.html">Live Dashboard</a>
-      <a href="projects/pickleball.html">Pickleball Case Study</a>
+      <a href="projects/pickleball.html">Pickleball Analytics</a>
       <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
       <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
     </div>
-    <p>© <span id="year">2026</span> Logan Schneider · Designed and <a href="https://github.com/lschneider93/lschneider93.github.io" target="_blank" rel="noopener">built by hand</a> — HTML, CSS, and vanilla JS.</p>
+    <p>© <span id="year">2026</span> Logan Schneider · Designed and <a href="https://github.com/lschneider93/lschneider93.github.io" target="_blank" rel="noopener">built by hand</a> with HTML, CSS, and vanilla JS.</p>
   </div>
 </footer>
 

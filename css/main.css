@@ -118,6 +118,7 @@ section{padding:3rem 0}
 .featured-body h3{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--text-bright);margin-bottom:.4rem}
 .featured-badge{display:inline-flex;align-items:center;gap:.3rem;background:var(--accent);color:var(--bg);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .65rem;border-radius:5px;margin-bottom:.75rem}
 .project-meta{font-size:.78rem;color:var(--text-dim);margin-bottom:.75rem}
+.card-sub{font-family:var(--serif);font-style:italic;font-size:.98rem;color:var(--accent);margin-bottom:.75rem}
 .featured-body p{color:var(--text);font-size:.9rem;line-height:1.75;margin-bottom:1rem}
 
 .metric-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}

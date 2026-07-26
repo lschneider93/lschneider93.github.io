@@ -1,4 +1,4 @@
-// openFDA drug adverse-event reports (FAERS). Count queries only — we never
+// openFDA drug adverse-event reports (FAERS). Count queries only; we never
 // download individual reports. Keyless: 240 req/min, 1000 req/day per IP.
 // FAERS caveat (shown in the UI): reports are unverified and counts != incidence.
 (function (global) {
@@ -36,7 +36,7 @@
     return BASE + '?search=' + encodeURIComponent(drugSearch(drug)) + '&count=serious';
   }
 
-  // count=receivedate returns daily {time:"YYYYMMDD",count} — aggregate to months
+  // count=receivedate returns daily {time:"YYYYMMDD",count}; aggregate to months
   function toMonthly(results) {
     var byMonth = {};
     (results || []).forEach(function (r) {
