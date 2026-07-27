@@ -56,7 +56,6 @@
         <ul class="nav-dd" id="projects-menu">
           <li><a href="#projects">All Projects</a></li>
           <li><a href="projects/pickleball.html">Pickleball Analytics</a></li>
-          <li><a href="#proj-churn">Customer Churn Prediction</a></li>
           <li><a href="#proj-rsnodas">rsnodas</a></li>
         </ul>
       </li>
@@ -106,11 +105,17 @@
   <h2 class="section-title">Projects</h2>
   <p class="section-subtitle">A taste of each project. The details are one click away.</p>
 
-  <div class="project-grid">
+  <div class="project-grid" style="grid-template-columns:1fr">
 
     <article class="taste-card" id="proj-pickleball">
       <div class="taste-head"><h3>Pickleball Analytics</h3><span class="taste-date">Jan 2026 – Current</span></div>
-      <p>Utilizing computer vision models to build a pipeline that converts gameplay video into clear insights that help a player improve.</p>
+      <p><strong>Objective:</strong> Use gameplay footage to diagnose how to best help a player improve.</p>
+      <div class="video-grid">
+        <div class="video-item"><span class="video-label">Ball Tracking</span><video controls preload="none" muted playsinline poster="assets/img/poster-ball-tracking.jpg" aria-label="Demo video: ball tracking overlay on a pickleball rally"><source src="assets/video/ball-tracking.mp4" type="video/mp4"></video></div>
+        <div class="video-item"><span class="video-label">Player Keypoints</span><video controls preload="none" muted playsinline poster="assets/img/poster-player-keypoints.jpg" aria-label="Demo video: player keypoint detection"><source src="assets/video/player-keypoints.mp4" type="video/mp4"></video></div>
+        <div class="video-item"><span class="video-label">Court Detection</span><video controls preload="none" muted playsinline poster="assets/img/poster-court-tracking.jpg" aria-label="Demo video: court line detection and mapping"><source src="assets/video/court-tracking.mp4" type="video/mp4"></video></div>
+      </div>
+      <div class="takeaway">Progress and next steps: ball and player tracking have improved from all angles, but calculating court homography from the side angles is still a struggle.</div>
       <div class="taste-actions">
         <a href="projects/pickleball.html" class="btn btn-primary">Project details <span class="arrow">→</span></a>
       </div>
@@ -118,18 +123,13 @@
 
     <article class="taste-card" id="proj-rsnodas">
       <div class="taste-head"><h3>rsnodas</h3><span class="taste-date">2021 – 2022</span></div>
+      <p><strong>Objective:</strong> Use local station data with national gridded snow data to improve water supply estimates for Utah.</p>
       <p>Developed an open-source GitHub R package, rsnodas, that lets users easily access national data, create their own model, and map estimates across Utah.</p>
+      <div class="project-images single" style="max-width:520px"><img src="assets/img/rsnodas-process.png" alt="Ensemble SWE mapping panels: GAM, SNODAS, station density, and blended prediction" loading="lazy" width="1027" height="794"></div>
+      <div class="takeaway">Findings: the ensemble showed marginal error improvements. Honest results that point future research in the right direction.</div>
       <div class="taste-actions">
         <a href="https://github.com/lschneider93/rsnodas" class="btn btn-primary" target="_blank" rel="noopener">Project details <span class="arrow">→</span></a>
         <a href="https://digitalcommons.usu.edu/etd2023/6/" class="small-link" target="_blank" rel="noopener">M.S. thesis →</a>
-      </div>
-    </article>
-
-    <article class="taste-card" id="proj-churn">
-      <div class="taste-head"><h3>Customer Churn Prediction</h3><span class="taste-date">2026</span></div>
-      <p>Built an end-to-end churn model that identifies at-risk customers and estimates the revenue a retention campaign could save.</p>
-      <div class="taste-actions">
-        <span class="link-pending" title="Repository publishing shortly">Details publishing soon</span>
       </div>
     </article>
 
@@ -138,6 +138,7 @@
   <div class="building-strip">
     <h3>Currently building</h3>
     <ul>
+      <li><strong>Customer churn prediction</strong>: identifying at-risk customers and the revenue a retention campaign could save.</li>
       <li><strong>Public health dashboard</strong>: live CDC and openFDA data explorer, in progress.</li>
       <li><strong>Medicare provider fraud detection</strong>: provider-level features from 558K claims for imbalanced classification.</li>
       <li><strong>Drug reviews, three eras of NLP</strong>: TF-IDF, then DistilBERT, then LLM and RAG with a measured evaluation harness.</li>
@@ -151,13 +152,14 @@
 <!-- Approach -->
 <section id="process"><div class="container">
   <p class="section-label">Approach</p>
-  <h2 class="section-title">How to Turn Data Into Clear Insight</h2>
+  <h2 class="section-title">My Approach</h2>
+  <p class="section-subtitle">How I turn data into clear insight, on every project.</p>
   <div class="process-grid">
-    <div class="process-step"><div class="step-num" aria-hidden="true">01</div><h3>Clear Question</h3><p>What is our question in plain English?</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">02</div><h3>Explore the Data</h3><p>Investigate each column individually. Build graphics and simple summaries to get a clearer picture of what you are working with.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">03</div><h3>Model Selection</h3><p>Find the model that fits the question and the data assumptions.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">04</div><h3>Detail Findings</h3><p>Make note of what you learned, what worked, and what didn't.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">05</div><h3>Next Steps</h3><p>What other questions arise? What should we investigate further? Repeat the process.</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">01</div><h3>Clear Question</h3><p>I start by putting the question in plain English.</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">02</div><h3>Explore the Data</h3><p>I investigate each column, build graphics and simple summaries, and get a clear picture of what I'm working with.</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">03</div><h3>Model Selection</h3><p>I find the model that fits the question and the data assumptions.</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">04</div><h3>Detail Findings</h3><p>I write down what I learned, what worked, and what didn't.</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">05</div><h3>Next Steps</h3><p>I note the new questions that came up, decide what to investigate next, and repeat the process.</p></div>
   </div>
   <div class="ai-callout">
     <h3>AI-accelerated. Statistically validated.</h3>
