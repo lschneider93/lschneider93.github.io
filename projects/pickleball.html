@@ -130,19 +130,66 @@
 </div>
 <p class="note">Metrics are tracked in a history file across releases, and numbers are only compared within the same truth set. When a same-day reading turned out to be contaminated by stale artifacts, it was voided and documented rather than reported. Honest bookkeeping is a feature.</p>
 
+<h2>The dashboard</h2>
+<p>Every metric above lives on a static dashboard the pipeline regenerates after each eval round. Vitals at a glance, a scorecard per model, and version-to-version comparisons with rendered clips side by side. The trend line intentionally breaks wherever the truth set changed, because numbers measured against different ground truth are not comparable.</p>
+<div class="shot-grid single">
+  <figure class="shot"><img src="../assets/img/pb-dash-vitals.png" alt="Dashboard vitals strip: golden-clip smoke result, bounce and hit F1, court trust rate, shots analyzed, and truth-labeled clip counts" loading="lazy" width="1600" height="201"><figcaption>Vitals: the whole pipeline's health in one row, including the open gaps.</figcaption></figure>
+</div>
+<div class="shot-grid">
+  <figure class="shot"><img src="../assets/img/pb-dash-models.png" alt="Model scorecards for ball, player, court, pose, and paddle tracking, each with an honest note on where it struggles" loading="lazy" width="1200" height="316"><figcaption>One scorecard per model, each with a plain-language note on where it struggles.</figcaption></figure>
+  <figure class="shot"><img src="../assets/img/pb-dash-trend.png" alt="Line chart of bounce and hit F1 across eval rounds, with dashed dividers marking each truth-set migration" loading="lazy" width="1600" height="735"><figcaption>Bounce and hit F1 across eval rounds. Dashed dividers mark truth-set changes.</figcaption></figure>
+</div>
+<div class="shot-grid single">
+  <figure class="shot"><img src="../assets/img/pb-dash-ball-versions.jpg" alt="Ball model version comparison: bar charts per metric, delta chips, and two annotated clips rendered side by side" loading="lazy" width="1200" height="1509"><figcaption>Version-to-version comparison for the ball model: same truth set, same clip, rendered side by side.</figcaption></figure>
+</div>
+
 <h2>The data flywheel</h2>
 <p>The current phase is an MLOps loop: purpose-built labeling tools produce ground truth (court corners, ball positions, event timing, player identity), evaluation harnesses measure candidate model weights against that truth, and only weights that measurably improve get promoted. In the last evaluation round, the court model was promoted; the ball and player models were held, because the numbers said so.</p>
+
+<h3>Labeling tools, built for speed</h3>
+<p>Labeling throughput is the bottleneck, so each tool is a small browser app that shows the model's prediction first and asks the human only to confirm or correct it. Those verdicts double as a free accuracy measurement. Four labelers cover event timing, court corners, ball position, and player identity.</p>
+<div class="shot-grid">
+  <figure class="shot"><img src="../assets/img/pb-labeler-events.jpg" alt="Event labeler: broadcast frame with playback controls, quick-entry shorthand box, and a queue of detected hits and bounces with thumbnail strips" loading="lazy" width="1200" height="833"><figcaption>Event labeler: confirm, nudge, or reject each detected bounce and hit, with shorthand entry for missed ones.</figcaption></figure>
+  <figure class="shot"><img src="../assets/img/pb-labeler-court.jpg" alt="Court labeler: broadcast frame with keypoint markers on court lines and a checklist of placed and skipped corner points" loading="lazy" width="1200" height="833"><figcaption>Court labeler: click true corner pixels, with a magnifier and per-point skip when a corner is hidden.</figcaption></figure>
+  <figure class="shot"><img src="../assets/img/pb-labeler-ball.jpg" alt="Ball labeler: court frame with the model's proposed ball position and focus windows listing labeling progress per frame range" loading="lazy" width="1200" height="833"><figcaption>Ball labeler: accept the model's dot or click the true pixel, focused on the frames around bounces.</figcaption></figure>
+  <figure class="shot"><img src="../assets/img/pb-labeler-identity.jpg" alt="Identity labeler: rally video above bins for each player holding tracklet crop montages ready to drag between bins" loading="lazy" width="1200" height="833"><figcaption>Identity labeler: tracklet crops pre-clustered by torso color, dragged into per-player bins.</figcaption></figure>
+</div>
+
+<h3>AI-reviewed pre-labels</h3>
+<p>Machine-generated labels get checked by two independent AI reviewers before a human sees them. Agreement auto-accepts, disagreement escalates, and contact sheets turn whole-clip QA into a ten-second scan.</p>
+<div class="shot-grid">
+  <figure class="shot"><img src="../assets/img/pb-review-dual-ai.jpg" alt="Escalation queue showing frames where two AI reviewers disagree about a ball position, each with its verdict and reasoning" loading="lazy" width="1600" height="1111"><figcaption>The escalation queue: two reviewers disagree, so a human makes the call.</figcaption></figure>
+  <figure class="shot"><img src="../assets/img/pb-review-sheet.jpg" alt="Label contact sheet showing the frames surrounding a labeled hit and bounce, color-coded by label source" loading="lazy" width="1600" height="1111"><figcaption>Contact sheet: every labeled event with its surrounding frames on one page.</figcaption></figure>
+</div>
+
+<h2>The stat sheet, next</h2>
+<p>The pipeline's end product is a machine-readable stat sheet per rally. This prototype explores how a player would actually read it: a coach-style report first, every chart backed by the pipeline's own schema, and anything synthetic clearly badged.</p>
+<div class="shot-grid">
+  <figure class="shot"><img src="../assets/img/pb-explorer-overview.png" alt="Shot explorer player report: coach-style insights with serve and return depth bars and a third-shot decision breakdown" loading="lazy" width="1200" height="833"><figcaption>Player report: the diagnosis first, with the evidence one click away.</figcaption></figure>
+  <figure class="shot"><img src="../assets/img/pb-explorer-court.png" alt="Shot explorer overview: court map of every landing, shot mix counts, and level signature charts" loading="lazy" width="1200" height="833"><figcaption>Explorer view: every landing in the current filter, plus shot mix and level signatures.</figcaption></figure>
+</div>
 
 <h2>Known gaps</h2>
 <ul>
   <li><strong>Hit recall under occlusion</strong>: contacts hidden behind a foreground player leave no kinematic trace; fixing this needs occlusion-heavy retraining data (in progress via the labeling tools).</li>
   <li><strong>Monocular height limits</strong>: one camera can't fully resolve ball height, so kitchen volleys can occasionally show a phantom bounce, and lob/dink labels rely on noisy height proxies.</li>
   <li><strong>Untrusted segments stay unanalyzed</strong>: close-ups and extreme side angles are flagged rather than force-fit. By design, but it leaves broadcast gaps.</li>
-  <li><strong>No player identity yet; replays aren't deduplicated</strong>: stats are per side, and a replayed rally counts twice.</li>
+  <li><strong>Player identity is in progress; replays aren't deduplicated yet</strong>: the identity labeler above is building that ground truth, but shipped stats are still per side, and a replayed rally counts twice.</li>
 </ul>
 
 <h2>Stack &amp; tooling</h2>
-<p>Python · PyTorch (Apple MPS) · YOLO11 · OpenCV · Kalman/RTS smoothing · ffmpeg. Built with AI-assisted development tools as force multipliers, with every result validated against hand-labeled ground truth and tracked metrics. The architecture decisions, the evaluation methodology, and the statistical judgment are mine.</p>
+<p class="note" style="margin:.75rem 0 0"><span class="pill built" style="margin-right:.4rem">Green pills</span> are tools built for this project. The rest are third-party tools used alongside them.</p>
+<div class="strength-rows">
+  <div class="strength-row"><b>Pipeline</b><span class="skill-pills">
+    <span class="pill built">8-stage cached pipeline</span><span class="pill">Python</span><span class="pill">OpenCV</span><span class="pill">Kalman + RTS smoothing</span><span class="pill">ffmpeg</span></span></div>
+  <div class="strength-row"><b>Training</b><span class="skill-pills">
+    <span class="pill">Ultralytics YOLO11</span><span class="pill">PyTorch (Apple MPS)</span><span class="pill">ByteTrack</span><span class="pill">Google Colab</span></span></div>
+  <div class="strength-row"><b>Labeling</b><span class="skill-pills">
+    <span class="pill built">event labeler</span><span class="pill built">court labeler</span><span class="pill built">ball labeler</span><span class="pill built">identity labeler</span><span class="pill">CVAT</span></span></div>
+  <div class="strength-row"><b>Evaluation</b><span class="skill-pills">
+    <span class="pill built">golden-clip harness</span><span class="pill built">eval dashboard</span><span class="pill built">dual-AI label review</span><span class="pill built">QA reports</span></span></div>
+</div>
+<p style="margin-top:1rem">Built with AI-assisted development tools as force multipliers, with every result validated against hand-labeled ground truth and tracked metrics. The architecture decisions, the evaluation methodology, and the statistical judgment are mine.</p>
 
 <p style="margin:2.5rem 0"><a class="btn btn-primary" href="../index.html#projects">← All Projects</a></p>
 
