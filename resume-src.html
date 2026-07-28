@@ -24,8 +24,8 @@
   li { margin-bottom: 1.2pt; }
   .proj .entry-head .title a { color: #111827; }
   .proj .links { font-size: 9.2pt; }
-  .skills-row { margin-bottom: 2pt; }
-  .skills-row b { font-size: 9.4pt; }
+  .skills-grid { display: grid; grid-template-columns: max-content 1fr; column-gap: 12pt; row-gap: 1.5pt; }
+  .skills-grid b { font-size: 9.4pt; }
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@
 <header>
   <h1>LOGAN SCHNEIDER</h1>
   <p class="contact">Orem, UT &nbsp;·&nbsp; (801) 360-0588 &nbsp;·&nbsp; <a href="mailto:loganschneider93@gmail.com">loganschneider93@gmail.com</a> &nbsp;·&nbsp; <a href="https://lschneider93.github.io">lschneider93.github.io</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/logan-schneider-a2a740b6/">LinkedIn</a> &nbsp;·&nbsp; <a href="https://github.com/lschneider93">GitHub</a></p>
-  <p class="summary">Data scientist and biostatistician (M.S. Statistics) with 3+ years of cancer research biostatistics at Myriad Genetics, building validated machine learning and computer vision systems, and a published open-source GitHub R package. Models measured against ground truth, with uncertainty quantified and limits communicated.</p>
+  <p class="summary">Data scientist and biostatistician (M.S. Statistics) with 3+ years of cancer research biostatistics at Myriad Genetics, building validated machine learning and computer vision systems, and a published open-source GitHub R package.</p>
 </header>
 
 <h2>Experience</h2>
@@ -42,10 +42,10 @@
   <div class="entry-head"><span class="title">Biostatistician I</span><span class="date">Jul 2022 – Oct 2025</span></div>
   <p class="org">Myriad Genetics, Salt Lake City, UT</p>
   <ul>
-    <li>Built and applied predictive models (survival analysis, logistic regression, and mixed-effects models) across all stages of research studies, from sample-size and power calculations through final analysis.</li>
-    <li>Ensured data integrity across clinical datasets: resolved discrepancies and enforced data-quality standards to support reliable inputs for publication analyses.</li>
-    <li>Validated peers' workflows, results, and interpretations to ensure accuracy and reproducibility.</li>
-    <li>Communicated findings through study reports and presentations tailored to research and clinical audiences.</li>
+    <li>Led statistical analyses across multiple cancer-research studies, applying Cox proportional-hazards models, logistic regression, and mixed-effects models from power analysis and analysis planning through final reporting.</li>
+    <li>Audited clinical datasets for completeness, consistency, and protocol compliance; investigated discrepancies and resolved data-quality issues before publication analyses.</li>
+    <li>Independently reproduced peer analyses, cross-checked statistical outputs, tables, and figures, and documented discrepancies to ensure accuracy and reproducibility.</li>
+    <li>Translated statistical methods and findings into study reports, visualizations, and presentations for statistical, research, and clinical stakeholders.</li>
     <li>Co-authored <i>Online Screening and Virtual Patient Education for Hereditary Cancer Risk Assessment and Testing</i> (<a href="https://pubmed.ncbi.nlm.nih.gov/39637387/">PubMed</a>).</li>
   </ul>
 </div>
@@ -93,7 +93,7 @@
 
 <div class="entry proj">
   <div class="entry-head"><span class="title">Earlier Work</span><span class="date">2020 – 2021</span></div>
-  <p class="org" style="font-style:normal">Sentiment analysis of Disneyland reviews (NLP, Python); car-crash injury-severity prediction comparing Random Forest, SVM, KNN, and neural networks.</p>
+  <p class="org" style="font-style:normal">Disneyland review sentiment analysis (NLP, Python); car-crash injury-severity prediction (machine learning).</p>
 </div>
 
 <h2>Education</h2>
@@ -108,8 +108,13 @@
 
 <h2>Technical Skills &amp; Languages</h2>
 
-<p class="skills-row"><b>Core:</b> R (survival analysis, mixed models, GAMs, ggplot2), Python (pandas, scikit-learn, XGBoost, SHAP), model evaluation &amp; validation, computer vision (YOLO, OpenCV)</p>
-<p class="skills-row"><b>Working knowledge:</b> SQL, SAS, Tableau, JavaScript, Plotly, PyTorch, REST APIs, LaTeX, Git &nbsp;·&nbsp; <b>Languages:</b> English (native), Russian (fluent)</p>
+<div class="skills-grid">
+  <b>Programming</b><span>R, Python (pandas), SQL, SAS, JavaScript</span>
+  <b>Statistics &amp; ML</b><span>Survival analysis, mixed models, GAMs, scikit-learn, XGBoost, model evaluation &amp; validation</span>
+  <b>Computer Vision</b><span>YOLO, OpenCV, PyTorch</span>
+  <b>Tools</b><span>ggplot2, Plotly, Tableau, Git, LaTeX, REST APIs</span>
+  <b>Languages</b><span>English (native), Russian (fluent)</span>
+</div>
 
 </body>
 </html>

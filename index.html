@@ -103,17 +103,17 @@
 <section id="projects"><div class="container">
   <p class="section-label">Portfolio</p>
   <h2 class="section-title">Projects</h2>
-  <p class="section-subtitle">A taste of each project. The details are one click away.</p>
+  <p class="section-subtitle">A taste of each project. Where each one stands, what's next, and what I want to build are one click away.</p>
 
   <div class="project-grid" style="grid-template-columns:1fr">
 
     <article class="taste-card" id="proj-pickleball">
       <div class="taste-head"><h3>Pickleball Analytics</h3><span class="taste-date">Jan 2026 – Current</span></div>
-      <p><strong>Objective:</strong> Use gameplay footage to diagnose how to best help a player improve.</p>
-      <div class="video-grid">
-        <div class="video-item"><span class="video-label">Ball Tracking</span><video controls preload="none" muted playsinline poster="assets/img/poster-ball-tracking.jpg" aria-label="Demo video: ball tracking overlay on a pickleball rally"><source src="assets/video/ball-tracking.mp4" type="video/mp4"></video></div>
-        <div class="video-item"><span class="video-label">Player Keypoints</span><video controls preload="none" muted playsinline poster="assets/img/poster-player-keypoints.jpg" aria-label="Demo video: player keypoint detection"><source src="assets/video/player-keypoints.mp4" type="video/mp4"></video></div>
-        <div class="video-item"><span class="video-label">Court Detection</span><video controls preload="none" muted playsinline poster="assets/img/poster-court-tracking.jpg" aria-label="Demo video: court line detection and mapping"><source src="assets/video/court-tracking.mp4" type="video/mp4"></video></div>
+      <p><strong>Primary objective:</strong> Use gameplay footage to diagnose how to best help a player improve.</p>
+      <p><strong>Secondary objectives:</strong> Develop models to know where the ball, player identity/keypoints, and paddle are in relation to the court.</p>
+      <p>Building a computer vision pipeline that turns a single rally clip into an annotated video with ball trail, court overlay, bounce markers with line calls, and a full stat sheet.</p>
+      <div class="video-grid single">
+        <div class="video-item"><span class="video-label">Full Pipeline</span><video controls preload="none" muted playsinline poster="assets/img/poster-full-pipeline.jpg" aria-label="Demo video: ball, player, and court models overlaid with a top-view court map"><source src="assets/video/full-pipeline.mp4" type="video/mp4"></video></div>
       </div>
       <div class="takeaway">Progress and next steps: ball and player tracking have improved from all angles, but calculating court homography from the side angles is still a struggle.</div>
       <div class="taste-actions">
@@ -125,7 +125,7 @@
       <div class="taste-head"><h3>rsnodas</h3><span class="taste-date">2021 – 2022</span></div>
       <p><strong>Objective:</strong> Use local station data with national gridded snow data to improve water supply estimates for Utah.</p>
       <p>Developed an open-source GitHub R package, rsnodas, that lets users easily access national data, create their own model, and map estimates across Utah.</p>
-      <div class="project-images single" style="max-width:520px"><img src="assets/img/rsnodas-process.png" alt="Ensemble SWE mapping panels: GAM, SNODAS, station density, and blended prediction" loading="lazy" width="1027" height="794"></div>
+      <div class="project-images single" style="max-width:400px"><img src="assets/img/rsnodas-process.png" alt="Ensemble SWE mapping panels: GAM, SNODAS, station density, and blended prediction" loading="lazy" width="1027" height="794"></div>
       <div class="takeaway">Findings: the ensemble showed marginal error improvements. Honest results that point future research in the right direction.</div>
       <div class="taste-actions">
         <a href="https://github.com/lschneider93/rsnodas" class="btn btn-primary" target="_blank" rel="noopener">Project details <span class="arrow">→</span></a>
