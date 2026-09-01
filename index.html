@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Logan Schneider | Data Scientist &amp; Biostatistician</title>
-  <meta name="description" content="Logan Schneider, Data Scientist and Biostatistician. Over 3 years analyzing cancer research data, developing and refining computer vision models, and publishing an open-source GitHub R package.">
+  <meta name="description" content="Logan Schneider, Data Scientist and Biostatistician. Over 3 years of cancer research biostatistics, building applied machine learning in R and Python, and validating models against ground truth.">
   <meta name="author" content="Logan Schneider">
   <link rel="canonical" href="https://lschneider93.github.io/">
   <meta property="og:type" content="website">
@@ -70,12 +70,12 @@
 <main id="main">
 
 <section class="hero"><div class="container"><div class="hero-grid"><div class="hero-text">
-  <p class="eyebrow">Data Scientist · Biostatistician · ML Engineer</p>
+  <p class="eyebrow">Data Scientist · Biostatistician · Applied Machine Learning</p>
   <h1>Turning complex data into clear <em>insights.</em></h1>
-  <p class="subtitle">Over 3 years analyzing cancer research data, developing and refining computer vision models, and publishing an open-source GitHub R package.</p>
+  <p class="subtitle">Over 3 years of cancer research biostatistics, building applied machine learning in R and Python, and validating models against ground truth so teams can trust the results.</p>
   <div class="hero-actions">
     <a href="#projects" class="btn btn-primary">Review My Strongest Work ↓</a>
-    <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Resume</a>
+    <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download Resume</a>
   </div>
 </div>
 <div class="profile-card">
@@ -94,28 +94,35 @@
 
 <div class="container"><div class="credentials">
   <div class="cred"><div class="cred-value">M.S. Statistics</div><div class="cred-label">Utah State University</div></div>
-  <div class="cred"><div class="cred-value">3+ Years</div><div class="cred-label">Cancer Research Data</div></div>
-  <div class="cred"><a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener"><div class="cred-value">Published Manuscript</div><div class="cred-label">Co-Authored Healthcare Research ↗</div></a></div>
-  <div class="cred"><div class="cred-value">Python · R · SAS</div><div class="cred-label">Core Languages</div></div>
+  <div class="cred"><div class="cred-value">3+ Years</div><div class="cred-label">In Cancer Research</div></div>
+  <div class="cred"><a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener"><div class="cred-value">Peer-Reviewed Co-Author</div><div class="cred-label">Hereditary Cancer Research ↗</div></a></div>
+  <div class="cred"><div class="cred-value">R · Python</div><div class="cred-label">Core Analytical Languages</div></div>
 </div></div>
 
 <!-- Projects -->
 <section id="projects"><div class="container">
   <p class="section-label">Portfolio</p>
   <h2 class="section-title">Projects</h2>
-  <p class="section-subtitle">A taste of each project. Where each one stands, what's next, and what I want to build are one click away.</p>
+  <p class="section-subtitle">The objective, the method, and where it stands. Full details are one click away.</p>
 
   <div class="project-grid" style="grid-template-columns:1fr">
 
     <article class="taste-card" id="proj-pickleball">
       <div class="taste-head"><h3>Pickleball Analytics</h3><span class="taste-date">Jan 2026 – Current</span></div>
-      <p><strong>Primary objective:</strong> Use gameplay footage to diagnose how to best help a player improve.</p>
-      <p><strong>Secondary objectives:</strong> Develop models to know where the ball, player identity/keypoints, and paddle are in relation to the court.</p>
-      <p>Building a computer vision pipeline that turns a single rally clip into an annotated video with ball trail, court overlay, bounce markers with line calls, and a full stat sheet.</p>
+      <ul class="card-facts">
+        <li><strong>Objective:</strong> Turn gameplay or training footage into a diagnosis of how a player can improve: technique and shot selection.</li>
+        <li><strong>Method:</strong> Computer vision models that locate the ball, players and their keypoints, and the paddle relative to the court.</li>
+        <li><strong>Output:</strong> One rally clip becomes an annotated video with ball trail, court overlay, line calls, and a stat sheet.</li>
+      </ul>
       <div class="video-grid single">
         <div class="video-item"><span class="video-label">Full Pipeline</span><video controls preload="none" muted playsinline poster="assets/img/poster-full-pipeline.jpg" aria-label="Demo video: ball, player, and court models overlaid with a top-view court map"><source src="assets/video/full-pipeline.mp4" type="video/mp4"></video></div>
       </div>
-      <div class="takeaway">Progress and next steps: ball and player tracking have improved from all angles, but calculating court homography from the side angles is still a struggle.</div>
+      <div class="status-board" aria-label="Project status">
+        <div class="status-row"><span class="status-item">Ball and player tracking, all angles</span><span class="chip chip-done">Working</span></div>
+        <div class="status-row"><span class="status-item">Player ID and keypoints</span><span class="chip chip-done">Working</span></div>
+        <div class="status-row"><span class="status-item">Court homography from side views</span><span class="chip chip-progress">In progress</span></div>
+        <div class="status-row"><span class="status-item">Technique and shot-selection diagnosis</span><span class="chip chip-next">Next</span></div>
+      </div>
       <div class="taste-actions">
         <a href="projects/pickleball.html" class="btn btn-primary">Project details <span class="arrow">→</span></a>
       </div>
@@ -123,10 +130,12 @@
 
     <article class="taste-card" id="proj-rsnodas">
       <div class="taste-head"><h3>rsnodas</h3><span class="taste-date">2021 – 2022</span></div>
-      <p><strong>Objective:</strong> Use local station data with national gridded snow data to improve water supply estimates for Utah.</p>
-      <p>Developed an open-source GitHub R package, rsnodas, that lets users easily access national data, create their own model, and map estimates across Utah.</p>
-      <div class="project-images single" style="max-width:400px"><img src="assets/img/rsnodas-process.png" alt="Ensemble SWE mapping panels: GAM, SNODAS, station density, and blended prediction" loading="lazy" width="1027" height="794"></div>
-      <div class="takeaway">Findings: the ensemble showed marginal error improvements. Honest results that point future research in the right direction.</div>
+      <ul class="card-facts">
+        <li><strong>Objective:</strong> Combine local station data with national gridded snow data to improve Utah water supply estimates.</li>
+        <li><strong>Method:</strong> rsnodas, an open-source R package for accessing the data, building models, and mapping estimates across Utah.</li>
+        <li><strong>Finding:</strong> The ensemble showed marginal error improvements. Honest results that point future research in the right direction.</li>
+      </ul>
+      <div class="project-images single" style="max-width:300px"><img src="assets/img/rsnodas-process.png" alt="Ensemble SWE mapping panels: GAM, SNODAS, station density, and blended prediction" loading="lazy" width="1027" height="794"></div>
       <div class="taste-actions">
         <a href="https://github.com/lschneider93/rsnodas" class="btn btn-primary" target="_blank" rel="noopener">Project details <span class="arrow">→</span></a>
         <a href="https://digitalcommons.usu.edu/etd2023/6/" class="small-link" target="_blank" rel="noopener">M.S. thesis →</a>
@@ -158,13 +167,10 @@
     <div class="process-step"><div class="step-num" aria-hidden="true">01</div><h3>Clear Question</h3><p>I start by putting the question in plain English.</p></div>
     <div class="process-step"><div class="step-num" aria-hidden="true">02</div><h3>Explore the Data</h3><p>I investigate each column, build graphics and simple summaries, and get a clear picture of what I'm working with.</p></div>
     <div class="process-step"><div class="step-num" aria-hidden="true">03</div><h3>Model Selection</h3><p>I find the model that fits the question and the data assumptions.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">04</div><h3>Detail Findings</h3><p>I write down what I learned, what worked, and what didn't.</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">04</div><h3>Validate and Explain</h3><p>I check that results hold up, then write down what I learned, what worked, and what didn't.</p></div>
     <div class="process-step"><div class="step-num" aria-hidden="true">05</div><h3>Next Steps</h3><p>I note the new questions that came up, decide what to investigate next, and repeat the process.</p></div>
   </div>
-  <div class="ai-callout">
-    <h3>AI-accelerated. Statistically validated.</h3>
-    <p>I use AI development tools to move faster, but generated output doesn't decide what ships. I verify systems against hand-labeled ground truth, measure precision and recall, test calibration, and document failure modes before recommending action.</p>
-  </div>
+  <p class="process-note">AI is a tool I'm learning to implement to refine my work and processes, and every result is still validated.</p>
 </div></section>
 
 <div class="container"><div class="divider"></div></div>
@@ -174,8 +180,9 @@
   <p class="section-label">Technical Stack</p>
   <h2 class="section-title">Strengths &amp; Tools</h2>
   <div class="strength-rows">
-    <div class="strength-row"><b>Strengths</b><div class="skill-pills"><span class="pill">Analytical thinking</span><span class="pill">Statistical modeling</span><span class="pill">R &amp; Python coding</span><span class="pill">Machine learning</span><span class="pill">Computer vision</span><span class="pill">Clear communication</span></div></div>
-    <div class="strength-row"><b>Tools</b><div class="skill-pills"><span class="pill">R</span><span class="pill">Python</span><span class="pill">SAS</span><span class="pill">SQL</span><span class="pill">Tableau</span><span class="pill">Git</span></div></div>
+    <div class="strength-row"><b>Strengths</b><div class="skill-pills"><span class="pill">Statistical modeling</span><span class="pill">Survival analysis</span><span class="pill">Machine learning</span><span class="pill">Computer vision</span><span class="pill">Model validation</span><span class="pill">Decision support</span></div></div>
+    <div class="strength-row"><b>Tools</b><div class="skill-pills"><span class="pill">R</span><span class="pill">Python</span><span class="pill">Tableau</span><span class="pill">Git</span></div></div>
+    <div class="strength-row"><b>Working knowledge</b><div class="skill-pills"><span class="pill">SQL</span><span class="pill">SAS</span><span class="pill">PyTorch</span><span class="pill">JavaScript</span></div></div>
     <div class="strength-row"><b>Education</b><div class="skill-pills"><span class="pill">Masters in Statistics (2022)</span><span class="pill">Bachelors in Mathematics &amp; Statistics (2019)</span><span class="pill">Utah State University</span></div></div>
   </div>
 </div></section>
@@ -187,7 +194,7 @@
   <p class="section-label">Personal</p>
   <h2 class="section-title">About Me</h2>
   <div class="about-content">
-    <p>I'm naturally curious, very analytical, and love answering questions that help people. I love food, hiking, my dogs, listening to a good book, and building software and games, like this little <a href="https://lschneider93.github.io/mytical_pokemon/" target="_blank" rel="noopener">learning game</a> I built for my niece.</p>
+    <p>I'm naturally curious, very analytical, and love answering questions that help people. That curiosity has taken me through cancer research, statistical modeling, teaching, and applied machine learning. Outside of work, I love food, hiking, my dogs, listening to a good book, and building software and games, like this little <a href="https://lschneider93.github.io/mytical_pokemon/" target="_blank" rel="noopener">learning game</a> I built for my niece.</p>
   </div>
 </div></section>
 
@@ -196,7 +203,7 @@
   <h2>Let's solve a meaningful data problem.</h2>
   <p class="contact-copy">I'm exploring data science and biostatistics roles where rigorous analysis, practical machine learning, and clear communication improve important decisions.</p>
   <div class="contact-buttons">
-    <a href="mailto:loganschneider93@gmail.com?subject=Role%20opportunity" class="btn btn-primary">Discuss a Role</a>
+    <a href="mailto:loganschneider93@gmail.com?subject=Introductions" class="btn btn-primary">Let's Meet</a>
     <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download My Resume</a>
   </div>
   <p style="margin-top:1.25rem;font-size:.85rem"><a href="https://www.linkedin.com/in/logan-schneider-a2a740b6/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp; <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a></p>

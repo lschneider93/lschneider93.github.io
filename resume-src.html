@@ -5,26 +5,28 @@
 <title>Logan Schneider | Resume</title>
 <meta name="robots" content="noindex">
 <style>
-  @page { size: Letter; margin: 0.45in 0.55in; }
+  @page { size: Letter; margin: 0.3in 0.5in; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: Georgia, 'Times New Roman', serif; font-size: 9.4pt; line-height: 1.28; color: #111827; }
+  body { font-family: Georgia, 'Times New Roman', serif; font-size: 8.9pt; line-height: 1.17; color: #111827; }
   a { color: #0F6B57; text-decoration: none; }
-  header { text-align: center; margin-bottom: 7pt; }
-  h1 { font-size: 18pt; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 2pt; }
+  header { text-align: center; margin-bottom: 3pt; }
+  h1 { font-size: 16.5pt; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 1pt; }
+  .tagline { font-size: 9.6pt; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: #374151; margin-bottom: 2pt; }
   .contact { font-size: 8.9pt; color: #374151; }
   .contact a { color: #0F6B57; }
-  .summary { font-size: 9.2pt; color: #1F2937; text-align: center; max-width: 6.8in; margin: 4pt auto 0; }
-  h2 { font-size: 9.8pt; letter-spacing: 0.09em; text-transform: uppercase; border-bottom: 1.2px solid #111827; padding-bottom: 1.5pt; margin: 7pt 0 4pt; }
-  .entry { margin-bottom: 4.5pt; }
+  .summary { font-size: 9.3pt; color: #1F2937; margin-bottom: 2pt; }
+  h2 { font-size: 9.8pt; letter-spacing: 0.09em; text-transform: uppercase; border-bottom: 1.2px solid #111827; padding-bottom: 1.5pt; margin: 4pt 0 2pt; }
+  .entry { margin-bottom: 3pt; }
   .entry-head { display: flex; justify-content: space-between; align-items: baseline; }
   .entry-head .title { font-weight: 700; font-size: 9.9pt; }
+  .entry-head .title .org-inline { font-weight: 400; font-style: italic; }
   .entry-head .date { font-size: 8.9pt; color: #374151; white-space: nowrap; }
   .org { font-style: italic; font-size: 9.3pt; color: #374151; margin-bottom: 1.5pt; }
-  ul { margin: 1.5pt 0 0 13pt; }
-  li { margin-bottom: 1.2pt; }
+  ul { margin: 1pt 0 0 13pt; }
+  li { margin-bottom: 0.5pt; }
   .proj .entry-head .title a { color: #111827; }
   .proj .links { font-size: 9.2pt; }
-  .skills-grid { display: grid; grid-template-columns: max-content 1fr; column-gap: 12pt; row-gap: 1.5pt; }
+  .skills-grid { display: grid; grid-template-columns: max-content 1fr; column-gap: 12pt; row-gap: 1pt; }
   .skills-grid b { font-size: 9.4pt; }
 </style>
 </head>
@@ -32,21 +34,34 @@
 
 <header>
   <h1>LOGAN SCHNEIDER</h1>
+  <p class="tagline">Machine Learning | Data Science | Statistics</p>
   <p class="contact">Orem, UT &nbsp;·&nbsp; (801) 360-0588 &nbsp;·&nbsp; <a href="mailto:loganschneider93@gmail.com">loganschneider93@gmail.com</a> &nbsp;·&nbsp; <a href="https://lschneider93.github.io">lschneider93.github.io</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/logan-schneider-a2a740b6/">LinkedIn</a> &nbsp;·&nbsp; <a href="https://github.com/lschneider93">GitHub</a></p>
-  <p class="summary">Data scientist and biostatistician (M.S. Statistics) with 3+ years of cancer research biostatistics at Myriad Genetics, building validated machine learning and computer vision systems, and a published open-source GitHub R package.</p>
 </header>
 
-<h2>Experience</h2>
+<h2>Professional Summary</h2>
+<p class="summary">Statistician with an M.S. in Statistics and over three years of model development in cancer research. Co-authored a manuscript on genetic testing in an OB/GYN setting. Currently building a multi-model computer vision system for pickleball coaching that utilizes statistics, analytics, and data visualizations.</p>
+
+<h2>Technical Skills</h2>
+<div class="skills-grid">
+  <b>Programming &amp; Data</b><span>Python, R/RStudio, SAS, SQL, Git/GitHub</span>
+  <b>Machine Learning</b><span>Predictive modeling, classification, random forests, neural networks, KNN, SVM, NLP</span>
+  <b>Computer Vision</b><span>YOLO, object tracking, Kalman filtering, RTS smoothing, homography, projective geometry, Hough transforms</span>
+  <b>ML Workflow</b><span>Data validation, training/evaluation workflows, error analysis, version control, modular pipeline development, human-in-the-loop validation</span>
+  <b>Languages</b><span>English (native), Russian (fluent)</span>
+</div>
+
+<h2>Professional Experience</h2>
 
 <div class="entry">
   <div class="entry-head"><span class="title">Biostatistician I</span><span class="date">Jul 2022 – Oct 2025</span></div>
   <p class="org">Myriad Genetics, Salt Lake City, UT</p>
   <ul>
-    <li>Led statistical analyses across multiple cancer-research studies, applying Cox proportional-hazards models, logistic regression, and mixed-effects models from power analysis and analysis planning through final reporting.</li>
-    <li>Audited clinical datasets for completeness, consistency, and protocol compliance; investigated discrepancies and resolved data-quality issues before publication analyses.</li>
-    <li>Independently reproduced peer analyses, cross-checked statistical outputs, tables, and figures, and documented discrepancies to ensure accuracy and reproducibility.</li>
-    <li>Translated statistical methods and findings into study reports, visualizations, and presentations for statistical, research, and clinical stakeholders.</li>
-    <li>Co-authored <i>Online Screening and Virtual Patient Education for Hereditary Cancer Risk Assessment and Testing</i> (<a href="https://pubmed.ncbi.nlm.nih.gov/39637387/">PubMed</a>).</li>
+    <li>Developed statistical models for cancer and genetic-testing research: survival analysis, logistic regression, and mixed-effects models.</li>
+    <li>Supported studies from power and sample-size planning through data preparation, modeling, validation, interpretation, and final reporting.</li>
+    <li>Developed reproducible R workflows and data-quality checks to identify discrepancies, duplicate records, inconsistent values, and unreliable model inputs before downstream analysis.</li>
+    <li>Validated fellow statisticians' workflows, outputs, and interpretations to improve reproducibility, accuracy, and analytical reliability.</li>
+    <li>Collaborated with statisticians, researchers, clinicians, and other stakeholders; communicated methods, limitations, and results through reports, visualizations, and presentations.</li>
+    <li>Co-authored peer-reviewed research on hereditary-cancer risk assessment and genetic testing in OB/GYN clinics (<a href="https://pubmed.ncbi.nlm.nih.gov/39637387/">PubMed</a>).</li>
   </ul>
 </div>
 
@@ -54,19 +69,33 @@
   <div class="entry-head"><span class="title">Statistics Advisor &amp; Graduate Student Instructor</span><span class="date">Aug 2020 – Aug 2022</span></div>
   <p class="org">Utah State University, Logan, UT</p>
   <ul>
-    <li>Advised a Ph.D. candidate on statistical methods, visualizations, and interpretation of results for their research.</li>
-    <li>Investigated systematic bias in national gridded snow products and built models to improve prediction accuracy in Utah.</li>
-    <li>Instructed Calculus I and Statistics courses of 30–50 students.</li>
+    <li>Advised doctoral research on statistical methods, data visualizations, model interpretation, and reporting findings.</li>
+    <li>Investigated systematic bias in national gridded environmental datasets and evaluated approaches for improving predictions in Utah.</li>
+    <li>Taught Statistics and Calculus I to classes of 30&ndash;50 students, explaining technical concepts to students with varying backgrounds.</li>
   </ul>
 </div>
 
-<h2>Projects</h2>
+<h2>Machine Learning Engineering Project</h2>
 
 <div class="entry proj">
-  <div class="entry-head"><span class="title">Pickleball Analytics: Computer Vision System</span><span class="date">Jan 2026 – Present</span></div>
+  <div class="entry-head"><span class="title">Pickleball Video Intelligence &amp; Computer Vision Platform <span class="org-inline">| Independent Project</span></span><span class="date">Jan 2026 – Present</span></div>
   <ul>
-    <li>Built an 8-stage Python pipeline (YOLO11, OpenCV, Kalman filtering, court homography) that turns single-camera game footage into annotated rally video and structured shot statistics.</li>
-    <li>Evaluated against a 155-clip hand-labeled truth set with precision/recall tracked per release; designed uncertainty-aware line calls that flag ambiguous results instead of guessing. <span class="links"><a href="https://lschneider93.github.io/projects/pickleball.html">Case study</a></span></li>
+    <li>Designing an end-to-end Python computer-vision system that converts pickleball video into match-analysis data to help players understand their performance.</li>
+    <li>Developing a process to refine and improve model detection of the ball, court, and players.</li>
+    <li>Building a temporal ball-tracking pipeline combining YOLO detections and Kalman filtering to map ball and player locations from a video onto a pickleball court.</li>
+    <li>Refining methods to identify ball contacts, bounces, and trajectories.</li>
+    <li>Designed physics-informed trajectory constraints for single-camera footage where image geometry alone cannot uniquely recover real-world ball height.</li>
+    <li>Building toward coaching-focused analytics and visualizations that will help players identify and diagnose patterns in shot selection, court and paddle positioning, and strengths and weaknesses of their game. <span class="links"><a href="https://lschneider93.github.io/projects/pickleball.html">Case study</a></span></li>
+  </ul>
+</div>
+
+<h2>Additional Projects</h2>
+
+<div class="entry proj">
+  <div class="entry-head"><span class="title">SNODAS Snow-Water-Equivalent Modeling</span><span class="date">Jan 2021 – Aug 2022</span></div>
+  <ul>
+    <li>Built and published an R package to download and process national gridded environmental data, allow users to create their own spatial-model predictions, and investigate prediction bias across Utah at approximately 1-km resolution. <span class="links"><a href="https://github.com/lschneider93/rsnodas">GitHub</a> · <a href="https://digitalcommons.usu.edu/etd2023/6/">Thesis</a></span></li>
+    <li>Crash severity prediction (random forest, neural network, KNN, SVM) and Python NLP sentiment classification.</li>
   </ul>
 </div>
 
@@ -80,20 +109,8 @@
 <div class="entry proj">
   <div class="entry-head"><span class="title">Customer Churn Prediction</span><span class="date">2026</span></div>
   <ul>
-    <li>End-to-end churn analysis (Python, XGBoost, SHAP): 0.85 ROC-AUC, VIF-diagnosed multicollinearity in the baseline, and a cost-based retention strategy with break-even analysis identifying $1.63M revenue at risk.</li>
+    <li>End-to-end churn analysis (Python, XGBoost, SHAP): 0.85 ROC-AUC, VIF-diagnosed multicollinearity in the baseline, and a cost-based retention framework estimating $1.63M in revenue at risk under stated assumptions.</li>
   </ul>
-</div>
-
-<div class="entry proj">
-  <div class="entry-head"><span class="title">rsnodas: Snow Water Equivalent R Package (M.S. Thesis)</span><span class="date">2021 – 2022</span></div>
-  <ul>
-    <li>Published an open-source R package to download national gridded data (SNODAS, PRISM), blend it with SNOTEL observations, and map SWE across Utah at 1 km resolution with an ensemble of GAMs. <span class="links"><a href="https://github.com/lschneider93/rsnodas">GitHub</a> · <a href="https://digitalcommons.usu.edu/etd2023/6/">Thesis</a></span></li>
-  </ul>
-</div>
-
-<div class="entry proj">
-  <div class="entry-head"><span class="title">Earlier Work</span><span class="date">2020 – 2021</span></div>
-  <p class="org" style="font-style:normal">Disneyland review sentiment analysis (NLP, Python); car-crash injury-severity prediction (machine learning).</p>
 </div>
 
 <h2>Education</h2>
@@ -104,16 +121,6 @@
 </div>
 <div class="entry">
   <div class="entry-head"><span class="title">B.S. in Mathematics/Statistics, Minor in Russian, Utah State University</span><span class="date">2019</span></div>
-</div>
-
-<h2>Technical Skills &amp; Languages</h2>
-
-<div class="skills-grid">
-  <b>Programming</b><span>R, Python (pandas), SQL, SAS, JavaScript</span>
-  <b>Statistics &amp; ML</b><span>Survival analysis, mixed models, GAMs, scikit-learn, XGBoost, model evaluation &amp; validation</span>
-  <b>Computer Vision</b><span>YOLO, OpenCV, PyTorch</span>
-  <b>Tools</b><span>ggplot2, Plotly, Tableau, Git, LaTeX, REST APIs</span>
-  <b>Languages</b><span>English (native), Russian (fluent)</span>
 </div>
 
 </body>
