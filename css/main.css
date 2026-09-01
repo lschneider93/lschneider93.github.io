@@ -127,7 +127,6 @@ section{padding:3rem 0}
 .metric-chip.chip-warm{background:rgba(248,164,76,0.08);color:var(--accent-warm);border-color:rgba(248,164,76,0.15)}
 .metric-chip.chip-sky{background:rgba(74,194,227,0.08);color:var(--accent-sky);border-color:rgba(74,194,227,0.15)}
 
-.takeaway{font-size:.85rem;color:var(--accent-sky);font-weight:500;font-style:italic;margin-bottom:1rem;padding-left:.75rem;border-left:2px solid var(--accent-sky)}
 
 .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
 .tag{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:.25rem .6rem;border-radius:4px;border:1px solid}
@@ -182,6 +181,17 @@ section{padding:3rem 0}
 .taste-card p{font-size:.88rem;color:var(--text);line-height:1.7}
 .taste-actions{margin-top:auto;padding-top:.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .taste-actions .small-link{font-size:.78rem}
+.card-facts{list-style:none}
+.card-facts li{font-size:.88rem;color:var(--text);padding:.3rem 0 .3rem 1.2rem;position:relative;line-height:1.7}
+.card-facts li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
+.card-facts li strong{color:var(--text-bright)}
+.status-board{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:.5rem .9rem;margin-bottom:1rem;max-width:560px}
+.status-row{display:flex;justify-content:space-between;align-items:center;gap:.75rem;padding:.35rem 0;font-size:.82rem;color:var(--text)}
+.status-row + .status-row{border-top:1px solid var(--border)}
+.chip{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .55rem;border-radius:20px;white-space:nowrap}
+.chip-done{color:var(--accent);background:var(--accent-soft);border:1px solid var(--border-accent)}
+.chip-progress{color:var(--accent-warm);background:rgba(248,164,76,0.10);border:1px solid rgba(248,164,76,0.25)}
+.chip-next{color:var(--text-dim);background:rgba(255,255,255,0.04);border:1px solid var(--border)}
 
 /* ---------- Strengths rows ---------- */
 .strength-rows{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem 1.75rem;margin-top:1.25rem}
@@ -225,9 +235,7 @@ section{padding:3rem 0}
 .process-step .step-num{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--accent);opacity:.35;margin-bottom:.5rem}
 .process-step h3{font-family:var(--serif);font-size:.9rem;font-weight:600;color:var(--text-bright);margin-bottom:.4rem}
 .process-step p{font-size:.8rem;color:var(--text-dim);line-height:1.6}
-.ai-callout{margin-top:1.25rem;background:linear-gradient(135deg,rgba(74,227,181,0.06),rgba(124,140,248,0.06));border:1px solid var(--border-accent);border-radius:var(--radius);padding:1.4rem 1.6rem}
-.ai-callout h3{font-family:var(--serif);font-size:1.02rem;color:var(--text-bright);margin-bottom:.4rem}
-.ai-callout p{font-size:.86rem;color:var(--text);line-height:1.7}
+.process-note{margin-top:1.25rem;font-size:.86rem;color:var(--text-dim);line-height:1.7;max-width:620px}
 
 /* ---------- Skills ---------- */
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.25rem;margin-top:1.5rem}
@@ -325,6 +333,24 @@ details.how{margin:2rem 0;border:1px solid var(--border);border-radius:var(--rad
 details.how summary{cursor:pointer;padding:1rem 1.3rem;font-weight:600;color:var(--text-bright);font-size:.9rem}
 details.how .how-body{padding:0 1.3rem 1.2rem;font-size:.86rem;color:var(--text-dim);line-height:1.75}
 details.how .how-body code{color:var(--accent);background:rgba(74,227,181,0.06);padding:.1rem .35rem;border-radius:4px;font-size:.8rem}
+
+/* ---------- Dashboard transparency: tables, quality facts ---------- */
+table.data th.num,table.data td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.data td.null-cell{color:var(--text-dim);font-style:italic;opacity:.6}
+table.data thead th{position:sticky;top:0;z-index:1}
+.th-sort{background:none;border:none;padding:0;cursor:pointer;color:inherit;font:inherit;text-transform:inherit;letter-spacing:inherit}
+.th-sort:hover{color:var(--text-bright)}
+th[aria-sort] .th-sort{color:var(--accent)}
+th[aria-sort="ascending"] .th-sort::after{content:" \25B4"}
+th[aria-sort="descending"] .th-sort::after{content:" \25BE"}
+.dash-details .table-wrap{max-height:420px;overflow-y:auto;margin:0 0 1rem}
+.dash-details .how-body>p{margin-bottom:.75rem}
+.dq-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--border);border-radius:var(--radius);overflow:hidden;margin:0 0 1rem}
+.dq-facts>div{background:var(--bg-card);padding:.75rem .9rem}
+.dq-facts dt{font-size:.66rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem}
+.dq-facts dd{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--text-bright);margin:0}
+.dq-note{font-size:.8rem;color:var(--text-dim);line-height:1.65;margin:.5rem 0 0}
+.dq-note b{color:var(--text-bright)}
 
 /* ---------- Animations & motion safety ---------- */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}

@@ -66,7 +66,7 @@
   </div>
 
   <div class="stat-tiles">
-    <div class="stat-tile"><b id="tile-combined">–</b><span>Combined % of ED visits</span></div>
+    <div class="stat-tile"><b id="tile-combined">–</b><span>Combined % of ED visits (computed)</span></div>
     <div class="stat-tile"><b id="tile-covid">–</b><span>COVID-19</span></div>
     <div class="stat-tile"><b id="tile-flu">–</b><span>Influenza</span></div>
     <div class="stat-tile"><b id="tile-rsv">–</b><span>RSV</span></div>
@@ -80,9 +80,45 @@
 
   <div class="chart-card">
     <h3>Latest week by state</h3>
-    <p class="chart-sub">Combined COVID + flu + RSV share of ED visits, most recent reporting week.</p>
+    <p class="chart-sub">Combined COVID + flu + RSV share of ED visits, most recent reporting week. <span id="cdc-map-missing"></span></p>
     <div id="cdc-map" class="chart-slot" aria-label="United States choropleth map of combined respiratory illness emergency department visit percentage by state"></div>
   </div>
+
+  <div class="chart-card">
+    <h3>Which way states are trending</h3>
+    <p class="chart-sub">CDC's official trend label for each state, latest week. Not my inference; the source publishes these calls.</p>
+    <div id="cdc-trend-direction" class="chart-slot short" aria-label="Stacked bar chart counting states labeled increasing, no change, or decreasing for each pathogen"></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Data quality this week</h3>
+    <p class="chart-sub">Computed live from the same responses that drew the charts above. If something is missing, it says so here.</p>
+    <dl class="dq-facts">
+      <div><dt>Week ending</dt><dd id="dq-week">–</dd></div>
+      <div><dt>Data built</dt><dd id="dq-build">–</dd></div>
+      <div><dt>Days old</dt><dd id="dq-age">–</dd></div>
+      <div><dt>States reporting</dt><dd id="dq-geos">–</dd></div>
+      <div><dt>Rows fetched</dt><dd id="dq-rows">–</dd></div>
+    </dl>
+    <div id="cdc-missing" class="chart-slot short" aria-label="Bar chart of the share of states missing a value for each column this week"></div>
+    <p class="dq-note" id="cdc-quality-note"></p>
+  </div>
+
+  <details class="how dash-details">
+    <summary>The rows behind the map</summary>
+    <div class="how-body">
+      <p>Every state row for the latest week, exactly as fetched. Click a header to sort. Missing values show as null instead of being hidden.</p>
+      <div id="cdc-table"></div>
+    </div>
+  </details>
+
+  <details class="how dash-details">
+    <summary>Data dictionary: all 20 CDC columns</summary>
+    <div class="how-body">
+      <p>Everything the source dataset publishes, whether this page uses it or not. Source: <a href="https://data.cdc.gov/Public-Health-Surveillance/2023-Respiratory-Virus-Response-NSSP-Emergency-Dep/rdmq-nq56/about_data" target="_blank" rel="noopener">dataset documentation</a>.</p>
+      <div id="cdc-dict"></div>
+    </div>
+  </details>
 
   <p class="note"><strong>Read this like an epidemiologist:</strong> these are percentages of ED visits, not case counts; they measure healthcare-seeking behavior as much as disease burden. Reporting lags by about a week, and smoothed values revise as late data arrives. Source: <a href="https://data.cdc.gov/Public-Health-Surveillance/2023-Respiratory-Virus-Response-NSSP-Emergency-Dep/rdmq-nq56/about_data" target="_blank" rel="noopener">CDC NSSP ED visit trajectories</a>, updated weekly.</p>
 </section>
@@ -103,6 +139,7 @@
     <div class="stat-tile"><b id="tile-total">–</b><span>Total reports on file</span></div>
     <div class="stat-tile"><b id="tile-serious">–</b><span>Marked serious</span></div>
     <div class="stat-tile"><b id="tile-serious-pct">–</b><span>Serious share</span></div>
+    <div class="stat-tile"><b id="tile-through">–</b><span>FAERS data through</span></div>
   </div>
 
   <div class="dash-grid-2">
@@ -113,10 +150,46 @@
     </div>
     <div class="chart-card">
       <h3>Reports over time</h3>
-      <p class="chart-sub">Monthly adverse-event reports received, trailing two years.</p>
+      <p class="chart-sub">Monthly reports received, trailing two years. FAERS publishes quarterly with a two to three month lag, so the series stops before today; single-month spikes usually mean a batch of older reports arrived, not a real-world surge.</p>
       <div id="fda-time" class="chart-slot" aria-label="Line chart of monthly adverse event report counts for the selected drug"></div>
     </div>
   </div>
+
+  <div class="dash-grid-2">
+    <div class="chart-card">
+      <h3>Who files the reports</h3>
+      <p class="chart-sub">Reporter qualification. Consumer reports dominate many common drugs; this is spontaneous reporting, not clinical surveillance.</p>
+      <div id="fda-qualification" class="chart-slot short" aria-label="Bar chart of report counts by reporter qualification"></div>
+    </div>
+    <div class="chart-card">
+      <h3>How reactions resolved</h3>
+      <p class="chart-sub">Outcome as coded per reaction. Unknown is common, and fatal counts reactions in reports, not confirmed causes of death.</p>
+      <div id="fda-outcomes" class="chart-slot short" aria-label="Bar chart of reaction counts by coded outcome"></div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Why reports count as serious</h3>
+    <p class="chart-sub">The specific criteria behind the serious total. One report can tick several boxes, so these bars can sum past it.</p>
+    <div id="fda-seriousness" class="chart-slot short" aria-label="Bar chart of report counts by seriousness criterion"></div>
+    <p class="dq-note" id="fda-quality-note"></p>
+  </div>
+
+  <details class="how dash-details">
+    <summary>The counts behind the charts</summary>
+    <div class="how-body">
+      <p>Top 20 co-reported reactions with their share of all reports. Shares sum past 100 percent because one report can list several reactions.</p>
+      <div id="fda-table"></div>
+    </div>
+  </details>
+
+  <details class="how dash-details">
+    <summary>Data dictionary: the fields behind this tab</summary>
+    <div class="how-body">
+      <p>Every field this page queries, plus fields the API offers that it deliberately skips. The full schema has hundreds more: <a href="https://open.fda.gov/apis/drug/event/searchable-fields/" target="_blank" rel="noopener">complete field reference</a>.</p>
+      <div id="fda-dict"></div>
+    </div>
+  </details>
 
   <p class="note"><strong>The biostatistician's disclaimer:</strong> FAERS is a spontaneous reporting system. Reports are unverified, causality is not established, and reporting rates are shaped by media attention, litigation, and how long a drug has been on the market. <em>Counts here are not incidence rates</em>; a drug with more reports is not necessarily less safe. Source: <a href="https://open.fda.gov/apis/drug/event/" target="_blank" rel="noopener">openFDA drug adverse events</a>.</p>
 </section>
@@ -124,8 +197,9 @@
 <details class="how">
   <summary>How this dashboard works (for the technically curious)</summary>
   <div class="how-body">
-    <p>No backend, no build step. The page fetches JSON from <code>data.cdc.gov/resource/rdmq-nq56.json</code> (Socrata/SODA query parameters) and <code>api.fda.gov/drug/event.json</code> (count queries only; no individual reports are downloaded). Responses are cached in <code>localStorage</code> with a TTL of 12–24 hours; if a live fetch fails, the page falls back to cached data and says so. Charts are Plotly.js. Panels render lazily on first activation because Plotly mis-sizes charts drawn into hidden elements, the kind of detail you learn by shipping.</p>
-    <p>Source: <a href="https://github.com/lschneider93/lschneider93.github.io/tree/main/js" target="_blank" rel="noopener">js/ on GitHub</a>. <code>cdc.js</code> and <code>openfda.js</code> are small fetch/transform modules; <code>dashboard.js</code> orchestrates.</p>
+    <p>No backend, no build step. The page fetches JSON from <code>data.cdc.gov/resource/rdmq-nq56.json</code> (Socrata/SODA query parameters; 3 requests) and <code>api.fda.gov/drug/event.json</code> (count queries only, 11 per drug lookup; no individual reports are downloaded). Responses are cached in <code>localStorage</code> with a TTL of 12–24 hours; if a live fetch fails, the page falls back to cached data and says so. Charts are Plotly.js. Panels render lazily on first activation because Plotly mis-sizes charts drawn into hidden elements, the kind of detail you learn by shipping.</p>
+    <p>The data-quality cards, raw-row tables, and missingness chart are computed in your browser from the same responses that draw the charts, so what you can verify is exactly what you are shown. The data dictionaries list every column the sources publish, including the ones this page ignores.</p>
+    <p>Source: <a href="https://github.com/lschneider93/lschneider93.github.io/tree/main/js" target="_blank" rel="noopener">js/ on GitHub</a>. <code>cdc.js</code> and <code>openfda.js</code> are small fetch/transform modules; <code>table.js</code> renders the sortable tables; <code>dashboard.js</code> orchestrates.</p>
   </div>
 </details>
 
@@ -145,6 +219,7 @@
 
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
 <script src="js/site.js" defer></script>
+<script src="js/table.js" defer></script>
 <script src="js/cdc.js" defer></script>
 <script src="js/openfda.js" defer></script>
 <script src="js/dashboard.js" defer></script>
