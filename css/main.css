@@ -198,6 +198,7 @@ section{padding:3rem 0}
 .strength-row{display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap;padding:.5rem 0}
 .strength-row + .strength-row{border-top:1px solid var(--border)}
 .strength-row b{font-family:var(--serif);font-size:.95rem;color:var(--accent);min-width:110px}
+.prose .strength-row>span:not(.skill-pills){flex:1 1 260px;font-size:.9rem;color:var(--text-dim);line-height:1.6}
 
 /* ---------- Compact project row + building strip ---------- */
 .subsection-title{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--text-bright);margin:2.5rem 0 1rem}
@@ -235,6 +236,9 @@ section{padding:3rem 0}
 .process-step .step-num{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--accent);opacity:.35;margin-bottom:.5rem}
 .process-step h3{font-family:var(--serif);font-size:.9rem;font-weight:600;color:var(--text-bright);margin-bottom:.4rem}
 .process-step p{font-size:.8rem;color:var(--text-dim);line-height:1.6}
+.process-step p+p{margin-top:.5rem}
+.process-step p strong{color:var(--text-bright)}
+.process-step .chip{display:inline-block}
 .process-note{margin-top:1.25rem;font-size:.86rem;color:var(--text-dim);line-height:1.7;max-width:620px}
 
 /* ---------- Skills ---------- */

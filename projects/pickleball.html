@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pickleball Analytics | Logan Schneider</title>
-  <meta name="description" content="Pickleball Analytics: a computer vision pipeline that turns gameplay footage into annotated rally video and stats. Three YOLO11 models, Kalman tracking, court homography, and honest, measured line calls.">
+  <meta name="description" content="A computer vision pipeline that takes your recorded pickleball gameplay and gives you data on your shot selection and your game.">
   <link rel="canonical" href="https://lschneider93.github.io/projects/pickleball.html">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Pickleball Analytics | Logan Schneider">
-  <meta property="og:description" content="One camera in → annotated rally + stat sheet out. Measured F1, hand-labeled truth sets, and line calls that admit uncertainty.">
+  <meta property="og:description" content="A computer vision pipeline that takes your recorded pickleball gameplay and gives you data on your shot selection and your game.">
   <meta property="og:url" content="https://lschneider93.github.io/projects/pickleball.html">
-  <meta property="og:image" content="https://lschneider93.github.io/assets/img/poster-ball-tracking.jpg">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/poster-full-pipeline.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,6 +32,7 @@
         <ul class="nav-dd" id="projects-menu">
           <li><a href="../index.html#projects">All Projects</a></li>
           <li><a href="pickleball.html" aria-current="page">Pickleball Analytics</a></li>
+          <li><a href="../dashboard.html">Health Dashboard</a></li>
           <li><a href="../index.html#proj-rsnodas">rsnodas</a></li>
         </ul>
       </li>
@@ -46,150 +47,105 @@
 
 <header class="page-hero">
   <p class="eyebrow" style="opacity:1;animation:none">Case Study · Computer Vision · Jan 2026 – Present</p>
-  <h1>Pickleball analytics from <em>one camera.</em></h1>
-  <p class="lede">A computer vision pipeline that turns a single rally clip (tripod or broadcast footage) into an annotated video with ball trail, court overlay, bounce markers with line calls, and shot labels, plus a complete stat sheet. Built solo, measured honestly.</p>
-
-  <div class="metric-strip">
-    <div class="m"><b>3 models</b><span>one decode pass</span></div>
-    <div class="m"><b>8 stages</b><span>cached pipeline</span></div>
-    <div class="m"><b>F1 0.60</b><span>bounce detection</span></div>
-    <div class="m"><b>155 clips</b><span>labeled court truth set</span></div>
-    <div class="m"><b>12 / 12</b><span>golden-clip regression</span></div>
-  </div>
+  <h1>Getting pickleball analytics from your <em>recorded gameplay.</em></h1>
+  <p class="lede">A computer vision pipeline that takes your gameplay video and gives you data on your shot selection and analytics of your game.</p>
 </header>
-
-<div class="tldr">
-  <h2>TL;DR for the 30-second read</h2>
-  <ul>
-    <li>Input: one camera angle of a pickleball rally. Output: annotated video + machine-readable stats (shot types, line calls, rally structure).</li>
-    <li>Three YOLO11 models (ball, player keypoints, court) run in a single video decode pass; Kalman filtering and camera-cut segmentation make broadcast footage tractable.</li>
-    <li>Every accuracy claim is measured against hand-labeled ground truth and tracked release-over-release, including the numbers that got worse.</li>
-    <li>The design signature: when measurement uncertainty exceeds the ball's radius, the system calls the ball <strong>CLOSE</strong> in amber instead of guessing. Never a confident wrong answer.</li>
-    <li>Code is private (active project with product ambitions); a public showcase repo documents the architecture, metrics, and iteration story.</li>
-  </ul>
-</div>
 
 <div class="prose">
 
-<h2>Demos</h2>
+<h2>Three models, one video</h2>
+<p>The pipeline opens the video once. Three models look at every frame, and each one finds one thing.</p>
 <div class="video-grid">
-  <div class="video-item"><span class="video-label">Ball Tracking</span><video controls preload="none" muted playsinline poster="../assets/img/poster-ball-tracking.jpg" aria-label="Demo video: Kalman-smoothed ball trail rendered over a rally"><source src="../assets/video/ball-tracking.mp4" type="video/mp4"></video></div>
-  <div class="video-item"><span class="video-label">Player Keypoints</span><video controls preload="none" muted playsinline poster="../assets/img/poster-player-keypoints.jpg" aria-label="Demo video: player body keypoint detection during play"><source src="../assets/video/player-keypoints.mp4" type="video/mp4"></video></div>
-  <div class="video-item"><span class="video-label">Court Detection</span><video controls preload="none" muted playsinline poster="../assets/img/poster-court-tracking.jpg" aria-label="Demo video: court line detection and homography overlay"><source src="../assets/video/court-tracking.mp4" type="video/mp4"></video></div>
+  <div class="video-item"><span class="video-label">Ball</span><video controls preload="none" muted playsinline poster="../assets/img/poster-ball-tracking.jpg" aria-label="Demo video: ball trail rendered over a rally"><source src="../assets/video/ball-tracking.mp4" type="video/mp4"></video></div>
+  <div class="video-item"><span class="video-label">Players</span><video controls preload="none" muted playsinline poster="../assets/img/poster-player-keypoints.jpg" aria-label="Demo video: player body keypoint detection during play"><source src="../assets/video/player-keypoints.mp4" type="video/mp4"></video></div>
+  <div class="video-item"><span class="video-label">Court</span><video controls preload="none" muted playsinline poster="../assets/img/poster-court-tracking.jpg" aria-label="Demo video: court lines detected and drawn over the court, with a top-down court map"><source src="../assets/video/court-tracking.mp4" type="video/mp4"></video></div>
+</div>
+<div class="strength-rows">
+  <div class="strength-row"><b>Ball</b><span>Finds the ball in each frame, even when it is a small blur.</span></div>
+  <div class="strength-row"><b>Players</b><span>Finds each player and the points on their body (feet, hips, shoulders, wrists), so the pipeline can tell how they are standing and swinging.</span></div>
+  <div class="strength-row"><b>Court</b><span>Finds the court lines and corners, then turns the slanted court in the picture into a flat, top-down court map.</span></div>
 </div>
 
-<h2>Why this project</h2>
-<p>Tennis has a decade of tracking data, commercial systems, and published models. Pickleball, the fastest-growing sport in the U.S., has almost none of that. That gap is a rare chance to build sports-analytics infrastructure from scratch: the detection models, the geometry, the event logic, and the evaluation methodology all had to be designed, not downloaded.</p>
-<p>It's also the project where my two skill sets meet. The computer vision is modern deep learning; the discipline that makes it trustworthy (ground truth, precision and recall, uncertainty quantification, honest negative results) is biostatistics.</p>
-
-<h2>The iteration story: v1 → v2</h2>
-<p>The first version worked, and I threw it away. That decision is the most important one in the project.</p>
-<div class="two-col">
-  <div class="col-card">
-    <span class="version-tag v1-tag">v1 · Feb – Apr 2026</span>
-    <h3>Web service prototype</h3>
-    <p>A FastAPI + Celery backend: upload footage, queue jobs, train YOLO detectors, track the ball with a Kalman filter. It proved the concept, and it buried every experiment inside a service architecture. Each tuning change meant re-running everything, so I couldn't iterate fast enough to make the models good.</p>
+<h2>How a video gets broken down</h2>
+<p>Five steps, in order. Each one hands its results to the next.</p>
+<div class="process-grid">
+  <div class="process-step">
+    <div class="step-num" aria-hidden="true">01</div>
+    <h3>Split the match into games</h3>
+    <p>A recording of a session can hold several games. The first step finds where each game starts and ends.</p>
+    <p><span class="chip chip-next">Next</span></p>
+    <p><strong>Next:</strong> build the game splitter. Today clips are cut by hand.</p>
   </div>
-  <div class="col-card">
-    <span class="version-tag v2-tag">v2 · Jul 2026 – Present</span>
-    <h3>Cached analysis pipeline</h3>
-    <p>A fully local 8-stage pipeline where every stage's output is cached and keyed on the configuration plus a video fingerprint. Expensive detection runs once (~2–4 minutes per clip); every downstream tuning iteration re-runs in seconds. Iteration speed is what turned this from a demo into a measured system.</p>
+  <div class="process-step">
+    <div class="step-num" aria-hidden="true">02</div>
+    <h3>Split each game into rallies</h3>
+    <p>A rally starts with a serve and ends when the ball is dead. The pipeline marks the start and end of every rally.</p>
+    <p><span class="chip chip-done">Working</span></p>
+    <p><strong>Next:</strong> handle broadcast replays, so a replayed rally is not counted twice.</p>
+  </div>
+  <div class="process-step">
+    <div class="step-num" aria-hidden="true">03</div>
+    <h3>Find every ball event</h3>
+    <p>A ball event is a moment the ball is hit by a paddle or hits the ground. The pipeline follows the ball's path and flags each one.</p>
+    <p><span class="chip chip-done">Working</span></p>
+    <p><strong>Next:</strong> catch hits hidden behind a player, which is where most misses happen.</p>
+  </div>
+  <div class="process-step">
+    <div class="step-num" aria-hidden="true">04</div>
+    <h3>Locate the players, ball, and court at each event</h3>
+    <p>At each event the pipeline records where the ball landed and where every player stood, in feet on the court map.</p>
+    <p><span class="chip chip-progress">In progress</span></p>
+    <p><strong>Next:</strong> measure how far off the player positions are from hand-clicked truth, and tighten the court fit from corner camera angles.</p>
+  </div>
+  <div class="process-step">
+    <div class="step-num" aria-hidden="true">05</div>
+    <h3>Name each shot and find the shots that mattered</h3>
+    <p>Each shot gets a name (serve, return, drive, drop, dink, lob). Then the pipeline looks for the shots that helped a team win or lose the rally.</p>
+    <p><span class="chip chip-next">Next</span></p>
+    <p><strong>Next:</strong> label a set of shots by hand so the shot names can be checked, then define what makes a shot influential.</p>
   </div>
 </div>
+<p class="note">Working means it runs on all my test clips and is checked against hand-labeled answers. In progress means it runs but the numbers are not where I want them. Next means it is planned.</p>
 
-<h2>Architecture</h2>
-<figure class="figure">
-  <img src="../assets/img/pipeline-stages.svg" alt="Diagram of the eight pipeline stages: detect, scenes, court, track, events, shots, stats, render" width="960" height="300">
-  <figcaption>The eight-stage pipeline. Each stage caches its output, so changing event logic never re-runs detection.</figcaption>
-</figure>
-<h3>Detection: three models, one decode</h3>
-<p>Decoding video is expensive, so one pass feeds three YOLO11 models at different sampling rates: the ball detector sees every frame (it moves fastest), the player model every second frame, and the court keypoint model sparsely, since the court doesn't move between camera cuts.</p>
-<h3>Broadcast footage is the hard part</h3>
-<p>Real match footage switches camera angles constantly. A scene-segmentation stage detects hard cuts and dissolves from a lightweight grayscale decode, and everything downstream (court fitting, tracking, event detection) operates per camera segment. Camera angles the system can't verify are marked <em>untrusted</em> and left honestly unanalyzed rather than analyzed wrongly.</p>
-<h3>Geometry and tracking</h3>
-<p>Each segment gets a court homography refined against the painted lines themselves, pooling line evidence across multiple frames (typical residual: 2–4 pixels). Ball tracks are smoothed with a constant-acceleration Kalman filter plus RTS smoothing, then projected into court coordinates, so event thresholds are expressed in real feet per second, treating the near and far court equally.</p>
-
-<h2>Line calls, honestly</h2>
-<p>The projection from pixels to court coordinates carries error: roughly half a foot near the camera, one to two feet at the far baseline. A pickleball is under two inches wide. So for balls landing near a line, the measurement uncertainty is larger than the thing being measured.</p>
-<blockquote class="pullquote">When the uncertainty band around a landing spot crosses the line, the system doesn't guess. It renders an amber CLOSE, and only a clear OUT ends a rally. The goal on the canonical test clip: the correct call or an honest CLOSE, never a confident wrong one.</blockquote>
-<p>This is a statistician's design decision inside a computer vision system: report the interval, not just the point estimate. It's also what I'd want from any model making decisions that matter.</p>
-
-<h2>Evaluation: measured, not asserted</h2>
-<p>Three harnesses keep the project honest: a golden-clip regression suite (12 clips with known rally structure), an event-level precision/recall evaluation against hand-labeled bounces and hits, and a per-clip QA health report that surfaces the worst clips first.</p>
-<p>A note on reading these numbers: detecting bounces and hits from a single camera is hard: contacts get occluded by players, broadcast footage cuts between angles, and a monocular view can't fully resolve ball height. The truth set is deliberately built from difficult clips, and the design prioritizes precision (0.72 for bounces) over recall, because a false line call is worse than a missed one. A modest number measured honestly against hard cases beats an impressive one measured conveniently, and the point of the harness is that every release either moves these numbers or gets rejected.</p>
-<div class="table-wrap">
-<table class="data">
-  <thead><tr><th>Harness</th><th>Current result</th><th>Reading</th></tr></thead>
-  <tbody>
-    <tr><td>Golden-clip regression</td><td><b>12/12 pass</b></td><td>Rally structure, calls, and segmentation stay correct release-over-release</td></tr>
-    <tr><td>Bounce detection (70 labeled bounces)</td><td><b>P 0.72 · R 0.51 · F1 0.60</b></td><td>Precision is strong; recall on side-view footage is the open gap</td></tr>
-    <tr><td>Hit detection (118 labeled hits)</td><td><b>P 0.54 · R 0.52 · F1 0.53</b></td><td>Held steady while the truth set got harder; occluded contacts are the weak layer</td></tr>
-    <tr><td>Court truth set</td><td><b>155 hand-labeled clips</b></td><td>Clicked court corners used to evaluate and retrain the court model</td></tr>
-  </tbody>
-</table>
-</div>
-<p class="note">Metrics are tracked in a history file across releases, and numbers are only compared within the same truth set. When a same-day reading turned out to be contaminated by stale artifacts, it was voided and documented rather than reported. Honest bookkeeping is a feature.</p>
-
-<h2>The dashboard</h2>
-<p>Every metric above lives on a static dashboard the pipeline regenerates after each eval round. Vitals at a glance, a scorecard per model, and version-to-version comparisons with rendered clips side by side. The trend line intentionally breaks wherever the truth set changed, because numbers measured against different ground truth are not comparable.</p>
-<div class="shot-grid single">
-  <figure class="shot"><img src="../assets/img/pb-dash-vitals.png" alt="Dashboard vitals strip: golden-clip smoke result, bounce and hit F1, court trust rate, shots analyzed, and truth-labeled clip counts" loading="lazy" width="1600" height="201"><figcaption>Vitals: the whole pipeline's health in one row, including the open gaps.</figcaption></figure>
-</div>
-<div class="shot-grid">
-  <figure class="shot"><img src="../assets/img/pb-dash-models.png" alt="Model scorecards for ball, player, court, pose, and paddle tracking, each with an honest note on where it struggles" loading="lazy" width="1200" height="316"><figcaption>One scorecard per model, each with a plain-language note on where it struggles.</figcaption></figure>
-  <figure class="shot"><img src="../assets/img/pb-dash-trend.png" alt="Line chart of bounce and hit F1 across eval rounds, with dashed dividers marking each truth-set migration" loading="lazy" width="1600" height="735"><figcaption>Bounce and hit F1 across eval rounds. Dashed dividers mark truth-set changes.</figcaption></figure>
-</div>
-<div class="shot-grid single">
-  <figure class="shot"><img src="../assets/img/pb-dash-ball-versions.jpg" alt="Ball model version comparison: bar charts per metric, delta chips, and two annotated clips rendered side by side" loading="lazy" width="1200" height="1509"><figcaption>Version-to-version comparison for the ball model: same truth set, same clip, rendered side by side.</figcaption></figure>
+<h2>Tools, in plain words</h2>
+<div class="strength-rows">
+  <div class="strength-row"><b>YOLO11 detection</b><span>A model trained on thousands of labeled frames to draw a box around one kind of thing, like the ball. Three of them run here: ball, players, court.</span></div>
+  <div class="strength-row"><b>Pose keypoints</b><span>A model that marks joints on a person (feet, knees, hips, shoulders, wrists), so you can measure a stance or a swing.</span></div>
+  <div class="strength-row"><b>One decode pass</b><span>Reading a video is slow. The video is opened once and all three models look at each frame as it goes by.</span></div>
+  <div class="strength-row"><b>Kalman filter</b><span>The ball is sometimes missed for a few frames. The filter predicts where the ball should be next and smooths the path, so the trail stays connected.</span></div>
+  <div class="strength-row"><b>ByteTrack</b><span>Keeps the same number on the same player from frame to frame, so Player 1 stays Player 1.</span></div>
+  <div class="strength-row"><b>Homography</b><span>The math that maps the slanted court in the picture onto a flat court map, so every position is in real feet instead of pixels.</span></div>
+  <div class="strength-row"><b>Scene cuts</b><span>Broadcast footage switches cameras. This spots each switch so the court map is rebuilt for the new angle.</span></div>
+  <div class="strength-row"><b>Cached stages</b><span>Each step saves its results. Changing a later step never re-runs the slow model steps.</span></div>
+  <div class="strength-row"><b>Hand-labeled truth</b><span>I click the real answers on frames (where the ball is, where the court corners are, when a hit happened), then score how often the models agree with me.</span></div>
 </div>
 
-<h2>The data flywheel</h2>
-<p>The current phase is an MLOps loop: purpose-built labeling tools produce ground truth (court corners, ball positions, event timing, player identity), evaluation harnesses measure candidate model weights against that truth, and only weights that measurably improve get promoted. In the last evaluation round, the court model was promoted; the ball and player models were held, because the numbers said so.</p>
-
-<h3>Labeling tools, built for speed</h3>
-<p>Labeling throughput is the bottleneck, so each tool is a small browser app that shows the model's prediction first and asks the human only to confirm or correct it. Those verdicts double as a free accuracy measurement. Four labelers cover event timing, court corners, ball position, and player identity.</p>
-<div class="shot-grid">
-  <figure class="shot"><img src="../assets/img/pb-labeler-events.jpg" alt="Event labeler: broadcast frame with playback controls, quick-entry shorthand box, and a queue of detected hits and bounces with thumbnail strips" loading="lazy" width="1200" height="833"><figcaption>Event labeler: confirm, nudge, or reject each detected bounce and hit, with shorthand entry for missed ones.</figcaption></figure>
-  <figure class="shot"><img src="../assets/img/pb-labeler-court.jpg" alt="Court labeler: broadcast frame with keypoint markers on court lines and a checklist of placed and skipped corner points" loading="lazy" width="1200" height="833"><figcaption>Court labeler: click true corner pixels, with a magnifier and per-point skip when a corner is hidden.</figcaption></figure>
-  <figure class="shot"><img src="../assets/img/pb-labeler-ball.jpg" alt="Ball labeler: court frame with the model's proposed ball position and focus windows listing labeling progress per frame range" loading="lazy" width="1200" height="833"><figcaption>Ball labeler: accept the model's dot or click the true pixel, focused on the frames around bounces.</figcaption></figure>
-  <figure class="shot"><img src="../assets/img/pb-labeler-identity.jpg" alt="Identity labeler: rally video above bins for each player holding tracklet crop montages ready to drag between bins" loading="lazy" width="1200" height="833"><figcaption>Identity labeler: tracklet crops pre-clustered by torso color, dragged into per-player bins.</figcaption></figure>
-</div>
-
-<h3>AI-reviewed pre-labels</h3>
-<p>Machine-generated labels get checked by two independent AI reviewers before a human sees them. Agreement auto-accepts, disagreement escalates, and contact sheets turn whole-clip QA into a ten-second scan.</p>
-<div class="shot-grid">
-  <figure class="shot"><img src="../assets/img/pb-review-dual-ai.jpg" alt="Escalation queue showing frames where two AI reviewers disagree about a ball position, each with its verdict and reasoning" loading="lazy" width="1600" height="1111"><figcaption>The escalation queue: two reviewers disagree, so a human makes the call.</figcaption></figure>
-  <figure class="shot"><img src="../assets/img/pb-review-sheet.jpg" alt="Label contact sheet showing the frames surrounding a labeled hit and bounce, color-coded by label source" loading="lazy" width="1600" height="1111"><figcaption>Contact sheet: every labeled event with its surrounding frames on one page.</figcaption></figure>
-</div>
-
-<h2>The stat sheet, next</h2>
-<p>The pipeline's end product is a machine-readable stat sheet per rally. This prototype explores how a player would actually read it: a coach-style report first, every chart backed by the pipeline's own schema, and anything synthetic clearly badged.</p>
-<div class="shot-grid">
-  <figure class="shot"><img src="../assets/img/pb-explorer-overview.png" alt="Shot explorer player report: coach-style insights with serve and return depth bars and a third-shot decision breakdown" loading="lazy" width="1200" height="833"><figcaption>Player report: the diagnosis first, with the evidence one click away.</figcaption></figure>
-  <figure class="shot"><img src="../assets/img/pb-explorer-court.png" alt="Shot explorer overview: court map of every landing, shot mix counts, and level signature charts" loading="lazy" width="1200" height="833"><figcaption>Explorer view: every landing in the current filter, plus shot mix and level signatures.</figcaption></figure>
-</div>
-
-<h2>Known gaps</h2>
-<ul>
-  <li><strong>Hit recall under occlusion</strong>: contacts hidden behind a foreground player leave no kinematic trace; fixing this needs occlusion-heavy retraining data (in progress via the labeling tools).</li>
-  <li><strong>Monocular height limits</strong>: one camera can't fully resolve ball height, so kitchen volleys can occasionally show a phantom bounce, and lob/dink labels rely on noisy height proxies.</li>
-  <li><strong>Untrusted segments stay unanalyzed</strong>: close-ups and extreme side angles are flagged rather than force-fit. By design, but it leaves broadcast gaps.</li>
-  <li><strong>Player identity is in progress; replays aren't deduplicated yet</strong>: the identity labeler above is building that ground truth, but shipped stats are still per side, and a replayed rally counts twice.</li>
-</ul>
-
-<h2>Stack &amp; tooling</h2>
+<h3>Stack</h3>
 <p class="note" style="margin:.75rem 0 0"><span class="pill built" style="margin-right:.4rem">Green pills</span> are tools built for this project. The rest are third-party tools used alongside them.</p>
 <div class="strength-rows">
   <div class="strength-row"><b>Pipeline</b><span class="skill-pills">
-    <span class="pill built">8-stage cached pipeline</span><span class="pill">Python</span><span class="pill">OpenCV</span><span class="pill">Kalman + RTS smoothing</span><span class="pill">ffmpeg</span></span></div>
-  <div class="strength-row"><b>Training</b><span class="skill-pills">
-    <span class="pill">Ultralytics YOLO11</span><span class="pill">PyTorch (Apple MPS)</span><span class="pill">ByteTrack</span><span class="pill">Google Colab</span></span></div>
-  <div class="strength-row"><b>Labeling</b><span class="skill-pills">
-    <span class="pill built">event labeler</span><span class="pill built">court labeler</span><span class="pill built">ball labeler</span><span class="pill built">identity labeler</span><span class="pill">CVAT</span></span></div>
-  <div class="strength-row"><b>Evaluation</b><span class="skill-pills">
-    <span class="pill built">golden-clip harness</span><span class="pill built">eval dashboard</span><span class="pill built">dual-AI label review</span><span class="pill built">QA reports</span></span></div>
+    <span class="pill">Python</span><span class="pill">OpenCV</span><span class="pill">ffmpeg</span></span></div>
+  <div class="strength-row"><b>Models</b><span class="skill-pills">
+    <span class="pill">Ultralytics YOLO11</span><span class="pill">PyTorch</span><span class="pill">ByteTrack</span><span class="pill">Google Colab</span></span></div>
+  <div class="strength-row"><b>Built here</b><span class="skill-pills">
+    <span class="pill built">event labeler</span><span class="pill built">court labeler</span><span class="pill built">ball labeler</span><span class="pill built">identity labeler</span><span class="pill built">golden-clip test suite</span><span class="pill built">eval dashboard</span></span></div>
 </div>
-<p style="margin-top:1rem">Built with AI-assisted development tools as force multipliers, with every result validated against hand-labeled ground truth and tracked metrics. The architecture decisions, the evaluation methodology, and the statistical judgment are mine.</p>
+
+<h2>Tools I built</h2>
+<p>Each model is scored against answers I label by hand. These small browser apps show the model's guess first and ask me only to confirm or fix it.</p>
+<div class="shot-grid">
+  <figure class="shot"><img src="../assets/img/pb-labeler-events.jpg" alt="Event labeler: broadcast frame with playback controls and a queue of detected hits and bounces with thumbnail strips" loading="lazy" width="1200" height="833"><figcaption>Event labeler: I confirm or fix each hit and bounce the model found.</figcaption></figure>
+  <figure class="shot"><img src="../assets/img/pb-labeler-court.jpg" alt="Court labeler: broadcast frame with keypoint markers on court lines and a checklist of placed and skipped corner points" loading="lazy" width="1200" height="833"><figcaption>Court labeler: I click the true court corners so the court model can be scored and retrained.</figcaption></figure>
+</div>
+
+<h2>What is next</h2>
+<ul>
+  <li>Finish the game splitter and the shot namer so a full session runs end to end.</li>
+  <li>Put the per-rally stats on a simple dashboard a player can read.</li>
+  <li>Keep growing the hand-labeled truth sets, because every model improvement is checked against them.</li>
+</ul>
+
+<p class="note">The code is private while the project is active. Built with AI-assisted development tools; the design, the evaluation method, and the statistical judgment are mine.</p>
 
 <p style="margin:2.5rem 0"><a class="btn btn-primary" href="../index.html#projects">← All Projects</a></p>
 

@@ -103,25 +103,25 @@
 <section id="projects"><div class="container">
   <p class="section-label">Portfolio</p>
   <h2 class="section-title">Projects</h2>
-  <p class="section-subtitle">The objective, the method, and where it stands. Full details are one click away.</p>
+  <p class="section-subtitle">Each project gives the goal, the method, and the progress. Click Project details to go deeper.</p>
 
   <div class="project-grid" style="grid-template-columns:1fr">
 
     <article class="taste-card" id="proj-pickleball">
       <div class="taste-head"><h3>Pickleball Analytics</h3><span class="taste-date">Jan 2026 – Current</span></div>
       <ul class="card-facts">
-        <li><strong>Objective:</strong> Turn gameplay or training footage into a diagnosis of how a player can improve: technique and shot selection.</li>
-        <li><strong>Method:</strong> Computer vision models that locate the ball, players and their keypoints, and the paddle relative to the court.</li>
-        <li><strong>Output:</strong> One rally clip becomes an annotated video with ball trail, court overlay, line calls, and a stat sheet.</li>
+        <li><strong>Goal:</strong> Turn a video of your game into data on your shot selection and how you play.</li>
+        <li><strong>How:</strong> Three computer vision models find the ball, the players, and the court in every frame of the video.</li>
+        <li><strong>Steps:</strong> Split the match into games and rallies, find every hit and bounce, locate everyone at each one, then name each shot and find the shots that decided the rally.</li>
       </ul>
       <div class="video-grid single">
-        <div class="video-item"><span class="video-label">Full Pipeline</span><video controls preload="none" muted playsinline poster="assets/img/poster-full-pipeline.jpg" aria-label="Demo video: ball, player, and court models overlaid with a top-view court map"><source src="assets/video/full-pipeline.mp4" type="video/mp4"></video></div>
+        <div class="video-item"><span class="video-label">Full Pipeline</span><video controls preload="none" muted playsinline poster="assets/img/poster-full-pipeline.jpg" aria-label="Demo video: ball, players, court overlay, and shot label drawn on a rally, with a top-down court map"><source src="assets/video/full-pipeline.mp4" type="video/mp4"></video></div>
       </div>
       <div class="status-board" aria-label="Project status">
-        <div class="status-row"><span class="status-item">Ball and player tracking, all angles</span><span class="chip chip-done">Working</span></div>
-        <div class="status-row"><span class="status-item">Player ID and keypoints</span><span class="chip chip-done">Working</span></div>
-        <div class="status-row"><span class="status-item">Court homography from side views</span><span class="chip chip-progress">In progress</span></div>
-        <div class="status-row"><span class="status-item">Technique and shot-selection diagnosis</span><span class="chip chip-next">Next</span></div>
+        <div class="status-row"><span class="status-item">Split games and rallies</span><span class="chip chip-progress">In progress</span></div>
+        <div class="status-row"><span class="status-item">Find each hit and bounce</span><span class="chip chip-done">Working</span></div>
+        <div class="status-row"><span class="status-item">Locate ball, players, and court at each event</span><span class="chip chip-progress">In progress</span></div>
+        <div class="status-row"><span class="status-item">Name each shot and find the shots that mattered</span><span class="chip chip-next">Next</span></div>
       </div>
       <div class="taste-actions">
         <a href="projects/pickleball.html" class="btn btn-primary">Project details <span class="arrow">→</span></a>
