@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utah Water Dashboard | Logan Schneider</title>
+  <meta name="description" content="A live Utah water dashboard by Logan Schneider: streamflow at every USGS gage ranked against up to 131 years of history for today's date, plus the Great Salt Lake's elevation. Client-side, no backend.">
+  <link rel="canonical" href="https://lschneider93.github.io/water.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Utah Water Dashboard | Logan Schneider">
+  <meta property="og:description" content="Every Utah streamgage ranked against its own history for today's date, fetched live in your browser. No backend, no build step.">
+  <meta property="og:url" content="https://lschneider93.github.io/water.html">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">logan<span>.</span>schneider</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="nav-menu">
+      <li class="nav-item-dd">
+        <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
+        <ul class="nav-dd" id="projects-menu">
+          <li><a href="index.html#projects">All Projects</a></li>
+          <li><a href="dashboard.html">Health Dashboard</a></li>
+          <li><a href="projects/pickleball.html">Pickleball Analytics</a></li>
+          <li><a href="index.html#proj-rsnodas">rsnodas</a></li>
+        </ul>
+      </li>
+      <li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<div class="container">
+
+<header class="page-hero">
+  <p class="eyebrow" style="opacity:1;animation:none">Live USGS Data · Client-Side · No Backend</p>
+  <h1>Utah's rivers, <em>ranked against history.</em></h1>
+  <p class="lede">Every number on this page is fetched from the US Geological Survey in your browser, right now. A flow reading alone tells you little; this page compares each gage with its own record for this exact calendar day, up to 131 years deep, so you can see at a glance whether a river is running high, low, or normal.</p>
+</header>
+
+<div id="water-banner" aria-live="polite"></div>
+
+<div class="dash-controls">
+  <label>Featured gage
+    <select id="water-site"></select>
+  </label>
+</div>
+
+<div class="stat-tiles">
+  <div class="stat-tile"><b id="tile-flow">–</b><span>Flow right now</span></div>
+  <div class="stat-tile"><b id="tile-pct">–</b><span id="tile-pct-sub">Percentile for today's date</span></div>
+  <div class="stat-tile"><b id="tile-years">–</b><span id="tile-years-sub">Years of record</span></div>
+  <div class="stat-tile"><b id="tile-median">–</b><span>Times the median for today</span></div>
+</div>
+
+<div class="chart-card">
+  <h3>The past year at <span id="envelope-site">this gage</span>, in context</h3>
+  <p class="chart-sub" id="envelope-sub">Daily mean flow for the past year against this gage's percentile bands for each calendar day.</p>
+  <div id="water-envelope" class="chart-slot" aria-label="Line chart of daily mean streamflow over the past year, overlaid on historical percentile bands for each calendar day"></div>
+</div>
+
+<div class="chart-card">
+  <h3>Every gage in the state, today</h3>
+  <p class="chart-sub">Each dot is a streamgage reporting within the last 6 hours, colored by where today's flow sits in that gage's own history for this date. Dot size tracks flow volume. Hover for the numbers.</p>
+  <div id="water-map" class="chart-slot skeleton" aria-label="Map of Utah streamgages colored by today's flow percentile class"></div>
+  <div id="map-legend" class="map-legend" aria-hidden="false"></div>
+</div>
+
+<div class="chart-card">
+  <h3>The drought lens</h3>
+  <p class="chart-sub">How many gages sit in each flow class right now. In a normal year most gages are gray; a wet spring pushes the count up, a drought pulls it down.</p>
+  <div id="water-classes" class="chart-slot short skeleton" aria-label="Bar chart counting Utah streamgages in each flow class today"></div>
+</div>
+
+<div class="chart-card">
+  <h3>The Great Salt Lake, five years</h3>
+  <p class="chart-sub">South arm surface elevation at Saltair Boat Harbor, daily. The state considers 4,198 to 4,205 ft healthy; the lake set its record low of 4,188.5 ft in November 2022.</p>
+  <div class="stat-tiles">
+    <div class="stat-tile"><b id="gsl-now">–</b><span>Elevation now</span></div>
+    <div class="stat-tile"><b id="gsl-gap">–</b><span>Feet below healthy range</span></div>
+  </div>
+  <div id="water-gsl" class="chart-slot skeleton" aria-label="Line chart of Great Salt Lake south arm elevation over five years with healthy range floor and record low marked"></div>
+</div>
+
+<div class="chart-card">
+  <h3>Data quality right now</h3>
+  <p class="chart-sub">Computed live from the same responses that drew the charts above. The USGS feed has real quirks; here is what this page filtered and why.</p>
+  <dl class="dq-facts">
+    <div><dt>Sites reporting</dt><dd id="dq-sites">–</dd></div>
+    <div><dt>Series fresh (&lt;6 h)</dt><dd id="dq-fresh">–</dd></div>
+    <div><dt>Stale series excluded</dt><dd id="dq-stale">–</dd></div>
+    <div><dt>Sentinel values dropped</dt><dd id="dq-sentinels">–</dd></div>
+    <div><dt>Readings provisional</dt><dd id="dq-provisional">–</dd></div>
+  </dl>
+  <p class="dq-note" id="water-quality-note"></p>
+</div>
+
+<details class="how dash-details">
+  <summary>The rows behind the map</summary>
+  <div class="how-body">
+    <p>Latest reading per site, exactly as fetched, including the stale ones the map excludes. Click a header to sort. Missing values show as null instead of being hidden.</p>
+    <div id="water-table"></div>
+  </div>
+</details>
+
+<details class="how dash-details">
+  <summary>Data dictionary: parameters, flags, and the statistics table</summary>
+  <div class="how-body">
+    <p>What Utah's 222 active sites measure (34 parameters in all; the main ones below), what the qualifier flags mean, and the columns of the USGS daily-statistics table that powers every percentile on this page. Source: <a href="https://waterservices.usgs.gov/docs/" target="_blank" rel="noopener">USGS water services documentation</a>.</p>
+    <h4>Parameters</h4>
+    <div id="param-dict"></div>
+    <h4>Qualifier flags</h4>
+    <div id="qual-dict"></div>
+    <h4>Statistics table columns</h4>
+    <div id="stat-dict"></div>
+  </div>
+</details>
+
+<p class="note"><strong>Read this like a hydrologist:</strong> nearly every live reading is provisional and can be revised after review. Percentiles compare a gage only with itself, and the number of years behind them varies by site and by day (Feb 29 has a quarter of the data other days have). Many Utah gages sit below dams and diversions, so "much below normal" can mean an irrigation schedule, not a drought. Extremes here are often real: the Great Salt Lake genuinely reaches triple the salinity of seawater, and the Virgin River genuinely hits 3,960 turbidity units in a flash flood.</p>
+
+<details class="how">
+  <summary>How this dashboard works (for the technically curious)</summary>
+  <div class="how-body">
+    <p>No backend, no build step. The page calls three USGS water services: <code>iv/</code> for the latest readings statewide (one request), <code>stat/</code> for per-calendar-day percentile tables (the service caps a request at 10 sites, so ranking the whole state takes about 17 batched requests), and <code>dv/</code> for daily history (featured gage and the Great Salt Lake). All are CORS-open and keyless. Responses are transformed first and then cached in <code>localStorage</code>, because the raw statewide payload is about a megabyte and the quota is five.</p>
+    <p>The percentile math is done in your browser: today's flow is placed on the day's p05 to p95 anchors by piecewise linear interpolation, and clamped to "below the 5th" or "above the 95th" outside them. The feed quirks the quality card reports (stale sensors, sentinel values, multi-sensor rigs) were found by exploratory analysis before this page was built, and the filters encode what that analysis found.</p>
+    <p>Source: <a href="https://github.com/lschneider93/lschneider93.github.io/tree/main/js" target="_blank" rel="noopener">js/ on GitHub</a>. <code>usgs.js</code> is the fetch/transform module; <code>water.js</code> orchestrates; <code>table.js</code> renders the sortable tables.</p>
+  </div>
+</details>
+
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Health Dashboard</a>
+      <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p>© <span id="year">2026</span> Logan Schneider · Data: US Geological Survey · Built by hand with HTML, CSS, and vanilla JS.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+<script src="js/site.js" defer></script>
+<script src="js/table.js" defer></script>
+<script src="js/usgs.js" defer></script>
+<script src="js/water.js" defer></script>
+</body>
+</html>

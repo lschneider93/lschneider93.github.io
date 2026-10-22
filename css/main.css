@@ -355,6 +355,10 @@ th[aria-sort="descending"] .th-sort::after{content:" \25BE"}
 .dq-facts dd{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--text-bright);margin:0}
 .dq-note{font-size:.8rem;color:var(--text-dim);line-height:1.65;margin:.5rem 0 0}
 .dq-note b{color:var(--text-bright)}
+.map-legend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.6rem;font-size:.76rem;color:var(--text-dim)}
+.map-legend-item{display:inline-flex;align-items:center;gap:.4rem}
+.map-legend-item i{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid var(--bg)}
+.dash-details .how-body h4{font-family:var(--sans);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-dim);margin:.9rem 0 .4rem}
 
 /* ---------- Animations & motion safety ---------- */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}

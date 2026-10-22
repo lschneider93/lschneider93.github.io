@@ -1,1 +1,4 @@
 .DS_Store
+
+# Citi Bike raw data staging (zips/parquet, never committed)
+data/citibike/raw/

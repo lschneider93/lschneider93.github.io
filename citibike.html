@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citi Bike Dashboard | Logan Schneider</title>
+  <meta name="description" content="A Citi Bike NYC dashboard by Logan Schneider: a year of trip data cleaned by a documented DuckDB pipeline, with every quality check counted and the riding patterns of New York charted from the kept rows.">
+  <link rel="canonical" href="https://lschneider93.github.io/citibike.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Citi Bike Dashboard | Logan Schneider">
+  <meta property="og:description" content="A year of Citi Bike NYC trips, checked row by row before a single chart is drawn. Every removal counted and shown.">
+  <meta property="og:url" content="https://lschneider93.github.io/citibike.html">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">logan<span>.</span>schneider</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="nav-menu">
+      <li class="nav-item-dd">
+        <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
+        <ul class="nav-dd" id="projects-menu">
+          <li><a href="index.html#projects">All Projects</a></li>
+          <li><a href="water.html">Water Dashboard</a></li>
+          <li><a href="dashboard.html">Health Dashboard</a></li>
+          <li><a href="projects/pickleball.html">Pickleball Analytics</a></li>
+          <li><a href="index.html#proj-rsnodas">rsnodas</a></li>
+        </ul>
+      </li>
+      <li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<div class="container">
+
+<header class="page-hero">
+  <p class="eyebrow" style="opacity:1;animation:none">Batch Pipeline · 12 Months · Every Trip Checked</p>
+  <h1>A year of Citi Bike, <em>checked before charted.</em></h1>
+  <p class="lede">Citi Bike publishes every trip it serves, millions per month, far too many to fetch in a browser. A local DuckDB pipeline downloads the monthly files, tests every row against documented rules, and ships only small aggregates to this page. The first tab shows exactly what was checked and what was removed. The second shows how New York actually rides.</p>
+</header>
+
+<div id="cb-banner" aria-live="polite"></div>
+
+<div class="dash-tabs" role="tablist" aria-label="Dashboard section">
+  <button class="dash-tab" role="tab" id="tab-quality" aria-controls="panel-quality" aria-selected="true">Data Quality</button>
+  <button class="dash-tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Riding Patterns</button>
+</div>
+
+<!-- ============ Data quality panel ============ -->
+<section id="panel-quality" role="tabpanel" aria-labelledby="tab-quality">
+
+  <div class="stat-tiles">
+    <div class="stat-tile"><b id="tile-checked">–</b><span>Trips checked</span></div>
+    <div class="stat-tile"><b id="tile-removed">–</b><span id="tile-removed-sub">Removed by rules</span></div>
+    <div class="stat-tile"><b id="tile-kept">–</b><span>Trips kept</span></div>
+    <div class="stat-tile"><b id="tile-months">–</b><span>Months covered</span></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Every rule, every count</h3>
+    <p class="chart-sub">Each row of the source data is tested against these rules before it can reach a chart. Found counts can overlap when a trip trips several rules; the removed total is deduplicated, so checked minus removed equals kept exactly.</p>
+    <div id="dq-rules"></div>
+    <p class="dq-note" id="dq-note"></p>
+  </div>
+
+  <div class="dash-grid-2">
+    <div class="chart-card">
+      <h3>Removal rate by month</h3>
+      <p class="chart-sub">Share of each month's rows removed by the rules above. A stable rate across months is itself a check: a spike would mean the feed changed, not the city.</p>
+      <div id="dq-monthly" class="chart-slot short skeleton" aria-label="Bar chart of the percentage of rows removed by cleaning rules in each month"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Missing values by column</h3>
+      <p class="chart-sub">Share of rows with a null in each source column, before cleaning. Missing end stations are real behavior, a bike that never docked, so those rows are kept and flagged instead of dropped.</p>
+      <div id="dq-missing" class="chart-slot short skeleton" aria-label="Bar chart of the share of rows missing a value in each source column"></div>
+    </div>
+  </div>
+
+  <details class="how dash-details">
+    <summary>Sample rows, kept and removed</summary>
+    <div class="how-body">
+      <p>150 randomly sampled kept trips plus up to 50 removed rows, each labeled with the rule that caught it. Click a header to sort. Missing values show as null instead of being hidden.</p>
+      <div id="sample-table"></div>
+    </div>
+  </details>
+
+  <details class="how dash-details">
+    <summary>Data dictionary: all 13 source columns</summary>
+    <div class="how-body">
+      <p>Everything the source files publish, whether this page uses it or not. Source: <a href="https://citibikenyc.com/system-data" target="_blank" rel="noopener">Citi Bike system data</a>.</p>
+      <div id="cb-dict"></div>
+    </div>
+  </details>
+
+  <p class="note"><strong>Read this like a statistician:</strong> these are trips, not riders; one commuter is 500 rows a year. Lyft filters the rawest errors before publishing, staff service trips are already excluded, and durations cap at exactly 1,500 minutes, so what looks like a clean feed still carries dock tests, GPS glitches, and bikes that never came home. The rules above make those visible instead of pretending they are not there.</p>
+</section>
+
+<!-- ============ Riding patterns panel ============ -->
+<section id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+
+  <div class="stat-tiles">
+    <div class="stat-tile"><b id="tile-trips">–</b><span>Trips after cleaning</span></div>
+    <div class="stat-tile"><b id="tile-median">–</b><span>Median trip duration</span></div>
+    <div class="stat-tile"><b id="tile-member">–</b><span>Ridden by members</span></div>
+    <div class="stat-tile"><b id="tile-ebike">–</b><span>On electric bikes</span></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Every day for a year</h3>
+    <p class="chart-sub">Daily trip counts from the kept rows. The winter dip is gradual; the hole in late February is not. Citi Bike shut the whole system down for the 2026 blizzard, and the data says so with a zero.</p>
+    <div class="dash-controls">
+      <label>Split by
+        <select id="daily-split">
+          <option value="rider">Rider type</option>
+          <option value="bike">Bike type</option>
+        </select>
+      </label>
+    </div>
+    <div id="chart-daily" class="chart-slot skeleton" aria-label="Stacked area chart of daily Citi Bike trips over twelve months"></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>The shape of a year</h3>
+    <p class="chart-sub">Monthly totals with the median trip duration overlaid. Ridership roughly halves in winter; trip length barely moves, because commutes do not get longer just because it is June.</p>
+    <div id="chart-monthly" class="chart-slot skeleton" aria-label="Bar chart of monthly trip totals with a line showing median trip duration"></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>When New York rides</h3>
+    <p class="chart-sub">Trips by hour and weekday. Members paint the two commute stripes at 8 am and 5 to 6 pm; casual riders draw one warm weekend blob in the afternoon.</p>
+    <div class="dash-controls">
+      <label>Rider type
+        <select id="heatmap-group">
+          <option value="member">Members</option>
+          <option value="casual">Casual riders</option>
+        </select>
+      </label>
+    </div>
+    <div id="chart-heatmap" class="chart-slot skeleton" aria-label="Heatmap of trips by hour of day and day of week"></div>
+  </div>
+
+  <div class="dash-grid-2">
+    <div class="chart-card">
+      <h3>How long a trip lasts</h3>
+      <p class="chart-sub">Share of each group's trips by duration. Members cluster hard under 15 minutes; casual riders ride longer and pay for it.</p>
+      <div id="chart-duration" class="chart-slot skeleton" aria-label="Histogram of trip durations for members and casual riders"></div>
+    </div>
+    <div class="chart-card">
+      <h3>The busiest docks</h3>
+      <p class="chart-sub">Top 30 stations by departures, colored by member share. Hover for arrivals; a big gap between the two means rebalancing trucks are doing the rest.</p>
+      <div id="chart-stations" class="chart-slot skeleton" aria-label="Horizontal bar chart of the thirty busiest stations by departures, colored by member share"></div>
+    </div>
+  </div>
+
+  <p class="note"><strong>What the aggregates hide:</strong> station coordinates in the source are per-trip GPS fixes, not surveyed dock locations, which is why the pipeline validates them against a bounding box instead of trusting them. And a trip says nothing about a route; only the endpoints are recorded.</p>
+</section>
+
+<details class="how">
+  <summary>How this dashboard works (for the technically curious)</summary>
+  <div class="how-body">
+    <p>Unlike the live dashboards on this site, this page cannot fetch its source: Citi Bike's historical trip files are monthly zips totaling about 8 GB per year, published to a public S3 bucket. A local Python script (<a href="https://github.com/lschneider93/lschneider93.github.io/blob/main/scripts/citibike/prep.py" target="_blank" rel="noopener">scripts/citibike/prep.py</a>) downloads each month, converts it to Parquet, runs every cleaning rule as DuckDB SQL, and writes the small JSON aggregates this page renders. Raw files never leave the laptop; only the aggregates, about 200 KB, are committed.</p>
+    <p>The quality tab is generated from the same pipeline run that produced the charts, so the counts you see are the counts that happened. Charts are Plotly.js; tables are the same vanilla renderer used across this site. The tab renders lazily because Plotly mis-sizes charts drawn into hidden elements, the kind of detail you learn by shipping.</p>
+    <p id="cb-generated"></p>
+  </div>
+</details>
+
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="water.html">Water Dashboard</a>
+      <a href="dashboard.html">Health Dashboard</a>
+      <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p>© <span id="year">2026</span> Logan Schneider · Data: Citi Bike / Lyft system data · Built by hand with HTML, CSS, and vanilla JS.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+<script src="js/site.js" defer></script>
+<script src="js/table.js" defer></script>
+<script src="js/citibike.js" defer></script>
+</body>
+</html>
