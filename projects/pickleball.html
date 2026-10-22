@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pickleball Analytics | Logan Schneider</title>
-  <meta name="description" content="A computer vision pipeline that takes your recorded pickleball gameplay and gives you data on your shot selection and your game.">
+  <meta name="description" content="What can a match video reveal about a player's decisions? A computer vision pipeline that turns recorded pickleball gameplay into data on shot selection and play.">
   <link rel="canonical" href="https://lschneider93.github.io/projects/pickleball.html">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Pickleball Analytics | Logan Schneider">
-  <meta property="og:description" content="A computer vision pipeline that takes your recorded pickleball gameplay and gives you data on your shot selection and your game.">
+  <meta property="og:description" content="What can a match video reveal about a player's decisions? A computer vision pipeline that turns recorded pickleball gameplay into data on shot selection and play.">
   <meta property="og:url" content="https://lschneider93.github.io/projects/pickleball.html">
   <meta property="og:image" content="https://lschneider93.github.io/assets/img/poster-full-pipeline.jpg">
   <meta name="twitter:card" content="summary_large_image">
@@ -31,9 +31,12 @@
         <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
         <ul class="nav-dd" id="projects-menu">
           <li><a href="../index.html#projects">All Projects</a></li>
+          <li><a href="cancer-research.html">Cancer Research Statistics</a></li>
           <li><a href="pickleball.html" aria-current="page">Pickleball Analytics</a></li>
+          <li><a href="rsnodas.html">rsnodas</a></li>
+          <li><a href="../water.html">Water Dashboard</a></li>
           <li><a href="../dashboard.html">Health Dashboard</a></li>
-          <li><a href="../index.html#proj-rsnodas">rsnodas</a></li>
+          <li><a href="../citibike.html">Citi Bike</a></li>
         </ul>
       </li>
       <li><a href="../resume.pdf" target="_blank" rel="noopener">Resume</a></li>
@@ -47,11 +50,42 @@
 
 <header class="page-hero">
   <p class="eyebrow" style="opacity:1;animation:none">Case Study · Computer Vision · Jan 2026 – Present</p>
-  <h1>Getting pickleball analytics from your <em>recorded gameplay.</em></h1>
-  <p class="lede">A computer vision pipeline that takes your gameplay video and gives you data on your shot selection and analytics of your game.</p>
+  <h1>What can a match video reveal about a player's <em>decisions?</em></h1>
+  <p class="lede">And how can it help them improve? A computer vision pipeline that turns recorded gameplay into data on shot selection and play.</p>
 </header>
 
 <div class="prose">
+
+<div class="col-card qa-card">
+  <dl class="qa-rows">
+    <dt>Question</dt><dd>Players record their games but have no simple way to review their shot choices. Can the footage from one camera be turned into data a player can learn from?</dd>
+    <dt>What I did</dt><dd>Built a computer vision pipeline that finds the ball, the players, and the court in every frame, marks each hit and bounce, places them on a court map in feet, and names serves and returns. Every model is scored against answers I label by hand, and only changes that measurably improve get kept.</dd>
+    <dt>What it shows</dt><dd>It runs end to end on a single rally from a fixed camera and produces a court map and a shot list. Shot naming beyond serves and returns, and player identity across rallies, are not yet reliable. One camera cannot measure ball height.</dd>
+    <dt>Why it matters</dt><dd>Coaching feedback today depends on a coach being there. A measured record of a session makes review possible for anyone with a phone on a tripod.</dd>
+  </dl>
+</div>
+
+<h2>What it does today, and what it is meant to become</h2>
+<div class="two-col">
+  <div class="col-card">
+    <span class="version-tag v2-tag">Today</span>
+    <h3>A measured rally</h3>
+    <p>Give it one rally clip from a fixed camera. It finds the ball, the players, and the court; marks every hit and bounce; places each one on a court map in feet; and names the serve and the return. Every model is scored against hand-labeled answers.</p>
+    <p><strong>Where it falls short:</strong></p>
+    <ul>
+      <li>One camera cannot measure ball height, so lobs and dinks rely on rough guesses.</li>
+      <li>Corner and side camera angles are less accurate than a view from behind the baseline.</li>
+      <li>Player identity across rallies is not yet reliable.</li>
+      <li>Shot names beyond serve and return are not yet checked against hand labels.</li>
+      <li>A whole session is not yet split into games automatically.</li>
+    </ul>
+  </div>
+  <div class="col-card">
+    <span class="version-tag v1-tag">Intended</span>
+    <h3>A coaching tool</h3>
+    <p>Record a session, upload it, and get back what a coach would tell you: which shots you chose at each moment, the patterns that won and lost rallies, and what to practice next. The steps below are the path from here to there.</p>
+  </div>
+</div>
 
 <h2>Three models, one video</h2>
 <p>The pipeline opens the video once. Three models look at every frame, and each one finds one thing.</p>

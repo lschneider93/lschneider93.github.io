@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cancer Research Statistics | Logan Schneider</title>
+  <meta name="description" content="Statistical analyses for cancer and genetic testing research: the kinds of questions I answered as a biostatistician at Myriad Genetics, and how.">
+  <link rel="canonical" href="https://lschneider93.github.io/projects/cancer-research.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Cancer Research Statistics | Logan Schneider">
+  <meta property="og:description" content="Statistical analyses for cancer and genetic testing research: the kinds of questions I answered as a biostatistician at Myriad Genetics, and how.">
+  <meta property="og:url" content="https://lschneider93.github.io/projects/cancer-research.html">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="logo" href="../index.html">logan<span>.</span>schneider</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="nav-menu">
+      <li class="nav-item-dd">
+        <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
+        <ul class="nav-dd" id="projects-menu">
+          <li><a href="../index.html#projects">All Projects</a></li>
+          <li><a href="cancer-research.html" aria-current="page">Cancer Research Statistics</a></li>
+          <li><a href="pickleball.html">Pickleball Analytics</a></li>
+          <li><a href="rsnodas.html">rsnodas</a></li>
+          <li><a href="../water.html">Water Dashboard</a></li>
+          <li><a href="../dashboard.html">Health Dashboard</a></li>
+          <li><a href="../citibike.html">Citi Bike</a></li>
+        </ul>
+      </li>
+      <li><a href="../resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<div class="container">
+
+<header class="page-hero">
+  <p class="eyebrow" style="opacity:1;animation:none">Experience · Biostatistician I · Myriad Genetics · Jul 2022 – Oct 2025</p>
+  <h1>Statistical analyses for cancer and <em>genetic testing research.</em></h1>
+  <p class="lede">Three years answering questions for lab, clinical, and research teams. Study names and numbers are left out on purpose, except for the published paper.</p>
+</header>
+
+<div class="prose">
+
+<div class="col-card qa-card">
+  <dl class="qa-rows">
+    <dt>Question</dt><dd>Can a study answer what the team is asking, and can the data behind it be trusted?</dd>
+    <dt>What I did</dt><dd>Designed analyses, planned sample sizes, built reproducible R workflows with data-quality checks, modeled outcomes with survival, logistic, and mixed-effects models, reviewed colleagues' work, and reported results to researchers and clinicians.</dd>
+    <dt>What it showed</dt><dd>Studies that started with a defensible plan, datasets that were clean before anyone modeled them, and one peer-reviewed publication.</dd>
+    <dt>Why it matters</dt><dd>In genetic testing, a wrong answer reaches a patient. The statistics have to hold up.</dd>
+  </dl>
+</div>
+
+<h2>The kinds of questions I answered</h2>
+<p>Four that came up again and again. Each one is a real type of request, written without the specifics.</p>
+<div class="two-col">
+  <div class="col-card">
+    <h3>Is the new machine as reliable as the old one?</h3>
+    <p>When the lab added equipment, I measured how much results varied between machines, operators, and reagent lots, and whether that variation stayed inside the allowed threshold.</p>
+    <p><strong>How:</strong> variance-components and mixed-effects models with acceptance limits set before the data came in.</p>
+    <p><strong>The team got:</strong> a go or no-go answer with the evidence attached.</p>
+  </div>
+  <div class="col-card">
+    <h3>How many patients does this study need?</h3>
+    <p>Using prior history and an expected positive rate, I worked out the sample size needed to detect the effect with enough power.</p>
+    <p><strong>How:</strong> power analysis under stated assumptions, with a check on how the answer moves when those assumptions move.</p>
+    <p><strong>The team got:</strong> a study sized to answer its question before it started.</p>
+  </div>
+  <div class="col-card">
+    <h3>Does the evidence back up the claim?</h3>
+    <p>Claims about certain markers, and how specific tumor types respond to them, needed checking against the data.</p>
+    <p><strong>How:</strong> re-analysis with survival models and logistic regression, reported with its limitations.</p>
+    <p><strong>The team got:</strong> confirmation or a correction, documented either way.</p>
+  </div>
+  <div class="col-card">
+    <h3>Can we trust this dataset?</h3>
+    <p>Linking patient information to clinical tests and results, without introducing bias along the way.</p>
+    <p><strong>How:</strong> reproducible R workflows that flag discrepancies, duplicate records, inconsistent values, and unreliable inputs before anything is modeled.</p>
+    <p><strong>The team got:</strong> an unbiased dataset and a record of every check that was run.</p>
+  </div>
+</div>
+
+<h2>A published example</h2>
+<div class="experience-card">
+  <div class="exp-header">
+    <div><h3>Online screening and virtual patient education for hereditary cancer risk assessment and testing</h3><p class="company">Obstetrics and Gynecology, 2025 · co-author</p></div>
+    <span class="exp-date">Peer-reviewed</span>
+  </div>
+  <ul class="exp-highlights">
+    <li><strong>Question:</strong> can an online screening tool and virtual education help community OB/GYN clinics find more patients who qualify for hereditary cancer testing, and get them tested?</li>
+    <li><strong>Method:</strong> a before-and-after study at five practices, comparing the eight weeks before the tools with the eight weeks after, using conditional logistic regression stratified by site.</li>
+    <li><strong>Result:</strong> more eligible patients were identified, more were offered testing, and the share who completed testing went from about one in six to one in three.</li>
+    <li><strong>My role:</strong> co-author, contributing to the statistical analysis.</li>
+  </ul>
+  <a class="publication-link" href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener">Read the paper on PubMed ↗</a>
+</div>
+
+<h2>How I worked with others</h2>
+<div class="strength-rows">
+  <div class="strength-row"><b>Review</b><span>Checked other statisticians' workflows, outputs, and interpretations so results were reproducible and right before they went out.</span></div>
+  <div class="strength-row"><b>Reporting</b><span>Wrote reports and presented methods, limitations, and results to researchers, clinicians, and other stakeholders.</span></div>
+  <div class="strength-row"><b>Framing</b><span>Turned a vague request into a question a study could actually answer, then planned the study around it.</span></div>
+</div>
+
+<h2>What this shows</h2>
+<ul>
+  <li>Study design and power: sizing a study so it can answer its question.</li>
+  <li>Modeling that fits the data: survival, logistic, and mixed-effects models chosen for the question, not the habit.</li>
+  <li>Data quality before modeling: reproducible checks, and a record of them.</li>
+  <li>Review and communication: other people's work checked, and results explained to the people who act on them.</li>
+</ul>
+
+<p style="margin:2.5rem 0"><a class="btn btn-primary" href="../index.html#projects">← All Projects</a></p>
+
+</div>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-links">
+      <a href="../index.html">Home</a>
+      <a href="../resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p>© <span id="year">2026</span> Logan Schneider · Built by hand with HTML, CSS, and vanilla JS.</p>
+  </div>
+</footer>
+
+<script src="../js/site.js" defer></script>
+</body>
+</html>

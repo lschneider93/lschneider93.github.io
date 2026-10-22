@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rsnodas | Logan Schneider</title>
+  <meta name="description" content="Can combining two data sources improve estimates of the water stored in Utah's snow? An R package and M.S. thesis that blends snow stations with a national grid, and an honest read of the result.">
+  <link rel="canonical" href="https://lschneider93.github.io/projects/rsnodas.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="rsnodas | Logan Schneider">
+  <meta property="og:description" content="Can combining two data sources improve estimates of the water stored in Utah's snow? An R package and M.S. thesis, with an honest read of the result.">
+  <meta property="og:url" content="https://lschneider93.github.io/projects/rsnodas.html">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/swe-ensemble-maps.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="logo" href="../index.html">logan<span>.</span>schneider</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="nav-menu">
+      <li class="nav-item-dd">
+        <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
+        <ul class="nav-dd" id="projects-menu">
+          <li><a href="../index.html#projects">All Projects</a></li>
+          <li><a href="cancer-research.html">Cancer Research Statistics</a></li>
+          <li><a href="pickleball.html">Pickleball Analytics</a></li>
+          <li><a href="rsnodas.html" aria-current="page">rsnodas</a></li>
+          <li><a href="../water.html">Water Dashboard</a></li>
+          <li><a href="../dashboard.html">Health Dashboard</a></li>
+          <li><a href="../citibike.html">Citi Bike</a></li>
+        </ul>
+      </li>
+      <li><a href="../resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<div class="container">
+
+<header class="page-hero">
+  <p class="eyebrow" style="opacity:1;animation:none">M.S. Thesis · Utah State University · 2021 – 2022</p>
+  <h1>Can combining two data sources improve estimates of the water <em>stored in Utah's snow?</em></h1>
+  <p class="lede">Snow water equivalent is how much water a snowpack holds. Reservoir operators and flood forecasters need that number every spring.</p>
+</header>
+
+<div class="prose">
+
+<div class="col-card qa-card">
+  <dl class="qa-rows">
+    <dt>Question</dt><dd>Snow stations measure snow water accurately, but Utah has only about a hundred of them, clustered in a few mountain ranges. National grids cover the whole state but struggle in mountain terrain, which is exactly where the water is. Can blending the two beat either one alone?</dd>
+    <dt>What I did</dt><dd>Wrote and published rsnodas, an R package that downloads both sources, fits a local model to the stations, and blends it with the national grid. Station density decides the weighting: trust the local model near stations, lean on the grid everywhere else.</dd>
+    <dt>What it showed</dt><dd>The blend was more stable than either input and edged out the national grid in most years. The gain was marginal, not transformative. The weak link was the local model, not the blending rule, and the thesis says so.</dd>
+    <dt>Why it matters</dt><dd>Water managers get a reproducible way to combine sources and an honest measure of how much it helps. A modest result reported straight is worth more than a big one that would not hold up.</dd>
+  </dl>
+</div>
+
+<h2>Two sources, one problem</h2>
+<div class="two-col">
+  <div class="col-card">
+    <h3>Snow stations (SNOTEL)</h3>
+    <p>Measure snow water directly and accurately. But they are points: around a hundred across Utah, mostly along the Wasatch and Uinta ranges, with nothing across large stretches of the state.</p>
+  </div>
+  <div class="col-card">
+    <h3>National grids (SNODAS)</h3>
+    <p>Cover every square kilometer, every day. But they are national-scale models, and they are known to struggle in complex mountain terrain.</p>
+  </div>
+</div>
+<p>The good measurements are where the coverage is not, and the good coverage is where the accuracy is not. The idea was to stop choosing.</p>
+
+<h2>What I built</h2>
+<figure class="figure">
+  <img src="../assets/img/swe-ensemble-maps.png" alt="April 1 snow water equivalent over Utah: a model fit to snow stations on the left, the national SNODAS grid on the right, each weighted by station density, blended into one ensemble map below" width="690" height="936" style="max-width:560px;margin:0 auto">
+  <figcaption>The ensemble in one picture. A local model fit to the stations (left) and the national grid (right), weighted by station density and its complement, blended into one April 1 map of Utah.</figcaption>
+</figure>
+<p>A local model (a generalized additive model on location, elevation, terrain, and climate covariates) is sharp near stations and extrapolates poorly away from them. The national grid is even in quality everywhere and mediocre in the mountains. The blend is a weighted average of the two at every grid cell, with the weight set by how dense the stations are nearby.</p>
+<p>rsnodas packages the whole workflow in eight functions: download the station, grid, and climate data; join them into one table with terrain derived for every cell; fit any model with a predict method; and blend two aligned rasters. A bundled April 1 station dataset lets anyone run the modeling half without a 30 GB download.</p>
+
+<h2>What it showed</h2>
+<figure class="figure">
+  <img src="../assets/img/median-sd-errors.png" alt="Two line charts from 2004 to 2022: the median and the standard deviation of held-out prediction errors for the local model, the national grid, and the blend" width="1180" height="660" loading="lazy">
+  <figcaption>Held-out errors on April 1 maps, 2004 to 2022. Blue is the local model alone, black is the national grid, brown is the blend.</figcaption>
+</figure>
+<p>The local model alone was clearly the worst of the three. The national grid was a strong baseline. The blend tracked the grid closely and edged it out in a majority of years on both the median and the spread of errors, but by a small margin. It is more stable than either input and it does not hurt, which is a real if modest result for a method this simple. It does not close the gap that motivated the work.</p>
+
+<h2>Why it matters</h2>
+<p>Spring runoff forecasts drive reservoir operations and flood planning across the West, and they depend on knowing how much water the snowpack holds. A reproducible way to combine the sources we already have is useful on its own. Reporting that the improvement was marginal, and naming the component that limited it, is what makes the result usable by the next person.</p>
+
+<h2>Links and stack</h2>
+<div class="taste-actions" style="margin:0 0 1rem">
+  <a class="btn btn-primary" href="https://digitalcommons.usu.edu/etd2023/6/" target="_blank" rel="noopener">Read the thesis ↗</a>
+  <a class="btn btn-ghost" href="https://github.com/lschneider93/rsnodas" target="_blank" rel="noopener">R package on GitHub ↗</a>
+  <a class="small-link" href="https://github.com/lschneider93/rsnodas/blob/main/vignette/rsnodas_vignette.pdf" target="_blank" rel="noopener">Worked example (vignette PDF) →</a>
+</div>
+<div class="strength-rows">
+  <div class="strength-row"><b>Tools</b><span class="skill-pills"><span class="pill">R</span><span class="pill">mgcv</span><span class="pill">sf</span><span class="pill">stars</span><span class="pill">terra</span></span></div>
+  <div class="strength-row"><b>Data</b><span class="skill-pills"><span class="pill">SNOTEL stations</span><span class="pill">SNODAS grid</span><span class="pill">PRISM climate</span></span></div>
+</div>
+
+<p style="margin:2.5rem 0"><a class="btn btn-primary" href="../index.html#projects">← All Projects</a></p>
+
+</div>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-links">
+      <a href="../index.html">Home</a>
+      <a href="../resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p>© <span id="year">2026</span> Logan Schneider · Built by hand with HTML, CSS, and vanilla JS.</p>
+  </div>
+</footer>
+
+<script src="../js/site.js" defer></script>
+</body>
+</html>

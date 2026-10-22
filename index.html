@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Logan Schneider | Data Scientist &amp; Biostatistician</title>
-  <meta name="description" content="Logan Schneider, Data Scientist and Biostatistician. Over 3 years of cancer research biostatistics, building applied machine learning in R and Python, and validating models against ground truth.">
+  <meta name="description" content="Logan Schneider, biostatistician and data scientist. I help teams answer important questions with data: study design, modeling, validation, and clear explanation. Cancer research, computer vision, and a published thesis.">>
   <meta name="author" content="Logan Schneider">
   <link rel="canonical" href="https://lschneider93.github.io/">
   <meta property="og:type" content="website">
@@ -55,10 +55,12 @@
         <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
         <ul class="nav-dd" id="projects-menu">
           <li><a href="#projects">All Projects</a></li>
+          <li><a href="projects/cancer-research.html">Cancer Research Statistics</a></li>
           <li><a href="projects/pickleball.html">Pickleball Analytics</a></li>
+          <li><a href="projects/rsnodas.html">rsnodas</a></li>
           <li><a href="water.html">Water Dashboard</a></li>
           <li><a href="dashboard.html">Health Dashboard</a></li>
-          <li><a href="#proj-rsnodas">rsnodas</a></li>
+          <li><a href="citibike.html">Citi Bike</a></li>
         </ul>
       </li>
       <li><a href="#skills">Strengths</a></li>
@@ -72,12 +74,12 @@
 <main id="main">
 
 <section class="hero"><div class="container"><div class="hero-grid"><div class="hero-text">
-  <p class="eyebrow">Data Scientist · Biostatistician · Applied Machine Learning</p>
-  <h1>Turning complex data into clear <em>insights.</em></h1>
-  <p class="subtitle">Over 3 years of cancer research biostatistics, building applied machine learning in R and Python, and validating models against ground truth so teams can trust the results.</p>
+  <p class="eyebrow">Biostatistician · Data Scientist</p>
+  <h1>I help teams answer important questions <em>with data.</em></h1>
+  <p class="subtitle">Biostatistician with over three years in cancer research. I help design studies, analyze the data, build and test models, and interpret and explain the results. I have experience teaching statistics and Calculus I at Utah State University.</p>
   <div class="hero-actions">
-    <a href="#projects" class="btn btn-primary">Review My Strongest Work ↓</a>
-    <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download Resume</a>
+    <a href="#projects" class="btn btn-primary">Explore my work ↓</a>
+    <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download resume</a>
   </div>
 </div>
 <div class="profile-card">
@@ -101,59 +103,102 @@
   <div class="cred"><div class="cred-value">R · Python</div><div class="cred-label">Core Analytical Languages</div></div>
 </div></div>
 
+<!-- What I do -->
+<section id="help" style="padding-top:0"><div class="container">
+  <p class="section-label">What I do</p>
+  <h2 class="section-title">Problems I help solve</h2>
+  <div class="process-grid help-grid">
+    <div class="process-step"><h3>Can this study answer the question?</h3><p>Power and sample size, study design, and a clear statement of what the data can and cannot show.</p></div>
+    <div class="process-step"><h3>Can we trust this model or this test?</h3><p>Validation against ground truth, variability checks, and honest reporting of error.</p></div>
+    <div class="process-step"><h3>What is the data actually saying?</h3><p>Clean, reproducible analysis and a plain-language answer for the people who have to act on it.</p></div>
+  </div>
+</div></section>
+
+<div class="container"><div class="divider"></div></div>
+
 <!-- Projects -->
 <section id="projects"><div class="container">
-  <p class="section-label">Portfolio</p>
-  <h2 class="section-title">Projects</h2>
-  <p class="section-subtitle">Each project gives the goal, the method, and the progress. Click Project details to go deeper.</p>
+  <p class="section-label">Selected work</p>
+  <h2 class="section-title">Three questions I have worked on</h2>
+  <p class="section-subtitle">Each one answers the same four things: the question, what I did, what it showed, and why it matters.</p>
 
-  <div class="project-grid" style="grid-template-columns:1fr">
+  <article class="work-card" id="proj-myriad">
+    <div class="work-text">
+      <div class="work-head"><span class="work-kicker">Cancer and genetic testing research</span><span class="taste-date">Myriad Genetics · 2022 – 2025</span></div>
+      <h3 class="work-q">Can a clinic find more patients who qualify for hereditary cancer testing, and get them tested?</h3>
+      <dl class="qa-rows">
+        <dt>Question</dt><dd>Clinical and lab teams needed study designs, sample sizes, and analyses they could defend, and data they could trust before modeling.</dd>
+        <dt>What I did</dt><dd>Statistical modeling (survival, logistic, mixed-effects), power and sample-size planning, reproducible R workflows with data-quality checks, and review of other statisticians' analyses.</dd>
+        <dt>What it showed</dt><dd>Co-authored a peer-reviewed study in Obstetrics and Gynecology (2025) where online screening and virtual education roughly doubled the share of eligible patients who completed genetic testing.</dd>
+        <dt>Why it matters</dt><dd>More patients at hereditary risk get identified and tested, and researchers get answers they can stand behind.</dd>
+      </dl>
+      <div class="work-actions">
+        <a href="projects/cancer-research.html" class="btn btn-primary">Read about this work <span class="arrow">→</span></a>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" class="small-link" target="_blank" rel="noopener">Paper on PubMed ↗</a>
+      </div>
+    </div>
+    <div class="work-media">
+      <div class="pub-tile">
+        <p class="pub-kicker">Peer-reviewed · 2025</p>
+        <p class="pub-title">Online Screening and Virtual Patient Education for Hereditary Cancer Risk Assessment and Testing</p>
+        <p class="pub-meta">Obstetrics and Gynecology · co-author</p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener">Read on PubMed ↗</a>
+      </div>
+      <div class="strength-rows" style="margin-top:1rem;padding:1rem 1.2rem">
+        <div class="strength-row" style="padding:.3rem 0"><b style="min-width:84px;font-size:.85rem">Methods</b><span class="skill-pills"><span class="pill">Survival analysis</span><span class="pill">Mixed-effects models</span><span class="pill">Power and sample size</span><span class="pill">Data-quality checks</span><span class="pill">R</span></span></div>
+      </div>
+    </div>
+  </article>
 
-    <article class="taste-card" id="proj-pickleball">
-      <div class="taste-head"><h3>Pickleball Analytics</h3><span class="taste-date">Jan 2026 – Current</span></div>
-      <ul class="card-facts">
-        <li><strong>Goal:</strong> Turn a video of your game into data on your shot selection and how you play.</li>
-        <li><strong>How:</strong> Three computer vision models find the ball, the players, and the court in every frame of the video.</li>
-        <li><strong>Steps:</strong> Split the match into games and rallies, find every hit and bounce, locate everyone at each one, then name each shot and find the shots that decided the rally.</li>
-      </ul>
-      <div class="video-grid single">
-        <div class="video-item"><span class="video-label">Full Pipeline</span><video controls preload="none" muted playsinline poster="assets/img/poster-full-pipeline.jpg" aria-label="Demo video: ball, players, court overlay, and shot label drawn on a rally, with a top-down court map"><source src="assets/video/full-pipeline.mp4" type="video/mp4"></video></div>
+  <article class="work-card" id="proj-pickleball">
+    <div class="work-text">
+      <div class="work-head"><span class="work-kicker">Pickleball analytics · computer vision</span><span class="taste-date">Jan 2026 – Current</span></div>
+      <h3 class="work-q">What can a match video reveal about a player's decisions, and how can it help them improve?</h3>
+      <dl class="qa-rows">
+        <dt>Question</dt><dd>Players record games but have no simple way to review their shot choices. Can one camera's footage turn into data they can learn from?</dd>
+        <dt>What I did</dt><dd>Built a computer vision pipeline that finds the ball, players, and court in every frame, marks each hit and bounce, places them on a court map, and names serves and returns. Every model is scored against answers I label by hand.</dd>
+        <dt>What it shows</dt><dd>Runs end to end on a single rally from a fixed camera. Shot naming and player identity across rallies are not yet reliable, and one camera cannot measure ball height.</dd>
+        <dt>Why it matters</dt><dd>Coaching feedback today depends on a coach being there. A measured record of a session makes review possible for anyone.</dd>
+      </dl>
+      <p class="work-note"><b>Working on it:</b> splitting whole sessions into games, naming every shot type, and checking player identity against hand labels.</p>
+      <div class="work-actions">
+        <a href="projects/pickleball.html" class="btn btn-primary">Read the case study <span class="arrow">→</span></a>
       </div>
-      <div class="status-board" aria-label="Project status">
-        <div class="status-row"><span class="status-item">Split games and rallies</span><span class="chip chip-progress">In progress</span></div>
-        <div class="status-row"><span class="status-item">Find each hit and bounce</span><span class="chip chip-done">Working</span></div>
-        <div class="status-row"><span class="status-item">Locate ball, players, and court at each event</span><span class="chip chip-progress">In progress</span></div>
-        <div class="status-row"><span class="status-item">Name each shot and find the shots that mattered</span><span class="chip chip-next">Next</span></div>
-      </div>
-      <div class="taste-actions">
-        <a href="projects/pickleball.html" class="btn btn-primary">Project details <span class="arrow">→</span></a>
-      </div>
-    </article>
+    </div>
+    <div class="work-media">
+      <div class="video-item"><span class="video-label">Full pipeline</span><video controls preload="none" muted playsinline poster="assets/img/poster-full-pipeline.jpg" aria-label="Demo video: ball, players, court overlay, and shot labels drawn on a rally, with a top-down court map"><source src="assets/video/full-pipeline.mp4" type="video/mp4"></video></div>
+      <p class="work-note" style="border:0;padding-top:.5rem;margin-top:.4rem">One rally, one camera. Green is the court fit, boxes are the players, labels are the shot names and line calls.</p>
+    </div>
+  </article>
 
-    <article class="taste-card" id="proj-rsnodas">
-      <div class="taste-head"><h3>rsnodas</h3><span class="taste-date">2021 – 2022</span></div>
-      <ul class="card-facts">
-        <li><strong>Objective:</strong> Combine local station data with national gridded snow data to improve Utah water supply estimates.</li>
-        <li><strong>Method:</strong> rsnodas, an open-source R package for accessing the data, building models, and mapping estimates across Utah.</li>
-        <li><strong>Finding:</strong> The ensemble showed marginal error improvements. Honest results that point future research in the right direction.</li>
-      </ul>
-      <div class="project-images single" style="max-width:300px"><img src="assets/img/rsnodas-process.png" alt="Ensemble SWE mapping panels: GAM, SNODAS, station density, and blended prediction" loading="lazy" width="1027" height="794"></div>
-      <div class="taste-actions">
-        <a href="https://github.com/lschneider93/rsnodas" class="btn btn-primary" target="_blank" rel="noopener">Project details <span class="arrow">→</span></a>
-        <a href="https://digitalcommons.usu.edu/etd2023/6/" class="small-link" target="_blank" rel="noopener">M.S. thesis →</a>
+  <article class="work-card" id="proj-rsnodas">
+    <div class="work-text">
+      <div class="work-head"><span class="work-kicker">rsnodas · M.S. thesis</span><span class="taste-date">Utah State University · 2021 – 2022</span></div>
+      <h3 class="work-q">Can combining two data sources improve estimates of the water stored in Utah's snow?</h3>
+      <dl class="qa-rows">
+        <dt>Question</dt><dd>Snow stations measure snow water accurately but only at about a hundred points. National grids cover everything but struggle in mountains, which is where the water is.</dd>
+        <dt>What I did</dt><dd>Wrote and published rsnodas, an R package that downloads both sources, fits a local model to the stations, and blends it with the national grid, letting station density decide the weighting.</dd>
+        <dt>What it showed</dt><dd>The blend was more stable than either input and edged out the national grid in most years, but the gain was marginal. The local model was the weak link, and I said so.</dd>
+        <dt>Why it matters</dt><dd>Water managers get a reproducible way to combine sources, and an honest read of how much it helps. The thesis is published.</dd>
+      </dl>
+      <div class="work-actions">
+        <a href="projects/rsnodas.html" class="btn btn-primary">Read about this work <span class="arrow">→</span></a>
+        <a href="https://digitalcommons.usu.edu/etd2023/6/" class="small-link" target="_blank" rel="noopener">Thesis ↗</a>
+        <a href="https://github.com/lschneider93/rsnodas" class="small-link" target="_blank" rel="noopener">R package ↗</a>
       </div>
-    </article>
-
-  </div>
+    </div>
+    <div class="work-media">
+      <img src="assets/img/swe-ensemble-maps.png" alt="April 1 snow water equivalent over Utah: a model fit to snow stations and the national grid, weighted by station density and blended into one map" loading="lazy" width="690" height="936">
+    </div>
+  </article>
 
   <div class="building-strip">
     <h3>Currently building</h3>
     <ul>
-      <li><strong>Customer churn prediction</strong>: identifying at-risk customers and the revenue a retention campaign could save.</li>
-      <li><strong><a href="water.html">Utah water dashboard</a></strong>: every USGS streamgage ranked against up to 131 years of history for today's date, live in your browser.</li>
-      <li><strong><a href="dashboard.html">Public health dashboard</a></strong>: live CDC and openFDA data explorer, in progress.</li>
-      <li><strong>Medicare provider fraud detection</strong>: provider-level features from 558K claims for imbalanced classification.</li>
-      <li><strong>Drug reviews, three eras of NLP</strong>: TF-IDF, then DistilBERT, then LLM and RAG with a measured evaluation harness.</li>
+      <li><strong><a href="water.html">Utah water dashboard</a></strong>: every USGS streamgage ranked against its own history for today's date, live in your browser.</li>
+      <li><strong><a href="dashboard.html">Public health dashboard</a></strong>: live CDC and openFDA data with data-quality notes, in progress.</li>
+      <li><strong><a href="citibike.html">Citi Bike NYC</a></strong>: a year of trips, 45 million rows, summarized with DuckDB.</li>
+      <li>Next up: customer churn prediction, Medicare provider fraud detection, and a drug-review NLP comparison.</li>
     </ul>
   </div>
 
@@ -165,7 +210,7 @@
 <section id="process"><div class="container">
   <p class="section-label">Approach</p>
   <h2 class="section-title">My Approach</h2>
-  <p class="section-subtitle">How I turn data into clear insight, on every project.</p>
+  <p class="section-subtitle">How I work through a question, on every project.</p>
   <div class="process-grid">
     <div class="process-step"><div class="step-num" aria-hidden="true">01</div><h3>Clear Question</h3><p>I start by putting the question in plain English.</p></div>
     <div class="process-step"><div class="step-num" aria-hidden="true">02</div><h3>Explore the Data</h3><p>I investigate each column, build graphics and simple summaries, and get a clear picture of what I'm working with.</p></div>
@@ -203,8 +248,8 @@
 
 <!-- Contact -->
 <section id="contact" class="contact-section"><div class="container">
-  <h2>Let's solve a meaningful data problem.</h2>
-  <p class="contact-copy">I'm exploring data science and biostatistics roles where rigorous analysis, practical machine learning, and clear communication improve important decisions.</p>
+  <h2>Have a question I could help answer?</h2>
+  <p class="contact-copy">I am looking for data science and biostatistics roles where careful analysis and clear explanation improve real decisions.</p>
   <div class="contact-buttons">
     <a href="mailto:loganschneider93@gmail.com?subject=Introductions" class="btn btn-primary">Let's Meet</a>
     <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download My Resume</a>
@@ -218,7 +263,9 @@
   <div class="container">
     <div class="foot-links">
       <a href="index.html">Home</a>
+      <a href="projects/cancer-research.html">Cancer Research</a>
       <a href="projects/pickleball.html">Pickleball Analytics</a>
+      <a href="projects/rsnodas.html">rsnodas</a>
       <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
       <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
     </div>
