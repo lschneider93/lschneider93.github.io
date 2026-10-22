@@ -32,3 +32,7 @@ python3 -m http.server 8000
 ## About the work
 
 Projects on the site link to their own repositories, each with its own README and analysis. I use AI-assisted development tools as part of my workflow and validate the results with measured evaluations.
+
+## Deploying
+
+GitHub Pages caches `css/main.css` and media for ten minutes. When the stylesheet or a video changes, bump the `?v=` query string on the `<link>` and `<source>` tags so browsers fetch the new file with the new HTML.

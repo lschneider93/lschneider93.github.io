@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css?v=20261022">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -90,7 +90,6 @@
     <p class="location">Orem, Utah · open to remote &amp; relocation</p>
     <div class="profile-links">
       <a href="https://www.linkedin.com/in/logan-schneider-a2a740b6/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
       <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
@@ -99,22 +98,9 @@
 <div class="container"><div class="credentials">
   <div class="cred"><div class="cred-value">M.S. Statistics</div><div class="cred-label">Utah State University</div></div>
   <div class="cred"><div class="cred-value">3+ Years</div><div class="cred-label">In Cancer Research</div></div>
-  <div class="cred"><a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener"><div class="cred-value">Peer-Reviewed Co-Author</div><div class="cred-label">Hereditary Cancer Research ↗</div></a></div>
+  <div class="cred"><a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener"><div class="cred-value">Published Cancer Research</div><div class="cred-label">Obstetrics and Gynecology, 2025 ↗</div></a></div>
   <div class="cred"><div class="cred-value">R · Python</div><div class="cred-label">Core Analytical Languages</div></div>
 </div></div>
-
-<!-- What I do -->
-<section id="help" style="padding-top:0"><div class="container">
-  <p class="section-label">What I do</p>
-  <h2 class="section-title">Problems I help solve</h2>
-  <div class="process-grid help-grid">
-    <div class="process-step"><h3>Can this study answer the question?</h3><p>Power and sample size, study design, and a clear statement of what the data can and cannot show.</p></div>
-    <div class="process-step"><h3>Can we trust this model or this test?</h3><p>Validation against ground truth, variability checks, and honest reporting of error.</p></div>
-    <div class="process-step"><h3>What is the data actually saying?</h3><p>Clean, reproducible analysis and a plain-language answer for the people who have to act on it.</p></div>
-  </div>
-</div></section>
-
-<div class="container"><div class="divider"></div></div>
 
 <!-- Projects -->
 <section id="projects"><div class="container">
@@ -127,11 +113,12 @@
       <div class="work-head"><span class="work-kicker">Cancer and genetic testing research</span><span class="taste-date">Myriad Genetics · 2022 – 2025</span></div>
       <h3 class="work-q">Can a clinic find more patients who qualify for hereditary cancer testing, and get them tested?</h3>
       <dl class="qa-rows">
-        <dt>Question</dt><dd>Clinical and lab teams needed study designs, sample sizes, and analyses they could defend, and data they could trust before modeling.</dd>
-        <dt>What I did</dt><dd>Statistical modeling (survival, logistic, mixed-effects), power and sample-size planning, reproducible R workflows with data-quality checks, and review of other statisticians' analyses.</dd>
-        <dt>What it showed</dt><dd>Co-authored a peer-reviewed study in Obstetrics and Gynecology (2025) where online screening and virtual education roughly doubled the share of eligible patients who completed genetic testing.</dd>
-        <dt>Why it matters</dt><dd>More patients at hereditary risk get identified and tested, and researchers get answers they can stand behind.</dd>
+        <dt>Question</dt><dd>Research and lab teams needed studies that could answer their question, and data they could trust before modeling.</dd>
+        <dt>What I did</dt><dd>Planned sample sizes, built reproducible R workflows with data-quality checks, fit survival, logistic, and mixed-effects models, and reviewed other statisticians' analyses.</dd>
+        <dt>What it showed</dt><dd>Co-authored a 2025 study in Obstetrics and Gynecology where online screening and virtual education roughly doubled the share of eligible patients who completed genetic testing.</dd>
+        <dt>Why it matters</dt><dd>More patients at hereditary risk get found and tested.</dd>
       </dl>
+      <p class="work-tech">R · Survival analysis · Mixed-effects models · Study planning · Data quality</p>
       <div class="work-actions">
         <a href="projects/cancer-research.html" class="btn btn-primary">Read about this work <span class="arrow">→</span></a>
         <a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" class="small-link" target="_blank" rel="noopener">Paper on PubMed ↗</a>
@@ -144,43 +131,43 @@
         <p class="pub-meta">Obstetrics and Gynecology · co-author</p>
         <a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener">Read on PubMed ↗</a>
       </div>
-      <div class="strength-rows" style="margin-top:1rem;padding:1rem 1.2rem">
-        <div class="strength-row" style="padding:.3rem 0"><b style="min-width:84px;font-size:.85rem">Methods</b><span class="skill-pills"><span class="pill">Survival analysis</span><span class="pill">Mixed-effects models</span><span class="pill">Power and sample size</span><span class="pill">Data-quality checks</span><span class="pill">R</span></span></div>
-      </div>
+      <p class="work-caption">The published study. My contribution was on the statistical analysis.</p>
     </div>
   </article>
 
   <article class="work-card" id="proj-pickleball">
     <div class="work-text">
-      <div class="work-head"><span class="work-kicker">Pickleball analytics · computer vision</span><span class="taste-date">Jan 2026 – Current</span></div>
+      <div class="work-head"><span class="work-kicker">Pickleball analytics</span><span class="taste-date">Jan 2026 – Current</span></div>
       <h3 class="work-q">What can a match video reveal about a player's decisions, and how can it help them improve?</h3>
       <dl class="qa-rows">
-        <dt>Question</dt><dd>Players record games but have no simple way to review their shot choices. Can one camera's footage turn into data they can learn from?</dd>
-        <dt>What I did</dt><dd>Built a computer vision pipeline that finds the ball, players, and court in every frame, marks each hit and bounce, places them on a court map, and names serves and returns. Every model is scored against answers I label by hand.</dd>
-        <dt>What it shows</dt><dd>Runs end to end on a single rally from a fixed camera. Shot naming and player identity across rallies are not yet reliable, and one camera cannot measure ball height.</dd>
-        <dt>Why it matters</dt><dd>Coaching feedback today depends on a coach being there. A measured record of a session makes review possible for anyone.</dd>
+        <dt>Question</dt><dd>Players record games but have no simple way to review their shot choices. Can one camera's footage become data they can learn from?</dd>
+        <dt>What I did</dt><dd>Built a computer vision pipeline that finds the ball, players, and court, marks each hit and bounce, places them on a court map, and names serves and returns. Every model is scored against hand-labeled answers.</dd>
+        <dt>What it shows</dt><dd>Works end to end on a single rally from a fixed camera. Full shot naming and player identity across rallies are not yet reliable.</dd>
+        <dt>Why it matters</dt><dd>A measured record of a session makes review possible without a coach present.</dd>
       </dl>
-      <p class="work-note"><b>Working on it:</b> splitting whole sessions into games, naming every shot type, and checking player identity against hand labels.</p>
+      <p class="work-note"><b>Working on it:</b> splitting sessions into games, naming every shot type, checking player identity against hand labels.</p>
+      <p class="work-tech">Python · Computer vision · Model evaluation</p>
       <div class="work-actions">
         <a href="projects/pickleball.html" class="btn btn-primary">Read the case study <span class="arrow">→</span></a>
       </div>
     </div>
     <div class="work-media">
-      <div class="video-item"><span class="video-label">Full pipeline</span><video controls preload="none" muted playsinline poster="assets/img/poster-full-pipeline.jpg" aria-label="Demo video: ball, players, court overlay, and shot labels drawn on a rally, with a top-down court map"><source src="assets/video/full-pipeline.mp4" type="video/mp4"></video></div>
-      <p class="work-note" style="border:0;padding-top:.5rem;margin-top:.4rem">One rally, one camera. Green is the court fit, boxes are the players, labels are the shot names and line calls.</p>
+      <div class="video-item"><span class="video-label">Full pipeline</span><video controls preload="none" muted playsinline poster="assets/img/poster-full-pipeline.jpg?v=20261022" aria-label="Demo video: ball, players, court overlay, and shot labels drawn on a rally, with a top-down court map"><source src="assets/video/full-pipeline.mp4?v=20261022" type="video/mp4"></video></div>
+      <p class="work-caption">One rally, one camera. Green is the court fit, boxes are players, labels are shot names and line calls.</p>
     </div>
   </article>
 
   <article class="work-card" id="proj-rsnodas">
     <div class="work-text">
-      <div class="work-head"><span class="work-kicker">rsnodas · M.S. thesis</span><span class="taste-date">Utah State University · 2021 – 2022</span></div>
-      <h3 class="work-q">Can combining two data sources improve estimates of the water stored in Utah's snow?</h3>
+      <div class="work-head"><span class="work-kicker">Estimating the water stored in Utah's snowpack</span><span class="taste-date">M.S. thesis · Utah State · 2021 – 2022</span></div>
+      <h3 class="work-q">Can combining two data sources improve estimates of the water stored in snow?</h3>
       <dl class="qa-rows">
-        <dt>Question</dt><dd>Snow stations measure snow water accurately but only at about a hundred points. National grids cover everything but struggle in mountains, which is where the water is.</dd>
-        <dt>What I did</dt><dd>Wrote and published rsnodas, an R package that downloads both sources, fits a local model to the stations, and blends it with the national grid, letting station density decide the weighting.</dd>
-        <dt>What it showed</dt><dd>The blend was more stable than either input and edged out the national grid in most years, but the gain was marginal. The local model was the weak link, and I said so.</dd>
-        <dt>Why it matters</dt><dd>Water managers get a reproducible way to combine sources, and an honest read of how much it helps. The thesis is published.</dd>
+        <dt>Question</dt><dd>Snow stations are accurate but sparse. National grids cover everything but struggle in mountains, where the water is.</dd>
+        <dt>What I did</dt><dd>Wrote and published rsnodas, an R package that downloads both sources, fits a local model to the stations, and blends it with the national grid, weighted by station density.</dd>
+        <dt>What it showed</dt><dd>The blend was more stable than either input but improved on the national grid only slightly. The local model was the weak link.</dd>
+        <dt>Why it matters</dt><dd>A reproducible way to combine the sources water managers already have, with an honest measure of the gain.</dd>
       </dl>
+      <p class="work-tech">R · Spatial modeling · Model comparison · Published package</p>
       <div class="work-actions">
         <a href="projects/rsnodas.html" class="btn btn-primary">Read about this work <span class="arrow">→</span></a>
         <a href="https://digitalcommons.usu.edu/etd2023/6/" class="small-link" target="_blank" rel="noopener">Thesis ↗</a>
@@ -188,7 +175,8 @@
       </div>
     </div>
     <div class="work-media">
-      <img src="assets/img/swe-ensemble-maps.png" alt="April 1 snow water equivalent over Utah: a model fit to snow stations and the national grid, weighted by station density and blended into one map" loading="lazy" width="690" height="936">
+      <img src="assets/img/swe-ensemble-final.png" alt="Map of Utah showing April 1 snow water equivalent, blended from station measurements and the national grid; brighter areas hold more water" loading="lazy" width="409" height="257">
+      <p class="work-caption">April 1 snow water across Utah, blended from station measurements and the national grid. Brighter is more water.</p>
     </div>
   </article>
 
@@ -198,7 +186,7 @@
       <li><strong><a href="water.html">Utah water dashboard</a></strong>: every USGS streamgage ranked against its own history for today's date, live in your browser.</li>
       <li><strong><a href="dashboard.html">Public health dashboard</a></strong>: live CDC and openFDA data with data-quality notes, in progress.</li>
       <li><strong><a href="citibike.html">Citi Bike NYC</a></strong>: a year of trips, 45 million rows, summarized with DuckDB.</li>
-      <li>Next up: customer churn prediction, Medicare provider fraud detection, and a drug-review NLP comparison.</li>
+      <li>Also started: customer churn, Medicare provider fraud, drug-review NLP.</li>
     </ul>
   </div>
 
@@ -211,14 +199,12 @@
   <p class="section-label">Approach</p>
   <h2 class="section-title">My Approach</h2>
   <p class="section-subtitle">How I work through a question, on every project.</p>
-  <div class="process-grid">
-    <div class="process-step"><div class="step-num" aria-hidden="true">01</div><h3>Clear Question</h3><p>I start by putting the question in plain English.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">02</div><h3>Explore the Data</h3><p>I investigate each column, build graphics and simple summaries, and get a clear picture of what I'm working with.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">03</div><h3>Model Selection</h3><p>I find the model that fits the question and the data assumptions.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">04</div><h3>Validate and Explain</h3><p>I check that results hold up, then write down what I learned, what worked, and what didn't.</p></div>
-    <div class="process-step"><div class="step-num" aria-hidden="true">05</div><h3>Next Steps</h3><p>I note the new questions that came up, decide what to investigate next, and repeat the process.</p></div>
+  <div class="process-grid approach-grid">
+    <div class="process-step"><div class="step-num" aria-hidden="true">01</div><h3>Understand the question</h3><p>What decision will this analysis help someone make?</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">02</div><h3>Check the evidence</h3><p>Is the data fit for the question, and does the method hold up when tested?</p></div>
+    <div class="process-step"><div class="step-num" aria-hidden="true">03</div><h3>Explain what it means</h3><p>What we learned, what stays uncertain, and what should happen next.</p></div>
   </div>
-  <p class="process-note">AI is a tool I'm learning to implement to refine my work and processes, and every result is still validated.</p>
+  <p class="process-note">At Myriad this meant reviewing other statisticians' workflows and results before they went out, and flagging duplicate or inconsistent records before anyone modeled them.</p>
 </div></section>
 
 <div class="container"><div class="divider"></div></div>
@@ -242,16 +228,16 @@
   <p class="section-label">Personal</p>
   <h2 class="section-title">About Me</h2>
   <div class="about-content">
-    <p>I'm naturally curious, very analytical, and love answering questions that help people. That curiosity has taken me through cancer research, statistical modeling, teaching, and applied machine learning. Outside of work, I love food, hiking, my dogs, listening to a good book, and building software and games, like this little <a href="https://lschneider93.github.io/mytical_pokemon/" target="_blank" rel="noopener">learning game</a> I built for my niece.</p>
+    <p>I like questions that help people. That has meant teaching statistics and calculus to classes of 30 to 50, working with researchers and clinicians on cancer studies, and building a computer vision system for a sport I coach. Outside of work: food, hiking, my dogs, a good audiobook, and small games like this <a href="https://lschneider93.github.io/mytical_pokemon/" target="_blank" rel="noopener">learning game</a> I built for my niece.</p>
   </div>
 </div></section>
 
 <!-- Contact -->
 <section id="contact" class="contact-section"><div class="container">
   <h2>Have a question I could help answer?</h2>
-  <p class="contact-copy">I am looking for data science and biostatistics roles where careful analysis and clear explanation improve real decisions.</p>
+  <p class="contact-copy">I am seeking data science and biostatistics roles where careful analysis and clear explanation improve real decisions. Orem, Utah, open to remote and relocation.</p>
   <div class="contact-buttons">
-    <a href="mailto:loganschneider93@gmail.com?subject=Introductions" class="btn btn-primary">Let's Meet</a>
+    <a href="mailto:loganschneider93@gmail.com?subject=Introductions" class="btn btn-primary">Email me</a>
     <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download My Resume</a>
   </div>
   <p style="margin-top:1.25rem;font-size:.85rem"><a href="https://www.linkedin.com/in/logan-schneider-a2a740b6/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp; <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a></p>
