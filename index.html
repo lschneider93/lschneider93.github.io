@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=20261022">
+  <link rel="stylesheet" href="css/main.css?v=20261023">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -104,23 +104,34 @@
 
 <!-- Projects -->
 <section id="projects"><div class="container">
-  <p class="section-label">Selected work</p>
-  <h2 class="section-title">Three questions I have worked on</h2>
-  <p class="section-subtitle">Each one answers the same four things: the question, what I did, what it showed, and why it matters.</p>
+  <h2 class="section-title">Selected work</h2>
 
   <article class="work-card" id="proj-myriad">
     <div class="work-text">
-      <div class="work-head"><span class="work-kicker">Cancer and genetic testing research</span><span class="taste-date">Myriad Genetics · 2022 – 2025</span></div>
-      <h3 class="work-q">Can a clinic find more patients who qualify for hereditary cancer testing, and get them tested?</h3>
-      <dl class="qa-rows">
-        <dt>Question</dt><dd>Research and lab teams needed studies that could answer their question, and data they could trust before modeling.</dd>
-        <dt>What I did</dt><dd>Planned sample sizes, built reproducible R workflows with data-quality checks, fit survival, logistic, and mixed-effects models, and reviewed other statisticians' analyses.</dd>
-        <dt>What it showed</dt><dd>Co-authored a 2025 study in Obstetrics and Gynecology where online screening and virtual education roughly doubled the share of eligible patients who completed genetic testing.</dd>
-        <dt>Why it matters</dt><dd>More patients at hereditary risk get found and tested.</dd>
-      </dl>
+      <div class="work-head stack">
+        <h3 class="work-title">Cancer and genetic testing research</h3>
+        <p class="work-org"><b>Myriad Genetics</b> · Biostatistician · Jul 2022 – Oct 2025</p>
+      </div>
+      <p class="work-label">Research questions</p>
+      <ul class="work-list questions">
+        <li>Do patients with a known cancer type (prostate, breast, and others) score differently on the tests we provide?</li>
+        <li>Did an intervention raise genetic testing rates in OB/GYN clinics, comparing before to after, and did the gain differ by provider type (physician versus advanced practice practitioner)?</li>
+        <li>How many patients does a study need to reach 80, 85, or 95% power, given an assumed hazard ratio?</li>
+      </ul>
+      <p class="work-label">Responsibilities</p>
+      <ul class="work-list">
+        <li>Built R workflows with data quality checks</li>
+        <li>Fit survival, logistic, and mixed-effects models</li>
+        <li>Reviewed other statisticians' analyses and reproduced their results</li>
+      </ul>
+      <p class="work-label">Achievements</p>
+      <ul class="work-list">
+        <li>Co-authored a 2025 study in Obstetrics and Gynecology: online screening and virtual education roughly doubled the share of eligible patients who completed genetic testing</li>
+        <li>Additional manuscripts were in draft or under review when my role was cut in a layoff</li>
+      </ul>
       <p class="work-tech">R · Survival analysis · Mixed-effects models · Study planning · Data quality</p>
       <div class="work-actions">
-        <a href="projects/cancer-research.html" class="btn btn-primary">Read about this work <span class="arrow">→</span></a>
+        <a href="projects/cancer-research.html" class="btn btn-primary">Read more about my work at Myriad <span class="arrow">→</span></a>
         <a href="https://pubmed.ncbi.nlm.nih.gov/39637387/" class="small-link" target="_blank" rel="noopener">Paper on PubMed ↗</a>
       </div>
     </div>
@@ -137,18 +148,28 @@
 
   <article class="work-card" id="proj-pickleball">
     <div class="work-text">
-      <div class="work-head"><span class="work-kicker">Pickleball analytics</span><span class="taste-date">Jan 2026 – Current</span></div>
-      <h3 class="work-q">What can a match video reveal about a player's decisions, and how can it help them improve?</h3>
-      <dl class="qa-rows">
-        <dt>Question</dt><dd>Players record games but have no simple way to review their shot choices. Can one camera's footage become data they can learn from?</dd>
-        <dt>What I did</dt><dd>Built a computer vision pipeline that finds the ball, players, and court, marks each hit and bounce, places them on a court map, and names serves and returns. Every model is scored against hand-labeled answers.</dd>
-        <dt>What it shows</dt><dd>Works end to end on a single rally from a fixed camera. Full shot naming and player identity across rallies are not yet reliable.</dd>
-        <dt>Why it matters</dt><dd>A measured record of a session makes review possible without a coach present.</dd>
-      </dl>
-      <p class="work-note"><b>Working on it:</b> splitting sessions into games, naming every shot type, checking player identity against hand labels.</p>
+      <div class="work-head stack">
+        <h3 class="work-title">Pickleball analytics</h3>
+        <p class="work-org"><b>Personal project</b> · Computer vision · Jan 2026 – Current</p>
+      </div>
+      <p class="work-label">Research question</p>
+      <ul class="work-list questions">
+        <li>Can gameplay footage be turned into feedback a player can act on, the way a coach would?</li>
+      </ul>
+      <p class="work-label">What I built</p>
+      <ul class="work-list">
+        <li>A computer vision pipeline that finds the ball, players, and court in every frame</li>
+        <li>Marks each hit and bounce, places it on a court map in feet, and names serves and returns</li>
+        <li>Scores every model against hand-labeled answers</li>
+      </ul>
+      <p class="work-label">Where it stands</p>
+      <ul class="work-list">
+        <li>Runs end to end on one rally from a fixed camera</li>
+        <li>Next: split sessions into games, name every shot type, check player identity against hand labels</li>
+      </ul>
       <p class="work-tech">Python · Computer vision · Model evaluation</p>
       <div class="work-actions">
-        <a href="projects/pickleball.html" class="btn btn-primary">Read the case study <span class="arrow">→</span></a>
+        <a href="projects/pickleball.html" class="btn btn-primary">Read more about this project <span class="arrow">→</span></a>
       </div>
     </div>
     <div class="work-media">
@@ -159,17 +180,33 @@
 
   <article class="work-card" id="proj-rsnodas">
     <div class="work-text">
-      <div class="work-head"><span class="work-kicker">Estimating the water stored in Utah's snowpack</span><span class="taste-date">M.S. thesis · Utah State · 2021 – 2022</span></div>
-      <h3 class="work-q">Can combining two data sources improve estimates of the water stored in snow?</h3>
-      <dl class="qa-rows">
-        <dt>Question</dt><dd>Snow stations are accurate but sparse. National grids cover everything but struggle in mountains, where the water is.</dd>
-        <dt>What I did</dt><dd>Wrote and published rsnodas, an R package that downloads both sources, fits a local model to the stations, and blends it with the national grid, weighted by station density.</dd>
-        <dt>What it showed</dt><dd>The blend was more stable than either input but improved on the national grid only slightly. The local model was the weak link.</dd>
-        <dt>Why it matters</dt><dd>A reproducible way to combine the sources water managers already have, with an honest measure of the gain.</dd>
-      </dl>
+      <div class="work-head stack">
+        <h3 class="work-title">Estimating the water stored in Utah's snowpack</h3>
+        <p class="work-org"><b>M.S. thesis</b> · Utah State University · 2021 – 2022</p>
+      </div>
+      <p class="work-label">Research question</p>
+      <ul class="work-list questions">
+        <li>Can combining two data sources improve estimates of the water stored in Utah's snow?</li>
+      </ul>
+      <p class="work-label">Background</p>
+      <p class="work-list-note">Snow stations are accurate but sparse. National gridded products cover everything but struggle in the mountains, which is where Utah's water is.</p>
+      <p class="work-label">What I built</p>
+      <ul class="work-list">
+        <li>Wrote and published rsnodas, an R package that:
+          <ul>
+            <li>downloads both data sources</li>
+            <li>fits a local model to the stations</li>
+            <li>blends it with the national grid, weighted by station density</li>
+          </ul>
+        </li>
+      </ul>
+      <p class="work-label">Results</p>
+      <ul class="work-list">
+        <li>The blend was slightly more stable, but the gain was marginal: better in some areas, worse in others</li>
+      </ul>
       <p class="work-tech">R · Spatial modeling · Model comparison · Published package</p>
       <div class="work-actions">
-        <a href="projects/rsnodas.html" class="btn btn-primary">Read about this work <span class="arrow">→</span></a>
+        <a href="projects/rsnodas.html" class="btn btn-primary">Read more about this work <span class="arrow">→</span></a>
         <a href="https://digitalcommons.usu.edu/etd2023/6/" class="small-link" target="_blank" rel="noopener">Thesis ↗</a>
         <a href="https://github.com/lschneider93/rsnodas" class="small-link" target="_blank" rel="noopener">R package ↗</a>
       </div>

@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/main.css?v=20261022">
+  <link rel="stylesheet" href="../css/main.css?v=20261023">
 </head>
 <body>
 
@@ -51,46 +51,71 @@
 <header class="page-hero">
   <p class="eyebrow" style="opacity:1;animation:none">Experience · Biostatistician I · Myriad Genetics · Jul 2022 – Oct 2025</p>
   <h1>Statistical analyses for cancer and <em>genetic testing research.</em></h1>
-  <p class="lede">Three years answering questions for lab, clinical, and research teams. Study names and numbers are left out on purpose, except for the published paper.</p>
+  <p class="lede">Three years answering questions for lab, clinical, and research teams, and checking other statisticians' work before it went out. Study names and numbers are left out on purpose, except for the published paper.</p>
 </header>
 
 <div class="prose">
 
 <div class="col-card qa-card">
-  <dl class="qa-rows">
-    <dt>Question</dt><dd>Can a study answer what the team is asking, and can the data behind it be trusted?</dd>
-    <dt>What I did</dt><dd>Designed analyses, planned sample sizes, built reproducible R workflows with data-quality checks, modeled outcomes with survival, logistic, and mixed-effects models, reviewed colleagues' work, and reported results to researchers and clinicians.</dd>
-    <dt>What it showed</dt><dd>Studies that started with a defensible plan, datasets that were clean before anyone modeled them, and one peer-reviewed publication.</dd>
-    <dt>Why it matters</dt><dd>In genetic testing, a wrong answer reaches a patient. The statistics have to hold up.</dd>
-  </dl>
+  <p class="work-label" style="margin-top:0">Research questions</p>
+  <ul class="work-list questions">
+    <li>Do patients with a known cancer type (prostate, breast, and others) score differently on the tests we provide?</li>
+    <li>Did an intervention raise genetic testing rates in OB/GYN clinics, comparing before to after, and did the gain differ by provider type?</li>
+    <li>How many patients does a study need to reach 80, 85, or 95% power, given an assumed hazard ratio?</li>
+    <li>Which genetic mutations tend to go with which cancers?</li>
+  </ul>
+  <p class="work-label">Responsibilities</p>
+  <ul class="work-list">
+    <li>Built R workflows with data quality checks</li>
+    <li>Fit survival, logistic, and mixed-effects models</li>
+    <li>Reviewed other statisticians' analyses and reproduced their results</li>
+    <li>Reported methods, limitations, and results to researchers and clinicians</li>
+  </ul>
+  <p class="work-label">Achievements</p>
+  <ul class="work-list">
+    <li>Co-authored a 2025 study in Obstetrics and Gynecology: online screening and virtual education roughly doubled the share of eligible patients who completed genetic testing</li>
+    <li>Additional manuscripts were in draft or under review when my role was cut in a layoff</li>
+  </ul>
 </div>
 
 <h2>The kinds of questions I answered</h2>
-<p>Four that came up again and again. Each one is a real type of request, written without the specifics.</p>
+<p>Six that came up again and again. Each one is a real type of request, written without the specifics. The goal behind all of them: find cancer earlier, and when a cancer is found, point to the best treatment.</p>
 <div class="two-col">
   <div class="col-card">
-    <h3>Is the new machine as reliable as the old one?</h3>
-    <p>When the lab added equipment, I measured how much results varied between machines, operators, and reagent lots, and whether that variation stayed inside the allowed threshold.</p>
-    <p><strong>How:</strong> variance-components and mixed-effects models with acceptance limits set before the data came in.</p>
-    <p><strong>The team got:</strong> a go or no-go answer with the evidence attached.</p>
+    <h3>Did the intervention raise genetic testing rates in OB/GYN clinics?</h3>
+    <p>Community clinics added an online screening tool and virtual patient education. Did more eligible patients get identified, offered testing, and tested? And did the gain differ by provider type, physician versus advanced practice practitioner?</p>
+    <p><strong>Process:</strong> a before-and-after comparison at each site, modeled with conditional logistic regression stratified by site, then split by provider type.</p>
+    <p><strong>What I learned:</strong> the share of eligible patients who completed testing roughly doubled. This became the published paper below.</p>
+  </div>
+  <div class="col-card">
+    <h3>Do patients with a known cancer type score differently on our tests?</h3>
+    <p>Patients arrive with a diagnosis already made: prostate, breast, and others. Do their test results differ from each other, and from patients without a diagnosis, in ways the test should reflect?</p>
+    <p><strong>Process:</strong> compared score distributions by cancer type, adjusting for patient characteristics, with logistic and mixed-effects models and a check on which differences held up after adjustment.</p>
+    <p><strong>What I learned:</strong> where the test separated groups and where it did not, reported with the limitations, so the team could decide what to study next.</p>
   </div>
   <div class="col-card">
     <h3>How many patients does this study need?</h3>
-    <p>Using prior history and an expected positive rate, I worked out the sample size needed to detect the effect with enough power.</p>
-    <p><strong>How:</strong> power analysis under stated assumptions, with a check on how the answer moves when those assumptions move.</p>
-    <p><strong>The team got:</strong> a study sized to answer its question before it started.</p>
+    <p>Before a study starts, how many patients give it an 80, 85, or 95 percent chance of detecting the effect the team expects?</p>
+    <p><strong>Process:</strong> power analysis under a stated effect size, a hazard ratio for time-to-event outcomes or an odds ratio for binary ones, with a check on how the answer moves when the assumptions move.</p>
+    <p><strong>What I learned:</strong> the assumptions drive the number. Showing the team a range, not one figure, led to better decisions about study size.</p>
   </div>
   <div class="col-card">
-    <h3>Does the evidence back up the claim?</h3>
-    <p>Claims about certain markers, and how specific tumor types respond to them, needed checking against the data.</p>
-    <p><strong>How:</strong> re-analysis with survival models and logistic regression, reported with its limitations.</p>
-    <p><strong>The team got:</strong> confirmation or a correction, documented either way.</p>
+    <h3>Which genetic mutations tend to go with which cancers?</h3>
+    <p>Across tested patients, which mutations show up together with which cancer types, and how strong is the pattern?</p>
+    <p><strong>Process:</strong> association analysis across the tested population, with survival models where the outcome was time to an event and logistic models where it was a yes or no.</p>
+    <p><strong>What I learned:</strong> patterns that help a clinician decide who to test, and that help the lab decide what a result should prompt.</p>
+  </div>
+  <div class="col-card">
+    <h3>Is the new machine as reliable as the old one?</h3>
+    <p>When the lab added equipment, I measured how much results varied between machines, operators, and reagent lots, and whether that variation stayed inside the allowed threshold.</p>
+    <p><strong>Process:</strong> variance-components and mixed-effects models with acceptance limits set before the data came in.</p>
+    <p><strong>What I learned:</strong> a go or no-go answer with the evidence attached.</p>
   </div>
   <div class="col-card">
     <h3>Can we trust this dataset?</h3>
     <p>Linking patient information to clinical tests and results, without introducing bias along the way.</p>
-    <p><strong>How:</strong> reproducible R workflows that flag discrepancies, duplicate records, inconsistent values, and unreliable inputs before anything is modeled.</p>
-    <p><strong>The team got:</strong> an unbiased dataset and a record of every check that was run.</p>
+    <p><strong>Process:</strong> reproducible R workflows that flag discrepancies, duplicate records, inconsistent values, and unreliable inputs before anything is modeled.</p>
+    <p><strong>What I learned:</strong> an unbiased dataset and a record of every check that was run.</p>
   </div>
 </div>
 
@@ -105,6 +130,7 @@
     <li><strong>Method:</strong> a before-and-after study at five practices, comparing the eight weeks before the tools with the eight weeks after, using conditional logistic regression stratified by site.</li>
     <li><strong>Result:</strong> more eligible patients were identified, more were offered testing, and the share who completed testing went from about one in six to one in three.</li>
     <li><strong>My role:</strong> co-author, contributing to the statistical analysis.</li>
+    <li><strong>Also in the pipeline:</strong> additional manuscripts were in draft or under review when my role was cut in a layoff in October 2025.</li>
   </ul>
   <a class="publication-link" href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener">Read the paper on PubMed ↗</a>
 </div>
@@ -121,7 +147,7 @@
   <li>Study design and power: sizing a study so it can answer its question.</li>
   <li>Modeling that fits the data: survival, logistic, and mixed-effects models chosen for the question, not the habit.</li>
   <li>Data quality before modeling: reproducible checks, and a record of them.</li>
-  <li>Review and communication: other people's work checked, and results explained to the people who act on them.</li>
+  <li>Review and communication: other statisticians' analyses checked and reproduced, and results explained to the people who act on them.</li>
 </ul>
 
 <p style="margin:2.5rem 0"><a class="btn btn-primary" href="../index.html#projects">← All Projects</a></p>
