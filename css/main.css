@@ -232,14 +232,24 @@ section{padding:3rem 0}
 .pub-tile .pub-title{font-family:var(--serif);font-size:1.02rem;color:var(--text-bright);margin:.4rem 0;line-height:1.4}
 .pub-tile .pub-meta{font-size:.8rem;color:var(--text-dim);margin-bottom:.6rem}
 .pub-tile a{font-size:.82rem;font-weight:600}
-.approach-grid{grid-template-columns:repeat(3,1fr)}
 @media (max-width:760px){
-  .approach-grid{grid-template-columns:1fr}
   .work-card{grid-template-columns:1fr;padding:1.25rem 1.1rem}
   .work-media{order:-1}
   .qa-rows{grid-template-columns:1fr;row-gap:.15rem}
   .qa-rows dd{margin-bottom:.55rem}
 }
+
+.rq{margin:2.5rem 0}
+.rq .work-label{margin:0 0 .3rem}
+.prose .rq h2{margin-top:0}
+.chart-fig{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin:1.25rem 0}
+.chart-fig svg{width:100%;height:auto;display:block}
+.chart-fig figcaption{padding:0 .25rem}
+.chart-legend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.6rem;font-size:.76rem;color:var(--text-dim)}
+.chart-legend-item{display:inline-flex;align-items:center;gap:.4rem}
+.chart-legend-item i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.two-col .chart-fig{margin:0}
+.prose .work-list li{font-size:.92rem}
 
 /* ---------- Strengths rows ---------- */
 .strength-rows{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem 1.75rem;margin-top:1.25rem}

@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/main.css?v=20261023">
+  <link rel="stylesheet" href="../css/main.css?v=20261024">
 </head>
 <body>
 
@@ -50,104 +50,189 @@
 
 <header class="page-hero">
   <p class="eyebrow" style="opacity:1;animation:none">Experience · Biostatistician I · Myriad Genetics · Jul 2022 – Oct 2025</p>
-  <h1>Statistical analyses for cancer and <em>genetic testing research.</em></h1>
-  <p class="lede">Three years answering questions for lab, clinical, and research teams, and checking other statisticians' work before it went out. Study names and numbers are left out on purpose, except for the published paper.</p>
+  <h1>Statistical analyses for cancer and genetic testing research.</h1>
+  <p class="lede">Three years answering questions for lab, clinical, and research teams. Five of the questions are below, each with how I approached it and what it showed. Study names and numbers are left out on purpose, except for the published paper. The charts are illustrative, not study data.</p>
 </header>
 
 <div class="prose">
 
-<div class="col-card qa-card">
-  <p class="work-label" style="margin-top:0">Research questions</p>
-  <ul class="work-list questions">
-    <li>Do patients with a known cancer type (prostate, breast, and others) score differently on the tests we provide?</li>
-    <li>Did an intervention raise genetic testing rates in OB/GYN clinics, comparing before to after, and did the gain differ by provider type?</li>
-    <li>How many patients does a study need to reach 80, 85, or 95% power, given an assumed hazard ratio?</li>
-    <li>Which genetic mutations tend to go with which cancers?</li>
-  </ul>
-  <p class="work-label">Responsibilities</p>
-  <ul class="work-list">
-    <li>Built R workflows with data quality checks</li>
-    <li>Fit survival, logistic, and mixed-effects models</li>
-    <li>Reviewed other statisticians' analyses and reproduced their results</li>
-    <li>Reported methods, limitations, and results to researchers and clinicians</li>
-  </ul>
-  <p class="work-label">Achievements</p>
-  <ul class="work-list">
-    <li>Co-authored a 2025 study in Obstetrics and Gynecology: online screening and virtual education roughly doubled the share of eligible patients who completed genetic testing</li>
-    <li>Additional manuscripts were in draft or under review when my role was cut in a layoff</li>
-  </ul>
-</div>
+<section class="rq">
+  <p class="work-label">Research question 1</p>
+  <h2>Do patients with a known cancer type score differently on the tests we provide than patients without cancer?</h2>
+  <p>Patients with prostate, breast, and other cancers arrive with a diagnosis already made. Do their test scores differ from patients without a cancerous tumor? Can we measure that difference, and how do we quantify it?</p>
+  <h3>Explore first</h3>
+  <p>Put the two groups side by side and look at the shape of their scores before fitting anything.</p>
+  <figure class="figure chart-fig">
+    <svg viewBox="0 0 640 270" role="img" aria-labelledby="ch-t" font-family="DM Sans,system-ui,sans-serif" font-size="14">
+<title id="ch-t">Distribution of test scores for patients with and without cancer, illustrative</title>
+<line x1="44" x2="620" y1="228.0" y2="228.0" stroke="rgba(255,255,255,0.08)"/>
+<line x1="44" x2="620" y1="122.0" y2="122.0" stroke="rgba(255,255,255,0.08)"/>
+<line x1="44" x2="620" y1="16.0" y2="16.0" stroke="rgba(255,255,255,0.08)"/>
+<line x1="44" x2="620" y1="228" y2="228" stroke="#96A0B5" stroke-opacity=".5"/>
+<text x="38" y="232" text-anchor="end" fill="#96A0B5">0</text>
+<text x="38" y="20" text-anchor="end" fill="#96A0B5">more</text>
+<path d="M46.0,228 V188.48069356465024 Q46.0,184.48069356465024 50.0,184.48069356465024 H63.0 Q67.0,184.48069356465024 67.0,188.48069356465024 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score -1.00 to -0.75</title></path>
+<path d="M69.0,228 V227.41309884824398 Q69.0,223.41309884824398 73.0,223.41309884824398 H86.0 Q90.0,223.41309884824398 90.0,227.41309884824398 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score -1.00 to -0.75</title></path>
+<path d="M94.0,228 V139.8696275533925 Q94.0,135.8696275533925 98.0,135.8696275533925 H111.0 Q115.0,135.8696275533925 115.0,139.8696275533925 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score -0.75 to -0.50</title></path>
+<path d="M117.0,228 V215.99014186839477 Q117.0,211.99014186839477 121.0,211.99014186839477 H134.0 Q138.0,211.99014186839477 138.0,215.99014186839477 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score -0.75 to -0.50</title></path>
+<path d="M142.0,228 V80.10269526975318 Q142.0,76.10269526975318 146.0,76.10269526975318 H159.0 Q163.0,76.10269526975318 163.0,80.10269526975318 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score -0.50 to -0.25</title></path>
+<path d="M165.0,228 V188.48069356465024 Q165.0,184.48069356465024 169.0,184.48069356465024 H182.0 Q186.0,184.48069356465024 186.0,188.48069356465024 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score -0.50 to -0.25</title></path>
+<path d="M190.0,228 V36.95999999999998 Q190.0,32.95999999999998 194.0,32.95999999999998 H207.0 Q211.0,32.95999999999998 211.0,36.95999999999998 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score -0.25 to 0.00</title></path>
+<path d="M213.0,228 V139.8696275533925 Q213.0,135.8696275533925 217.0,135.8696275533925 H230.0 Q234.0,135.8696275533925 234.0,139.8696275533925 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score -0.25 to 0.00</title></path>
+<path d="M238.0,228 V36.95999999999998 Q238.0,32.95999999999998 242.0,32.95999999999998 H255.0 Q259.0,32.95999999999998 259.0,36.95999999999998 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score 0.00 to 0.25</title></path>
+<path d="M261.0,228 V80.10269526975318 Q261.0,76.10269526975318 265.0,76.10269526975318 H278.0 Q282.0,76.10269526975318 282.0,80.10269526975318 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score 0.00 to 0.25</title></path>
+<path d="M286.0,228 V80.10269526975318 Q286.0,76.10269526975318 290.0,76.10269526975318 H303.0 Q307.0,76.10269526975318 307.0,80.10269526975318 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score 0.25 to 0.50</title></path>
+<path d="M309.0,228 V36.95999999999998 Q309.0,32.95999999999998 313.0,32.95999999999998 H326.0 Q330.0,32.95999999999998 330.0,36.95999999999998 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score 0.25 to 0.50</title></path>
+<path d="M334.0,228 V139.8696275533925 Q334.0,135.8696275533925 338.0,135.8696275533925 H351.0 Q355.0,135.8696275533925 355.0,139.8696275533925 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score 0.50 to 0.75</title></path>
+<path d="M357.0,228 V36.95999999999998 Q357.0,32.95999999999998 361.0,32.95999999999998 H374.0 Q378.0,32.95999999999998 378.0,36.95999999999998 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score 0.50 to 0.75</title></path>
+<path d="M382.0,228 V188.48069356465024 Q382.0,184.48069356465024 386.0,184.48069356465024 H399.0 Q403.0,184.48069356465024 403.0,188.48069356465024 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score 0.75 to 1.00</title></path>
+<path d="M405.0,228 V80.10269526975318 Q405.0,76.10269526975318 409.0,76.10269526975318 H422.0 Q426.0,76.10269526975318 426.0,80.10269526975318 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score 0.75 to 1.00</title></path>
+<path d="M430.0,228 V215.99014186839477 Q430.0,211.99014186839477 434.0,211.99014186839477 H447.0 Q451.0,211.99014186839477 451.0,215.99014186839477 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score 1.00 to 1.25</title></path>
+<path d="M453.0,228 V139.8696275533925 Q453.0,135.8696275533925 457.0,135.8696275533925 H470.0 Q474.0,135.8696275533925 474.0,139.8696275533925 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score 1.00 to 1.25</title></path>
+<path d="M478.0,228 V227.41309884824398 Q478.0,223.41309884824398 482.0,223.41309884824398 H495.0 Q499.0,223.41309884824398 499.0,227.41309884824398 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score 1.25 to 1.50</title></path>
+<path d="M501.0,228 V188.48069356465024 Q501.0,184.48069356465024 505.0,184.48069356465024 H518.0 Q522.0,184.48069356465024 522.0,188.48069356465024 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score 1.25 to 1.50</title></path>
+<path d="M526.0,228 V230.97652401142366 Q526.0,226.97652401142366 530.0,226.97652401142366 H543.0 Q547.0,226.97652401142366 547.0,230.97652401142366 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score 1.50 to 1.75</title></path>
+<path d="M549.0,228 V215.99014186839477 Q549.0,211.99014186839477 553.0,211.99014186839477 H566.0 Q570.0,211.99014186839477 570.0,215.99014186839477 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score 1.50 to 1.75</title></path>
+<path d="M574.0,228 V231.82214654143826 Q574.0,227.82214654143826 578.0,227.82214654143826 H591.0 Q595.0,227.82214654143826 595.0,231.82214654143826 V228 Z" fill="#4AC2E3" fill-opacity="1"><title>No cancer, score 1.75 to 2.00</title></path>
+<path d="M597.0,228 V227.41309884824398 Q597.0,223.41309884824398 601.0,223.41309884824398 H614.0 Q618.0,223.41309884824398 618.0,227.41309884824398 V228 Z" fill="#F8A44C" fill-opacity="1"><title>Known cancer, score 1.75 to 2.00</title></path>
+<text x="44.0" y="246" text-anchor="middle" fill="#CDD5E0">-1</text>
+<text x="140.0" y="246" text-anchor="middle" fill="#CDD5E0">-0.5</text>
+<text x="236.0" y="246" text-anchor="middle" fill="#CDD5E0">0</text>
+<text x="332.0" y="246" text-anchor="middle" fill="#CDD5E0">0.5</text>
+<text x="428.0" y="246" text-anchor="middle" fill="#CDD5E0">1</text>
+<text x="524.0" y="246" text-anchor="middle" fill="#CDD5E0">1.5</text>
+<text x="620.0" y="246" text-anchor="middle" fill="#CDD5E0">2</text>
+<text x="332.0" y="266" text-anchor="middle" fill="#96A0B5">Test score</text>
+</svg>
+    <div class="chart-legend"><span class="chart-legend-item"><i style="background:#4AC2E3"></i>No cancer</span><span class="chart-legend-item"><i style="background:#F8A44C"></i>Known cancer</span></div>
+    <figcaption>Illustrative shape, not study data. Scores for patients without cancer center near 0. Scores for patients with a known cancer sit slightly higher, near 0.5, with plenty of overlap.</figcaption>
+  </figure>
+  <h3>Then confirm</h3>
+  <p>Logistic regression predicting cancer status from the test score, adjusting for patient characteristics. The model turns "looks higher" into an odds ratio with a confidence interval, and says how much of cancer status the score explains.</p>
+  <p><strong>What it showed:</strong> the cancer group scored higher on average, and the model put a number on the shift. Reported with its limitations, so the team could decide what to study next.</p>
+</section>
 
-<h2>The kinds of questions I answered</h2>
-<p>Six that came up again and again. Each one is a real type of request, written without the specifics. The goal behind all of them: find cancer earlier, and when a cancer is found, point to the best treatment.</p>
-<div class="two-col">
-  <div class="col-card">
-    <h3>Did the intervention raise genetic testing rates in OB/GYN clinics?</h3>
-    <p>Community clinics added an online screening tool and virtual patient education. Did more eligible patients get identified, offered testing, and tested? And did the gain differ by provider type, physician versus advanced practice practitioner?</p>
-    <p><strong>Process:</strong> a before-and-after comparison at each site, modeled with conditional logistic regression stratified by site, then split by provider type.</p>
-    <p><strong>What I learned:</strong> the share of eligible patients who completed testing roughly doubled. This became the published paper below.</p>
+<section class="rq">
+  <p class="work-label">Research question 2</p>
+  <h2>Can we measure the effect of educating healthcare providers on genetic testing, and how will that influence genetic testing rates?</h2>
+  <p>OB/GYN clinics were taught about hereditary cancer screening and testing. Did the share of eligible patients who got tested change from before the education to after? And did the change differ by provider type, physician versus advanced practice provider (APP)?</p>
+  <h3>Explore first</h3>
+  <p>Compare the before and after rates overall, then split them by provider type.</p>
+  <div class="two-col">
+    <figure class="figure chart-fig">
+      <svg viewBox="0 0 360 250" role="img" aria-labelledby="ca-t" font-family="DM Sans,system-ui,sans-serif" font-size="11">
+<title id="ca-t">Genetic testing rate before and after provider education, illustrative</title>
+<line x1="44" x2="340" y1="210.0" y2="210.0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="214.0" text-anchor="end" fill="#96A0B5">0%</text>
+<line x1="44" x2="340" y1="161.5" y2="161.5" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="165.5" text-anchor="end" fill="#96A0B5">25%</text>
+<line x1="44" x2="340" y1="113.0" y2="113.0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="117.0" text-anchor="end" fill="#96A0B5">50%</text>
+<line x1="44" x2="340" y1="64.5" y2="64.5" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="68.5" text-anchor="end" fill="#96A0B5">75%</text>
+<line x1="44" x2="340" y1="16.0" y2="16.0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="20.0" text-anchor="end" fill="#96A0B5">100%</text>
+<line x1="44" x2="340" y1="210" y2="210" stroke="#96A0B5" stroke-opacity=".5"/>
+<path d="M126.0,210 V97.6 Q126.0,93.6 130.0,93.6 H150.0 Q154.0,93.6 154.0,97.6 V210 Z" fill="#4AE3B5" fill-opacity="1"><title>Before education: 60% tested</title></path>
+<text x="140" y="86.6" text-anchor="middle" fill="#F0F4F8" font-weight="600" font-size="12">60%</text>
+<text x="140" y="228" text-anchor="middle" fill="#CDD5E0">Before education</text>
+<path d="M236.0,210 V68.5 Q236.0,64.5 240.0,64.5 H260.0 Q264.0,64.5 264.0,68.5 V210 Z" fill="#7C8CF8" fill-opacity="1"><title>After education: 75% tested</title></path>
+<text x="250" y="57.5" text-anchor="middle" fill="#F0F4F8" font-weight="600" font-size="12">75%</text>
+<text x="250" y="228" text-anchor="middle" fill="#CDD5E0">After education</text>
+</svg>
+      <figcaption>Illustrative, not study data. Testing rate before and after provider education.</figcaption>
+    </figure>
+    <figure class="figure chart-fig">
+      <svg viewBox="0 0 360 250" role="img" aria-labelledby="cb-t" font-family="DM Sans,system-ui,sans-serif" font-size="11">
+<title id="cb-t">Testing rate by provider type before and after education, illustrative</title>
+<line x1="44" x2="340" y1="210.0" y2="210.0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="214.0" text-anchor="end" fill="#96A0B5">0%</text>
+<line x1="44" x2="340" y1="161.5" y2="161.5" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="165.5" text-anchor="end" fill="#96A0B5">25%</text>
+<line x1="44" x2="340" y1="113.0" y2="113.0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="117.0" text-anchor="end" fill="#96A0B5">50%</text>
+<line x1="44" x2="340" y1="64.5" y2="64.5" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="68.5" text-anchor="end" fill="#96A0B5">75%</text>
+<line x1="44" x2="340" y1="16.0" y2="16.0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="38" y="20.0" text-anchor="end" fill="#96A0B5">100%</text>
+<line x1="44" x2="340" y1="210" y2="210" stroke="#96A0B5" stroke-opacity=".5"/>
+<path d="M105.0,210 V91.78 Q105.0,87.78 109.0,87.78 H125.0 Q129.0,87.78 129.0,91.78 V210 Z" fill="#4AE3B5" fill-opacity="0.55"><title>Physician, before education: 63% tested</title></path>
+<text x="117.0" y="80.8" text-anchor="middle" fill="#F0F4F8" font-weight="600" font-size="12">63%</text>
+<path d="M131.0,210 V103.42 Q131.0,99.42 135.0,99.42 H151.0 Q155.0,99.42 155.0,103.42 V210 Z" fill="#4AE3B5" fill-opacity="1"><title>APP, before education: 57% tested</title></path>
+<text x="143.0" y="92.4" text-anchor="middle" fill="#F0F4F8" font-weight="600" font-size="12">57%</text>
+<text x="130" y="228" text-anchor="middle" fill="#CDD5E0">Before education</text>
+<path d="M230.0,210 V72.38 Q230.0,68.38 234.0,68.38 H250.0 Q254.0,68.38 254.0,72.38 V210 Z" fill="#7C8CF8" fill-opacity="0.55"><title>Physician, after education: 73% tested</title></path>
+<text x="242.0" y="61.4" text-anchor="middle" fill="#F0F4F8" font-weight="600" font-size="12">73%</text>
+<path d="M256.0,210 V64.62 Q256.0,60.620000000000005 260.0,60.620000000000005 H276.0 Q280.0,60.620000000000005 280.0,64.62 V210 Z" fill="#7C8CF8" fill-opacity="1"><title>APP, after education: 77% tested</title></path>
+<text x="268.0" y="53.6" text-anchor="middle" fill="#F0F4F8" font-weight="600" font-size="12">77%</text>
+<text x="255" y="228" text-anchor="middle" fill="#CDD5E0">After education</text>
+</svg>
+      <div class="chart-legend"><span class="chart-legend-item"><i style="background:#4AE3B5;opacity:.55"></i>Physician, before</span><span class="chart-legend-item"><i style="background:#4AE3B5"></i>APP, before</span><span class="chart-legend-item"><i style="background:#7C8CF8;opacity:.55"></i>Physician, after</span><span class="chart-legend-item"><i style="background:#7C8CF8"></i>APP, after</span></div>
+      <figcaption>Illustrative, not study data. The same comparison split by provider type. APPs started lower and gained more.</figcaption>
+    </figure>
   </div>
-  <div class="col-card">
-    <h3>Do patients with a known cancer type score differently on our tests?</h3>
-    <p>Patients arrive with a diagnosis already made: prostate, breast, and others. Do their test results differ from each other, and from patients without a diagnosis, in ways the test should reflect?</p>
-    <p><strong>Process:</strong> compared score distributions by cancer type, adjusting for patient characteristics, with logistic and mixed-effects models and a check on which differences held up after adjustment.</p>
-    <p><strong>What I learned:</strong> where the test separated groups and where it did not, reported with the limitations, so the team could decide what to study next.</p>
+  <h3>Then confirm</h3>
+  <p>Conditional logistic regression with site as the strata term. Clinics differ in patient mix and in how they work, so the before and after comparison has to stay within each site.</p>
+  <p><strong>What it showed:</strong> testing rates rose after the education, and the gain was larger for advanced practice providers.</p>
+  <h3>This question became the published study</h3>
+  <div class="experience-card">
+    <div class="exp-header">
+      <div><h3 style="margin-top:0">Online screening and virtual patient education for hereditary cancer risk assessment and testing</h3><p class="company">Obstetrics and Gynecology, 2025 · co-author</p></div>
+      <span class="exp-date">Peer-reviewed</span>
+    </div>
+    <ul class="exp-highlights">
+      <li><strong>Question:</strong> can an online screening tool and virtual education help community OB/GYN clinics find more patients who qualify for hereditary cancer testing, and get them tested?</li>
+      <li><strong>Method:</strong> a before-and-after study at five practices, comparing the eight weeks before the tools with the eight weeks after, using conditional logistic regression stratified by site.</li>
+      <li><strong>Result:</strong> more eligible patients were identified, more were offered testing, and the share who completed testing went from about one in six to one in three.</li>
+      <li><strong>My role:</strong> co-author, contributing to the statistical analysis.</li>
+      <li><strong>Also in the pipeline:</strong> additional manuscripts were in draft or under review when my role was cut in a layoff in October 2025.</li>
+    </ul>
+    <a class="publication-link" href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener">Read the paper on PubMed ↗</a>
   </div>
-  <div class="col-card">
-    <h3>How many patients does this study need?</h3>
-    <p>Before a study starts, how many patients give it an 80, 85, or 95 percent chance of detecting the effect the team expects?</p>
-    <p><strong>Process:</strong> power analysis under a stated effect size, a hazard ratio for time-to-event outcomes or an odds ratio for binary ones, with a check on how the answer moves when the assumptions move.</p>
-    <p><strong>What I learned:</strong> the assumptions drive the number. Showing the team a range, not one figure, led to better decisions about study size.</p>
-  </div>
-  <div class="col-card">
-    <h3>Which genetic mutations tend to go with which cancers?</h3>
-    <p>Across tested patients, which mutations show up together with which cancer types, and how strong is the pattern?</p>
-    <p><strong>Process:</strong> association analysis across the tested population, with survival models where the outcome was time to an event and logistic models where it was a yes or no.</p>
-    <p><strong>What I learned:</strong> patterns that help a clinician decide who to test, and that help the lab decide what a result should prompt.</p>
-  </div>
-  <div class="col-card">
-    <h3>Is the new machine as reliable as the old one?</h3>
-    <p>When the lab added equipment, I measured how much results varied between machines, operators, and reagent lots, and whether that variation stayed inside the allowed threshold.</p>
-    <p><strong>Process:</strong> variance-components and mixed-effects models with acceptance limits set before the data came in.</p>
-    <p><strong>What I learned:</strong> a go or no-go answer with the evidence attached.</p>
-  </div>
-  <div class="col-card">
-    <h3>Can we trust this dataset?</h3>
-    <p>Linking patient information to clinical tests and results, without introducing bias along the way.</p>
-    <p><strong>Process:</strong> reproducible R workflows that flag discrepancies, duplicate records, inconsistent values, and unreliable inputs before anything is modeled.</p>
-    <p><strong>What I learned:</strong> an unbiased dataset and a record of every check that was run.</p>
-  </div>
-</div>
+</section>
 
-<h2>A published example</h2>
-<div class="experience-card">
-  <div class="exp-header">
-    <div><h3>Online screening and virtual patient education for hereditary cancer risk assessment and testing</h3><p class="company">Obstetrics and Gynecology, 2025 · co-author</p></div>
-    <span class="exp-date">Peer-reviewed</span>
-  </div>
-  <ul class="exp-highlights">
-    <li><strong>Question:</strong> can an online screening tool and virtual education help community OB/GYN clinics find more patients who qualify for hereditary cancer testing, and get them tested?</li>
-    <li><strong>Method:</strong> a before-and-after study at five practices, comparing the eight weeks before the tools with the eight weeks after, using conditional logistic regression stratified by site.</li>
-    <li><strong>Result:</strong> more eligible patients were identified, more were offered testing, and the share who completed testing went from about one in six to one in three.</li>
-    <li><strong>My role:</strong> co-author, contributing to the statistical analysis.</li>
-    <li><strong>Also in the pipeline:</strong> additional manuscripts were in draft or under review when my role was cut in a layoff in October 2025.</li>
-  </ul>
-  <a class="publication-link" href="https://pubmed.ncbi.nlm.nih.gov/39637387/" target="_blank" rel="noopener">Read the paper on PubMed ↗</a>
+<section class="rq">
+  <p class="work-label">Research question 3</p>
+  <h2>Given an assumed hazard ratio, how many patients does a study need to reach 80, 85, 90, or 95% power?</h2>
+  <p>Before a study starts, the team needs an enrollment target. The answer depends on the effect they expect (the hazard ratio), the power they want, and the model they will use. The table shows how fast the number grows as the expected effect shrinks.</p>
+  <div class="table-wrap">
+<table class="data">
+<thead><tr><th>Hazard ratio</th><th class="num">80% power</th><th class="num">85% power</th><th class="num">90% power</th><th class="num">95% power</th></tr></thead>
+<tbody>
+<tr><td><b>1.2</b></td><td class="num">1,890</td><td class="num">2,162</td><td class="num">2,530</td><td class="num">3,128</td></tr>
+<tr><td><b>1.3</b></td><td class="num">914</td><td class="num">1,044</td><td class="num">1,222</td><td class="num">1,512</td></tr>
+<tr><td><b>1.4</b></td><td class="num">556</td><td class="num">636</td><td class="num">744</td><td class="num">920</td></tr>
+<tr><td><b>1.5</b></td><td class="num">382</td><td class="num">438</td><td class="num">512</td><td class="num">634</td></tr>
+</tbody>
+</table>
 </div>
+  <p class="note">Patients to enroll for a two-sided 0.05 log-rank test with equal groups, assuming half of enrolled patients reach the event. Events needed is half the number shown. Change the event rate or the design and the numbers move, which is the point of showing the team a grid instead of one figure.</p>
+  <p><strong>How the answer changes with the model:</strong> a survival model sizes on a hazard ratio. A logistic model on a yes or no outcome sizes on an odds ratio instead, and the same study can need a different number of patients depending on which question it is really asking.</p>
+</section>
 
-<h2>How I worked with others</h2>
-<div class="strength-rows">
-  <div class="strength-row"><b>Review</b><span>Checked other statisticians' workflows, outputs, and interpretations so results were reproducible and right before they went out.</span></div>
-  <div class="strength-row"><b>Reporting</b><span>Wrote reports and presented methods, limitations, and results to researchers, clinicians, and other stakeholders.</span></div>
-  <div class="strength-row"><b>Framing</b><span>Turned a vague request into a question a study could actually answer, then planned the study around it.</span></div>
-</div>
+<section class="rq">
+  <p class="work-label">Research question 4</p>
+  <h2>How do gene expressions and genetic mutations differ between patients who have a certain cancer and patients who do not?</h2>
+  <p>Across tested patients, which mutations and expression patterns show up with which cancers, and how strong is the pattern?</p>
+  <p><strong>How:</strong> association analysis across the tested population. Survival models where the outcome was time to an event, logistic models where it was a yes or no.</p>
+  <p><strong>Why it mattered:</strong> the goal behind this work was to find cancer earlier, and once a cancer is found, to point to the best treatment.</p>
+</section>
 
-<h2>What this shows</h2>
-<ul>
-  <li>Study design and power: sizing a study so it can answer its question.</li>
-  <li>Modeling that fits the data: survival, logistic, and mixed-effects models chosen for the question, not the habit.</li>
-  <li>Data quality before modeling: reproducible checks, and a record of them.</li>
-  <li>Review and communication: other statisticians' analyses checked and reproduced, and results explained to the people who act on them.</li>
+<section class="rq">
+  <p class="work-label">Research question 5</p>
+  <h2>When the lab gets new machinery, how does it compare to the old?</h2>
+  <p>How much of the variation in results comes from the machine, the operator, and the reagents, and does it stay inside the allowed threshold?</p>
+  <p><strong>How:</strong> variance-components and mixed-effects models, with acceptance limits set before the data came in.</p>
+  <p><strong>What the team got:</strong> a go or no-go answer with the evidence attached.</p>
+</section>
+
+<h2>Responsibilities</h2>
+<ul class="work-list">
+  <li>Built R workflows with data quality checks</li>
+  <li>Fit survival, logistic, and mixed-effects models</li>
+  <li>Created graphics and visuals to help teams understand the data</li>
+  <li>Reviewed other statisticians' analyses and reproduced their results; checked that the methods fit the question and that no assumptions were violated</li>
+  <li>Reported methods, limitations, results, and ways to improve to researchers and clinicians: written study reports, help drafting manuscripts, and presentations to study teams with their questions answered</li>
 </ul>
 
 <p style="margin:2.5rem 0"><a class="btn btn-primary" href="../index.html#projects">← All Projects</a></p>
