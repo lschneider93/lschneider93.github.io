@@ -12,47 +12,34 @@
   <meta property="og:url" content="https://lschneider93.github.io/citibike.html">
   <meta property="og:image" content="https://lschneider93.github.io/assets/img/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
+  <script>try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=20261024">
+  <link rel="stylesheet" href="css/main.css?v=20261112">
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<nav class="site-nav" aria-label="Main">
-  <div class="nav-inner">
-    <a class="logo" href="index.html">logan<span>.</span>schneider</a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">☰</button>
-    <ul class="nav-links" id="nav-menu">
-      <li class="nav-item-dd">
-        <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
-        <ul class="nav-dd" id="projects-menu">
-          <li><a href="index.html#projects">All Projects</a></li>
-          <li><a href="projects/cancer-research.html">Cancer Research Statistics</a></li>
-          <li><a href="projects/pickleball.html">Pickleball Analytics</a></li>
-          <li><a href="projects/rsnodas.html">rsnodas</a></li>
-          <li><a href="water.html">Water Dashboard</a></li>
-          <li><a href="dashboard.html">Health Dashboard</a></li>
-          <li><a href="citibike.html" aria-current="page">Citi Bike</a></li>
-        </ul>
-      </li>
-      <li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+<nav class="site-nav" aria-label="Main"></nav>
 
 <main id="main">
 <div class="container">
 
-<header class="page-hero">
-  <p class="eyebrow" style="opacity:1;animation:none">Batch Pipeline · 12 Months · Every Trip Checked</p>
+<header class="page-hero net-host">
+  <a class="back-link" href="index.html#projects">← All work</a><br>
+  <p class="eyebrow">Batch Pipeline · 12 Months · Every Trip Checked</p>
   <h1>A year of Citi Bike, <em>checked before charted.</em></h1>
   <p class="lede">Citi Bike publishes every trip it serves, millions per month, far too many to fetch in a browser. A local DuckDB pipeline downloads the monthly files, tests every row against documented rules, and ships only small aggregates to this page. The first tab shows exactly what was checked and what was removed. The second shows how New York actually rides.</p>
 </header>
+
+<div class="metric-tiles three static" aria-label="Key findings">
+  <div class="metric-tile"><span class="metric-num">45.4M</span><span class="metric-what">trips kept out of 45.6 million checked, August 2025 to July 2026</span></div>
+  <div class="metric-tile"><span class="metric-num">0.37%</span><span class="metric-what">of rows removed, each one by a written rule you can read on this page</span></div>
+  <div class="metric-tile"><span class="metric-num">0 <small>trips</small></span><span class="metric-what">on February 23, 2026. It looked like missing data. It was a blizzard that shut the system down.</span></div>
+</div>
 
 <div id="cb-banner" aria-live="polite"></div>
 
@@ -174,7 +161,7 @@
   <summary>How this dashboard works (for the technically curious)</summary>
   <div class="how-body">
     <p>Unlike the live dashboards on this site, this page cannot fetch its source: Citi Bike's historical trip files are monthly zips totaling about 8 GB per year, published to a public S3 bucket. A local Python script (<a href="https://github.com/lschneider93/lschneider93.github.io/blob/main/scripts/citibike/prep.py" target="_blank" rel="noopener">scripts/citibike/prep.py</a>) downloads each month, converts it to Parquet, runs every cleaning rule as DuckDB SQL, and writes the small JSON aggregates this page renders. Raw files never leave the laptop; only the aggregates, about 200 KB, are committed.</p>
-    <p>The quality tab is generated from the same pipeline run that produced the charts, so the counts you see are the counts that happened. Charts are Plotly.js; tables are the same vanilla renderer used across this site. The tab renders lazily because Plotly mis-sizes charts drawn into hidden elements, the kind of detail you learn by shipping.</p>
+    <p>The quality tab is generated from the same pipeline run that produced the charts, so the counts you see are the counts that happened. Charts are Plotly.js; tables are the same vanilla renderer used across this site.</p>
     <p id="cb-generated"></p>
   </div>
 </details>
@@ -182,20 +169,11 @@
 </div>
 </main>
 
-<footer>
-  <div class="container">
-    <div class="foot-links">
-      <a href="index.html">Home</a>
-      <a href="water.html">Water Dashboard</a>
-      <a href="dashboard.html">Health Dashboard</a>
-      <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
-    </div>
-    <p>© <span id="year">2026</span> Logan Schneider · Data: Citi Bike / Lyft system data · Built by hand with HTML, CSS, and vanilla JS.</p>
-  </div>
-</footer>
+<footer></footer>
 
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
 <script src="js/site.js" defer></script>
+<script src="js/network.js" defer></script>
 <script src="js/table.js" defer></script>
 <script src="js/citibike.js" defer></script>
 </body>

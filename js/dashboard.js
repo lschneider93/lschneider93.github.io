@@ -48,9 +48,9 @@
   }
 
   // ---------- shared Plotly styling ----------
-  var FONT = { family: 'DM Sans, sans-serif', color: '#96A0B5', size: 12 };
-  var GRID = 'rgba(255,255,255,0.06)';
-  var COLORS = { covid: '#4AE3B5', flu: '#7C8CF8', rsv: '#F8A44C', bar: '#4AC2E3', line: '#4AE3B5' };
+  var FONT = { family: 'DM Sans, sans-serif', color: Site.cssVar('--text-dim'), size: 12 };
+  var GRID = Site.cssVar('--chart-grid');
+  var COLORS = { covid: Site.cssVar('--series-1'), flu: Site.cssVar('--series-4'), rsv: Site.cssVar('--series-3'), bar: Site.cssVar('--series-2'), line: Site.cssVar('--series-1') };
 
   function baseLayout(extra) {
     var layout = {
@@ -170,12 +170,12 @@
         z: c.values,
         text: c.hover,
         hoverinfo: 'text',
-        colorscale: [[0, '#151A2E'], [0.5, '#1E6B58'], [1, '#4AE3B5']],
-        marker: { line: { color: '#0A0E1A', width: 1 } },
+        colorscale: Site.theme() === 'light' ? [[0, '#E8E0D5'], [0.5, '#5DB7A0'], [1, '#0E6655']] : [[0, '#131C2E'], [0.5, '#1E6B58'], [1, '#6EE7B7']],
+        marker: { line: { color: Site.cssVar('--bg'), width: 1 } },
         colorbar: { title: { text: '% ED visits', font: FONT }, tickfont: FONT, thickness: 12, len: 0.8 }
       }], {
         paper_bgcolor: 'rgba(0,0,0,0)',
-        geo: { scope: 'usa', bgcolor: 'rgba(0,0,0,0)', lakecolor: 'rgba(0,0,0,0)', landcolor: '#151A2E', subunitcolor: GRID },
+        geo: { scope: 'usa', bgcolor: 'rgba(0,0,0,0)', lakecolor: 'rgba(0,0,0,0)', landcolor: Site.cssVar('--chart-land'), subunitcolor: GRID },
         font: FONT,
         margin: { l: 0, r: 0, t: 0, b: 0 }
       }, PLOTLY_CONFIG);
@@ -196,9 +196,9 @@
   }
 
   var TREND_COLORS = {
-    'Increasing': '#F8A44C',
+    'Increasing': Site.cssVar('--series-3'),
     'No Change': 'rgba(150,160,181,0.5)',
-    'Decreasing': '#4AE3B5',
+    'Decreasing': Site.cssVar('--series-1'),
     'Unavailable': 'rgba(150,160,181,0.2)'
   };
 
@@ -418,7 +418,7 @@
         orientation: 'h',
         marker: {
           color: o.labels.slice().reverse().map(function (l) {
-            return l === 'Fatal' ? '#E36A6A' : COLORS.bar;
+            return l === 'Fatal' ? Site.cssVar('--danger') : COLORS.bar;
           })
         }
       }], hBarLayout(), PLOTLY_CONFIG);

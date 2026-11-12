@@ -2,31 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
     <loc>https://lschneider93.github.io/</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://lschneider93.github.io/projects/cancer-research.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://lschneider93.github.io/projects/pickleball.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://lschneider93.github.io/projects/rsnodas.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://lschneider93.github.io/water.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://lschneider93.github.io/dashboard.html</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://lschneider93.github.io/citibike.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
 
+  <url><loc>https://lschneider93.github.io/lab.html</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://lschneider93.github.io/playground.html</loc><lastmod>2026-11-12</lastmod></url>
 </urlset>

@@ -47,9 +47,9 @@
   }
 
   // ---------- shared Plotly styling (matches dashboard.js) ----------
-  var FONT = { family: 'DM Sans, sans-serif', color: '#96A0B5', size: 12 };
-  var GRID = 'rgba(255,255,255,0.06)';
-  var ACCENT = '#4AE3B5';
+  var FONT = { family: 'DM Sans, sans-serif', color: Site.cssVar('--text-dim'), size: 12 };
+  var GRID = Site.cssVar('--chart-grid');
+  var ACCENT = Site.cssVar('--series-1');
   var PLOTLY_CONFIG = { displayModeBar: false, responsive: true };
 
   function baseLayout(extra) {
@@ -212,7 +212,7 @@
     if (currentQ !== null) {
       traces.push({
         x: [dates[dates.length - 1]], y: [currentQ], name: 'Right now', type: 'scatter',
-        mode: 'markers', marker: { size: 9, color: '#F0F4F8', line: { color: ACCENT, width: 2 } }
+        mode: 'markers', marker: { size: 9, color: Site.cssVar('--text-bright'), line: { color: ACCENT, width: 2 } }
       });
     }
     Plotly.react(el, traces, baseLayout({
@@ -280,7 +280,7 @@
           hoverinfo: 'text',
           marker: {
             size: rows.map(function (r) { return markerSize(r.q); }),
-            color: c.color, line: { color: '#0A0E1A', width: 1 }
+            color: c.color, line: { color: Site.cssVar('--bg'), width: 1 }
           }
         };
       });
@@ -290,7 +290,7 @@
         lat: unranked.map(function (r) { return r.lat; }),
         text: unranked.map(function (r) { return r.name + '<br>' + fmtFlow(r.q) + ' cfs · no percentile record'; }),
         hoverinfo: 'text',
-        marker: { size: 6, color: 'rgba(139,149,168,0.35)', line: { color: '#0A0E1A', width: 1 } }
+        marker: { size: 6, color: 'rgba(139,149,168,0.35)', line: { color: Site.cssVar('--bg'), width: 1 } }
       });
 
       mapSlot.classList.remove('skeleton');
@@ -300,8 +300,8 @@
         geo: {
           scope: 'north america', projection: { type: 'mercator' }, resolution: 50,
           fitbounds: 'locations', // Albers (scope 'usa') draws Utah tilted; mercator keeps it upright
-          bgcolor: 'rgba(0,0,0,0)', landcolor: '#151A2E',
-          showsubunits: true, subunitcolor: 'rgba(255,255,255,0.15)',
+          bgcolor: 'rgba(0,0,0,0)', landcolor: Site.cssVar('--chart-land'),
+          showsubunits: true, subunitcolor: Site.cssVar('--border-strong'),
           showcountries: false, showcoastlines: false,
           lakecolor: 'rgba(0,0,0,0)', showlakes: true
         },
@@ -332,7 +332,7 @@
         type: 'bar', orientation: 'h',
         marker: { color: order.map(function (c) { return c.color; }) },
         text: order.map(function (c) { return String(byClass[c.key].length); }),
-        textposition: 'outside', textfont: { color: '#CDD5E0' },
+        textposition: 'outside', textfont: { color: Site.cssVar('--text') },
         hoverinfo: 'skip'
       }], baseLayout({
         hovermode: false, showlegend: false,
@@ -365,17 +365,17 @@
       slot('gsl-now').textContent = latest ? latest.toFixed(1) + ' ft' : '–';
       slot('gsl-gap').textContent = latest ? (USGS.GSL_HEALTHY_FLOOR - latest).toFixed(1) + ' ft' : '–';
       Plotly.react(el, [
-        { x: g.dates, y: g.values, name: 'South arm elevation', type: 'scatter', mode: 'lines', line: { color: '#45C8E8', width: 2 } }
+        { x: g.dates, y: g.values, name: 'South arm elevation', type: 'scatter', mode: 'lines', line: { color: Site.cssVar('--series-2'), width: 2 } }
       ], baseLayout({
         showlegend: false,
         yaxis: { gridcolor: GRID, zeroline: false, title: { text: 'ft above NGVD 1929', font: FONT } },
         shapes: [
           { type: 'line', xref: 'paper', x0: 0, x1: 1, y0: USGS.GSL_HEALTHY_FLOOR, y1: USGS.GSL_HEALTHY_FLOOR, line: { color: ACCENT, width: 1, dash: 'dash' } },
-          { type: 'line', xref: 'paper', x0: 0, x1: 1, y0: USGS.GSL_RECORD_LOW, y1: USGS.GSL_RECORD_LOW, line: { color: '#E36A6A', width: 1, dash: 'dash' } }
+          { type: 'line', xref: 'paper', x0: 0, x1: 1, y0: USGS.GSL_RECORD_LOW, y1: USGS.GSL_RECORD_LOW, line: { color: Site.cssVar('--danger'), width: 1, dash: 'dash' } }
         ],
         annotations: [
           { x: 1, y: USGS.GSL_HEALTHY_FLOOR, xref: 'paper', xanchor: 'right', yanchor: 'bottom', text: 'healthy range floor, 4,198 ft', showarrow: false, font: { color: ACCENT, size: 11 } },
-          { x: 1, y: USGS.GSL_RECORD_LOW, xref: 'paper', xanchor: 'right', yanchor: 'top', text: '2022 record low, 4,188.5 ft', showarrow: false, font: { color: '#E36A6A', size: 11 } }
+          { x: 1, y: USGS.GSL_RECORD_LOW, xref: 'paper', xanchor: 'right', yanchor: 'top', text: '2022 record low, 4,188.5 ft', showarrow: false, font: { color: Site.cssVar('--danger'), size: 11 } }
         ]
       }), PLOTLY_CONFIG);
     }).catch(function () {

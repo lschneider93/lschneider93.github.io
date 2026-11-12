@@ -2,3 +2,6 @@
 
 # Citi Bike raw data staging (zips/parquet, never committed)
 data/citibike/raw/
+
+# Design reference material (screenshots of other portfolios, palette previews)
+_reference/

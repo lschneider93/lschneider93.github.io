@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stats Lab | Logan Schneider</title>
+  <meta name="description" content="Power and sample size calculators for Cox regression, logistic regression, and ROC curves by Logan Schneider. Each one starts from a published study and is checked against the NCSS PASS documentation.">
+  <link rel="canonical" href="https://lschneider93.github.io/lab.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Stats Lab | Logan Schneider">
+  <meta property="og:description" content="How many patients does a study need? Power and sample size calculators for Cox regression, logistic regression, and ROC curves, checked against the NCSS PASS documentation.">
+  <meta property="og:url" content="https://lschneider93.github.io/lab.html">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/og-image.png">
+  <script>try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css?v=20261112">
+  <link rel="stylesheet" href="css/lab.css?v=20261112">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-nav" aria-label="Main"></nav>
+<main id="main">
+<section class="page-hero net-host"><div class="container">
+  <p class="eyebrow">Stats Lab · Runs in your browser</p>
+  <h1>How many patients does a study <em>need?</em></h1>
+  <p class="lede">Pick the size of the effect you hope to find. See how many people it takes to find it. Each calculator starts from a real published study.</p>
+</div></section>
+
+<div class="container prose">
+  <p class="lab-intro">At Myriad Genetics I ran power and sample size calculations like these for <a href="projects/cancer-research.html">cancer studies</a>. Every formula here follows the NCSS PASS documentation and is <a href="tests/lab.test.html">tested against its worked examples</a>.</p>
+
+  <div class="dash-tabs" role="tablist" aria-label="Type of analysis">
+    <button class="dash-tab" role="tab" id="tab-cox" aria-controls="panel-cox" aria-selected="true">Cox regression</button>
+    <button class="dash-tab" role="tab" id="tab-logistic" aria-controls="panel-logistic" aria-selected="false" tabindex="-1">Logistic regression</button>
+    <button class="dash-tab" role="tab" id="tab-auc" aria-controls="panel-auc" aria-selected="false" tabindex="-1">AUC (ROC curve)</button>
+  </div>
+
+  <!-- ======================= COX ======================= -->
+  <section class="lab-panel" id="panel-cox" role="tabpanel" aria-labelledby="tab-cox" tabindex="0">
+    <h2>Time until something happens</h2>
+    <p class="lab-sub">Cox regression asks if a factor changes how soon an event comes, such as cancer returning. The effect is a hazard ratio.</p>
+
+    <div class="tool-card study-card">
+      <p class="work-label">Worked example from published research</p>
+      <h3>A tumor gene score and prostate cancer coming back</h3>
+      <p class="study-cite">Cuzick J, Swanson GP, Fisher G, et al. Prognostic value of an RNA expression signature derived from cell cycle proliferation genes in patients with prostate cancer: a retrospective study. Lancet Oncol. 2011;12(3):245-255. <a href="https://pubmed.ncbi.nlm.nih.gov/21310658/" target="_blank" rel="noopener">PubMed 21310658</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3091030/" target="_blank" rel="noopener">free full text</a></p>
+      <p class="tool-sub">The team scored 366 tumors removed by surgery, then tracked whose cancer came back.</p>
+      <dl>
+        <dt>Hazard ratio</dt>
+        <dd>1.89 per 1-point rise in the score (95% CI 1.54 to 2.31)</dd>
+        <dt>Event rate</dt>
+        <dd>36% of the cohort had the cancer return (biochemical recurrence) by 10 years</dd>
+        <dt>SD of the score</dt>
+        <dd>0.70 <span class="assumption">assumption</span><small>The paper gives the middle half of scores, -0.30 to 0.64, but no SD. For a bell-shaped score, SD is about that width divided by 1.35.</small></dd>
+        <dt>R² with other factors</dt>
+        <dd>0 <span class="assumption">assumption</span><small>The 1.89 comes from a model with the score alone, so nothing else shares its signal.</small></dd>
+        <dt>Alpha and power</dt>
+        <dd>0.05 two-sided, 90% power <span class="assumption">assumption</span><small>These are design choices, not results. Both are common standards.</small></dd>
+      </dl>
+      <p class="study-answer" data-study="cox"></p>
+    </div>
+
+    <div class="tool-card" data-whatif="cox"></div>
+    <div class="tool-card" data-calc="cox"></div>
+
+    <details class="how">
+      <summary>Formula and source</summary>
+      <div class="how-body">
+        <p>Hsieh and Lavori (2000), as documented in the PASS chapter "Cox Regression" (chapter 850).</p>
+        <p class="formula">D = (z<sub>1-α/2</sub> + z<sub>1-β</sub>)<sup>2</sup> / [ (1 - R<sup>2</sup>) σ<sup>2</sup> B<sup>2</sup> ] &nbsp;&nbsp; N = D / P</p>
+        <ul>
+          <li><b>D</b>: events needed. <b>N</b>: patients needed.</li>
+          <li><b>B</b>: log of the hazard ratio for a 1-unit rise in the predictor.</li>
+          <li><b>σ</b>: SD of the predictor. A yes or no factor split 50/50 has σ = 0.5, which gives Schoenfeld's (1983) formula.</li>
+          <li><b>R²</b>: how much of the predictor the other covariates explain.</li>
+          <li><b>P</b>: share of patients who have the event.</li>
+        </ul>
+        <p>Power for a given N: Φ( √(N · P · (1 - R²)) · σ · |B| - z<sub>1-α/2</sub> ).</p>
+        <p>Checks: the code matches the chapter's Example 1 power table, Example 2 (N = 106), and Example 3 (N = 212).</p>
+        <p>Sources: <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Cox_Regression.pdf" target="_blank" rel="noopener">PASS chapter, Cox Regression (PDF)</a>. Hsieh FY, Lavori PW. Sample-size calculations for the Cox proportional hazards regression model with nonbinary covariates. Control Clin Trials. 2000;21:552-560. Schoenfeld DA. Sample-size formula for the proportional-hazards regression model. Biometrics. 1983;39:499-503.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ======================= LOGISTIC ======================= -->
+  <section class="lab-panel" id="panel-logistic" role="tabpanel" aria-labelledby="tab-logistic" tabindex="0" hidden>
+    <h2>Yes or no outcomes</h2>
+    <p class="lab-sub">Logistic regression asks if a factor changes the chance of an outcome, such as getting cancer. The effect is an odds ratio.</p>
+
+    <div class="tool-card study-card">
+      <p class="work-label">Worked example from published research</p>
+      <h3>A genetic risk score for breast cancer</h3>
+      <p class="study-cite">Mavaddat N, Michailidou K, Dennis J, et al. Polygenic risk scores for prediction of breast cancer and breast cancer subtypes. Am J Hum Genet. 2019;104(1):21-34. <a href="https://pubmed.ncbi.nlm.nih.gov/30554720/" target="_blank" rel="noopener">PubMed 30554720</a> · <a href="https://doi.org/10.1016/j.ajhg.2018.11.002" target="_blank" rel="noopener">DOI</a></p>
+      <p class="tool-sub">A score built from 313 DNA markers was tested in 10 prospective studies (11,428 women with breast cancer, 18,323 without).</p>
+      <dl>
+        <dt>Odds ratio</dt>
+        <dd>1.61 per 1 SD rise in the score (95% CI 1.57 to 1.65)</dd>
+        <dt>Baseline chance</dt>
+        <dd>1.7% <span class="assumption">assumption</span><small>The paper reports 3,215 new breast cancers among 190,040 UK Biobank women, which is 1.7%. Using that as the chance for a woman with an average score is a planning choice.</small></dd>
+        <dt>R² with other factors</dt>
+        <dd>0 <span class="assumption">assumption</span><small>Treats the score as unrelated to the other factors in the model.</small></dd>
+        <dt>Alpha and power</dt>
+        <dd>0.05 two-sided, 90% power <span class="assumption">assumption</span><small>These are design choices, not results. Both are common standards.</small></dd>
+      </dl>
+      <p class="study-answer" data-study="logistic"></p>
+    </div>
+
+    <div class="tool-card" data-whatif="logistic"></div>
+    <div class="tool-card" data-calc="logistic"></div>
+
+    <details class="how">
+      <summary>Formula and source</summary>
+      <div class="how-body">
+        <p>Hsieh, Bloch and Larsen (1998), as documented in the PASS chapter "Logistic Regression (Legacy)" (chapter 860).</p>
+        <p><b>Predictor on a number scale (normal):</b></p>
+        <p class="formula">N = (z<sub>1-α/2</sub> + z<sub>1-β</sub>)<sup>2</sup> / [ P<sub>0</sub> (1 - P<sub>0</sub>) B<sup>2</sup> ]</p>
+        <ul>
+          <li><b>P<sub>0</sub></b>: chance of the outcome at the average value of the predictor.</li>
+          <li><b>B</b>: log of the odds ratio for a 1 SD rise in the predictor.</li>
+        </ul>
+        <p><b>Yes or no predictor:</b></p>
+        <p class="formula">N = [ z<sub>1-α/2</sub> √( P̄ (1 - P̄) / R ) + z<sub>1-β</sub> √( P<sub>0</sub>(1 - P<sub>0</sub>) + P<sub>1</sub>(1 - P<sub>1</sub>)(1 - R) / R ) ]<sup>2</sup> / [ (P<sub>0</sub> - P<sub>1</sub>)<sup>2</sup> (1 - R) ]</p>
+        <ul>
+          <li><b>P<sub>0</sub></b>, <b>P<sub>1</sub></b>: chance of the outcome without and with the factor.</li>
+          <li><b>R</b>: share of people who have the factor. <b>P̄</b> = (1 - R) P<sub>0</sub> + R P<sub>1</sub>.</li>
+        </ul>
+        <p><b>Other covariates:</b> divide N by (1 - R²), where R² is how much of the predictor the other covariates explain.</p>
+        <p>Checks: the code matches the power values in the chapter's Examples 1, 2, 4, 5 and 6 to five decimals, and the odds ratio in Example 3. PASS prints N = 981, 335 and 3,326 in Examples 2 and 4, where power is a hair under 90%. This page rounds the formula up, so it gives 982, 336 and 3,327.</p>
+        <p>Sources: <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Logistic_Regression-Legacy.pdf" target="_blank" rel="noopener">PASS chapter, Logistic Regression (Legacy) (PDF)</a>. Hsieh FY, Bloch DA, Larsen MD. A simple method of sample size calculation for linear and logistic regression. Stat Med. 1998;17:1623-1634.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ======================= AUC ======================= -->
+  <section class="lab-panel" id="panel-auc" role="tabpanel" aria-labelledby="tab-auc" tabindex="0" hidden>
+    <h2>How well a score sorts people</h2>
+    <p class="lab-sub">AUC is the chance a score ranks a person with the disease above a person without it. A coin flip scores 0.50. A perfect test scores 1.00.</p>
+
+    <div class="tool-card study-card">
+      <p class="work-label">Worked example from published research</p>
+      <h3>The Gail model for breast cancer risk</h3>
+      <p class="study-cite">Rockhill B, Spiegelman D, Byrne C, Hunter DJ, Colditz GA. Validation of the Gail et al. model of breast cancer risk prediction and implications for chemoprevention. J Natl Cancer Inst. 2001;93(5):358-366. <a href="https://pubmed.ncbi.nlm.nih.gov/11238697/" target="_blank" rel="noopener">PubMed 11238697</a> · <a href="https://doi.org/10.1093/jnci/93.5.358" target="_blank" rel="noopener">DOI</a></p>
+      <p class="tool-sub">The model's 5-year risk estimate was checked in 82,109 women from the Nurses' Health Study.</p>
+      <dl>
+        <dt>AUC</dt>
+        <dd>0.58 (95% CI 0.56 to 0.60), reported as the concordance statistic</dd>
+        <dt>Without cancer per case</dt>
+        <dd>59.6, from 1,354 breast cancer cases among the 82,109 women</dd>
+        <dt>Null AUC</dt>
+        <dd>0.50 <span class="assumption">assumption</span><small>A coin flip. It is the usual "no skill" mark to beat.</small></dd>
+        <dt>Type of score</dt>
+        <dd>Continuous <span class="assumption">assumption</span><small>The risk estimate is a number on a smooth scale, so the continuous-data formula applies.</small></dd>
+        <dt>Alpha and power</dt>
+        <dd>0.05 two-sided, 90% power <span class="assumption">assumption</span><small>These are design choices, not results. Both are common standards.</small></dd>
+      </dl>
+      <p class="study-answer" data-study="auc"></p>
+    </div>
+
+    <div class="tool-card" data-whatif="auc"></div>
+    <div class="tool-card" data-calc="auc"></div>
+
+    <details class="how">
+      <summary>Formula and source</summary>
+      <div class="how-body">
+        <p>One ROC curve tested against a null AUC, as documented in the PASS chapter "Tests for One ROC Curve" (chapter 260).</p>
+        <p class="formula">N<sub>+</sub> = [ z<sub>α</sub> √V(AUC<sub>0</sub>) + z<sub>β</sub> √V(AUC<sub>1</sub>) ]<sup>2</sup> / (AUC<sub>1</sub> - AUC<sub>0</sub>)<sup>2</sup></p>
+        <p>For a continuous score the chapter uses the Hanley and McNeil variance, with θ as the AUC and R as the number of people without the disease per person with it:</p>
+        <p class="formula">V(θ) = θ / [ R (2 - θ) ] + 2θ<sup>2</sup> / (1 + θ) - θ<sup>2</sup> (1 + R) / R</p>
+        <ul>
+          <li><b>N<sub>+</sub></b>: people with the disease. People without: R × N<sub>+</sub>.</li>
+          <li><b>z<sub>α</sub></b> uses α/2 for a two-sided test.</li>
+        </ul>
+        <p>Power for a given N<sub>+</sub>: Φ( [ |AUC<sub>1</sub> - AUC<sub>0</sub>| √N<sub>+</sub> - z<sub>α</sub> √V(AUC<sub>0</sub>) ] / √V(AUC<sub>1</sub>) ).</p>
+        <p>Checks: every worked example in the chapter uses rating-scale data (the Obuchowski and McClish variance). The code matches those: Example 1 power table, Example 2 (N<sub>+</sub> = 1,582, 381, 85) and Example 4 (162 and 243). The chapter prints no worked example for continuous data, so that variance is checked against the Hanley and McNeil (1982) standard error instead.</p>
+        <p>Sources: <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Tests_for_One_ROC_Curve.pdf" target="_blank" rel="noopener">PASS chapter, Tests for One ROC Curve (PDF)</a>. Hanley JA, McNeil BJ. The meaning and use of the area under a receiver operating characteristic (ROC) curve. Radiology. 1982;143:29-36. Obuchowski NA, McClish DK. Sample size determination for diagnostic accuracy studies involving binormal ROC curve indices. Stat Med. 1997;16:1529-1542.</p>
+      </div>
+    </details>
+  </section>
+
+  <p class="note">These are planning formulas. They assume the model fits and use large-sample math, so treat the answers as a starting point. A real study plan also adds room for dropouts.</p>
+</div>
+</main>
+<footer></footer>
+<script src="js/site.js"></script>
+<script src="js/network.js" defer></script>
+<script src="js/lab/power.js"></script><script src="js/lab/lab.js"></script>
+</body>
+</html>

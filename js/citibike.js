@@ -5,9 +5,9 @@
   'use strict';
 
   // ---------- shared Plotly styling (matches dashboard.js) ----------
-  var FONT = { family: 'DM Sans, sans-serif', color: '#96A0B5', size: 12 };
-  var GRID = 'rgba(255,255,255,0.06)';
-  var C = { mint: '#4AE3B5', indigo: '#7C8CF8', amber: '#F8A44C', sky: '#4AC2E3', red: '#E36A6A', dim: 'rgba(150,160,181,0.5)' };
+  var FONT = { family: 'DM Sans, sans-serif', color: Site.cssVar('--text-dim'), size: 12 };
+  var GRID = Site.cssVar('--chart-grid');
+  var C = { mint: Site.cssVar('--series-1'), indigo: Site.cssVar('--series-4'), amber: Site.cssVar('--series-3'), sky: Site.cssVar('--series-2'), red: Site.cssVar('--danger'), dim: 'rgba(150,160,181,0.5)' };
   var PLOTLY_CONFIG = { displayModeBar: false, responsive: true };
 
   function baseLayout(extra) {
@@ -227,8 +227,8 @@
         x: '2026-02-23', y: 0, yref: 'y',
         text: 'Feb 2026 blizzard:<br>system shut down',
         showarrow: true, arrowhead: 0, arrowcolor: 'rgba(150,160,181,0.6)',
-        ax: 0, ay: -96, font: { family: FONT.family, size: 11, color: '#C7CEDD' },
-        bgcolor: 'rgba(10,14,26,0.85)', borderpad: 3
+        ax: 0, ay: -96, font: { family: FONT.family, size: 11, color: Site.cssVar('--text') },
+        bgcolor: Site.cssVar('--surface'), borderpad: 3
       }]
     }), PLOTLY_CONFIG);
   }
@@ -258,7 +258,7 @@
       x: h.hours.map(function (v) { return v + ':00'; }),
       y: h.weekdays,
       type: 'heatmap',
-      colorscale: [[0, '#151A2E'], [0.5, '#1E6B58'], [1, '#4AE3B5']],
+      colorscale: Site.theme() === 'light' ? [[0, '#E8E0D5'], [0.5, '#5DB7A0'], [1, '#0E6655']] : [[0, '#131C2E'], [0.5, '#1E6B58'], [1, '#6EE7B7']],
       hovertemplate: '%{y} %{x}: %{z:,} trips<extra></extra>',
       colorbar: { tickfont: FONT, thickness: 12, len: 0.8 }
     }], baseLayout({

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>RUNNING</title>
+<style>
+  body{font:15px/1.5 system-ui,sans-serif;margin:1.5rem;color:#17232F;background:#fff}
+  h1{font-size:1.3rem;margin:0 0 .25rem}
+  p{margin:.25rem 0 1rem;max-width:80ch}
+  table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+  th,td{border:1px solid #ccd3da;padding:.35rem .6rem;text-align:left;vertical-align:top;font-size:.9rem}
+  th{background:#eef1f4}
+  td.num{text-align:right;white-space:nowrap}
+  tr.group td{background:#f6f3ee;font-weight:700}
+  .pass{color:#0E6655;font-weight:700}
+  .fail{color:#B42318;font-weight:700}
+  #summary{font-size:1.1rem;font-weight:700}
+</style>
+</head>
+<body>
+<h1>Stats Lab formula checks</h1>
+<p>Each row runs a function from <code>js/lab/power.js</code> and compares it with a value printed in the
+NCSS PASS documentation chapter named in the row. Tolerance is the largest allowed absolute difference.</p>
+<p id="summary">Running</p>
+<table>
+  <thead><tr><th>Check</th><th>Source</th><th>Expected</th><th>Got</th><th>Tolerance</th><th>Result</th></tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+
+<script src="../js/lab/power.js"></script>
+<script>
+(function () {
+  'use strict';
+  var L = window.LabPower, rows = document.getElementById('rows');
+  var total = 0, passed = 0, results = [];
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function group(title) {
+    rows.insertAdjacentHTML('beforeend', '<tr class="group"><td colspan="6">' + esc(title) + '</td></tr>');
+  }
+  function fmt(v) { return typeof v === 'number' ? String(Math.round(v * 1e6) / 1e6) : String(v); }
+  function check(name, source, expected, got, tol) {
+    var ok = typeof got === 'number' && isFinite(got) && Math.abs(got - expected) <= tol + 1e-12;
+    total++; if (ok) passed++;
+    results.push({ name: name, source: source, expected: expected, got: got, tol: tol, pass: ok });
+    rows.insertAdjacentHTML('beforeend',
+      '<tr><td>' + esc(name) + '</td><td>' + esc(source) + '</td><td class="num">' + fmt(expected) +
+      '</td><td class="num">' + fmt(got) + '</td><td class="num">' + fmt(tol) + '</td><td class="' +
+      (ok ? 'pass">PASS' : 'fail">FAIL') + '</td></tr>');
+  }
+
+  try {
+    // ---------------- normal distribution ----------------
+    group('Normal distribution (reference values to 15 digits)');
+    var REF = 'Standard normal tables';
+    check('qnorm(0.975)', REF, 1.959963984540054, L.qnorm(0.975), 1e-12);
+    check('qnorm(0.95)', REF, 1.644853626951472, L.qnorm(0.95), 1e-12);
+    check('qnorm(0.90)', REF, 1.281551565544601, L.qnorm(0.90), 1e-12);
+    check('qnorm(0.80)', REF, 0.841621233572914, L.qnorm(0.80), 1e-12);
+    check('qnorm(0.001)', REF, -3.090232306167813, L.qnorm(0.001), 1e-11);
+    check('pnorm(1.96)', REF, 0.975002104851780, L.pnorm(1.96), 1e-13);
+    check('pnorm(-1)', REF, 0.158655253931457, L.pnorm(-1), 1e-13);
+    check('pnorm(qnorm(0.37)) round trip', 'Identity', 0.37, L.pnorm(L.qnorm(0.37)), 1e-13);
+
+    // ---------------- Cox ----------------
+    group('Cox regression: PASS chapter 850, Hsieh and Lavori (2000)');
+    var c1 = { sigma: 1.2, r2: 0.18, eventRate: 0.7, alpha: 0.05, sides: 2 };
+    function cp(b, n) { return L.coxPower({ b: b, n: n, sigma: c1.sigma, r2: c1.r2, eventRate: c1.eventRate, alpha: 0.05, sides: 2 }); }
+    var S1 = 'Ch. 850 Example 1 (B, SD 1.2, R2 0.18, P 0.70, two-sided 0.05)';
+    check('Power, B = 0.2, N = 5', S1, 0.06017, cp(0.2, 5), 0.00001);
+    check('Power, B = 0.2, N = 45', S1, 0.22959, cp(0.2, 45), 0.00001);
+    check('Power, B = 0.2, N = 125', S1, 0.52908, cp(0.2, 125), 0.00001);
+    check('Power, B = 0.2, N = 245', S1, 0.81223, cp(0.2, 245), 0.00001);
+    check('Power, B = 0.3, N = 45', S1, 0.44815, cp(0.3, 45), 0.00001);
+    check('Power, B = 0.3, N = 125', S1, 0.86202, cp(0.3, 125), 0.00001);
+    check('Power, B = 0.3, N = 245', S1, 0.98953, cp(0.3, 245), 0.00001);
+
+    var c2 = { b: 1.0, sigma: 0.3126, r2: 0.1837, eventRate: 0.738, alpha: 0.05, sides: 1, power: 0.80 };
+    var S2 = 'Ch. 850 Example 2, validation vs Hsieh and Lavori (one-sided 0.05, power 0.80)';
+    check('N, B = 1, SD 0.3126, R2 0.1837, P 0.738', S2 + '. PASS prints 106 (the paper prints 107 from intermediate rounding)', 106, L.coxN(c2).n, 0);
+    check('Power at N = 106', S2, 0.80321, L.coxPower({ b: 1, n: 106, sigma: 0.3126, r2: 0.1837, eventRate: 0.738, sides: 1 }), 0.00001);
+    check('N with R2 = 0 and P = 1', S2, 64, L.coxN({ b: 1, sigma: 0.3126, r2: 0, eventRate: 1, sides: 1, power: 0.8 }).n, 0);
+    check('Power at N = 64, R2 = 0, P = 1', S2, 0.80399, L.coxPower({ b: 1, n: 64, sigma: 0.3126, sides: 1 }), 0.00001);
+
+    var S3 = 'Ch. 850 Example 3, validation vs Schoenfeld (1983) p. 502 (binary X, one-sided 0.05, power 0.80)';
+    check('N, B = 0.4055, SD 0.5, P 0.71', S3, 212, L.coxN({ b: 0.4055, sigma: 0.5, eventRate: 0.71, sides: 1, power: 0.8 }).n, 0);
+    check('Power at N = 212', S3, 0.80028, L.coxPower({ b: 0.4055, n: 212, sigma: 0.5, eventRate: 0.71, sides: 1 }), 0.00001);
+
+    group('Cox regression: Schoenfeld check published on this site (HR 1.2, equal groups, 50% events, two-sided 0.05)');
+    var SS = 'projects/cancer-research.html table. Binary X, sigma 0.5, so D = 4 (z_a + z_b)^2 / ln(HR)^2 and N = D / 0.5';
+    var s80 = L.coxN({ hr: 1.2, sigma: 0.5, eventRate: 0.5, power: 0.80 });
+    var s95 = L.coxN({ hr: 1.2, sigma: 0.5, eventRate: 0.5, power: 0.95 });
+    var z80 = L.qnorm(0.975) + L.qnorm(0.80), ln12 = Math.log(1.2);
+    check('Events, power 80%: matches 4 (z_a + z_b)^2 / ln(1.2)^2', SS, 4 * z80 * z80 / (ln12 * ln12), s80.eventsRaw, 1e-9);
+    check('N, power 80%, PASS rounding (round N up once)', SS + '. Site prints 1,890; unrounded N is 1,888.96', 1890, s80.n, 2);
+    check('N, power 80%, events rounded up first (945 / 0.5)', SS + '. This rounding gives the site value exactly', 1890, s80.events / 0.5, 0);
+    check('N, power 95%, PASS rounding', SS + '. Site prints 3,128', 3128, s95.n, 2);
+    check('N, power 95%, events rounded up first (1,564 / 0.5)', SS, 3128, s95.events / 0.5, 0);
+
+    // ---------------- Logistic ----------------
+    group('Logistic regression: PASS chapter 860 (Legacy), Hsieh, Bloch and Larsen (1998)');
+    function lp(or, n) { return L.logisticNormalPower({ p0: 0.07, or: or, n: n, alpha: 0.05 }); }
+    var G1 = 'Ch. 860 Example 1 (normal X, P0 0.07, two-sided 0.05)';
+    check('Power, OR 1.5, N = 20', G1, 0.06716, lp(1.5, 20), 0.00001);
+    check('Power, OR 1.5, N = 200', G1, 0.30962, lp(1.5, 200), 0.00001);
+    check('Power, OR 1.5, N = 1000', G1, 0.90516, lp(1.5, 1000), 0.00001);
+    check('Power, OR 2.0, N = 100', G1, 0.42410, lp(2.0, 100), 0.00001);
+    check('Power, OR 2.0, N = 300', G1, 0.86504, lp(2.0, 300), 0.00001);
+    check('Power, OR 2.0, N = 700', G1, 0.99673, lp(2.0, 700), 0.00001);
+
+    var G2 = 'Ch. 860 Example 2 (normal X, P0 0.07, power 0.90)';
+    var G2n = '. PASS prints an N whose power is just under 0.90; this code rounds the formula value up, so it is one higher';
+    check('N, OR 1.5', G2 + ': 981' + G2n, 981, L.logisticNormalN({ p0: 0.07, or: 1.5, power: 0.9 }).n, 1);
+    check('N, OR 2.0', G2 + ': 335' + G2n, 335, L.logisticNormalN({ p0: 0.07, or: 2.0, power: 0.9 }).n, 1);
+    check('Power at the PASS N = 981, OR 1.5', G2, 0.89978, lp(1.5, 981), 0.00001);
+    check('Power at the PASS N = 335, OR 2.0', G2, 0.89920, lp(2.0, 335), 0.00001);
+
+    check('Detectable OR, N = 500, power 0.90', 'Ch. 860 Example 3 (normal X, P0 0.07)', 1.765,
+      L.logisticNormalOR({ p0: 0.07, n: 500, power: 0.9 }), 0.0005);
+
+    var G4 = 'Ch. 860 Example 4 (binary X, 50% with X = 1, P0 0.07, OR 1.5, power 0.90)';
+    check('N, binary X', G4 + ': 3326. Formula value is 3326.41, rounded up here', 3326,
+      L.logisticBinaryN({ p0: 0.07, or: 1.5, fracX1: 0.5, power: 0.9 }).n, 1);
+    check('Power at the PASS N = 3326', G4, 0.89997,
+      L.logisticBinaryPower({ p0: 0.07, or: 1.5, fracX1: 0.5, n: 3326 }), 0.00001);
+
+    check('Power, normal X, N = 317, P0 0.5, OR 1.5', 'Ch. 860 Example 5, validation vs Hsieh (1998) p. 1628 (paper: 95%)', 0.95049,
+      L.logisticNormalPower({ p0: 0.5, or: 1.5, n: 317 }), 0.00001);
+    check('Power, binary X, N = 1282, P0 0.4, P1 0.5', 'Ch. 860 Example 6, validation vs Hsieh (1998) p. 1626 (paper: 95%)', 0.95021,
+      L.logisticBinaryPower({ p0: 0.4, p1: 0.5, fracX1: 0.5, n: 1282 }), 0.00001);
+    check('R2 inflation: N at R2 0.2 equals N / 0.8', 'Ch. 860, N_m = N / (1 - rho^2)',
+      L.logisticNormalN({ p0: 0.07, or: 1.5, power: 0.9 }).raw / 0.8,
+      L.logisticNormalN({ p0: 0.07, or: 1.5, power: 0.9, r2: 0.2 }).raw, 1e-9);
+
+    // ---------------- ROC ----------------
+    group('One ROC curve: PASS chapter 260, test framework and Obuchowski and McClish (1997) rating-data variance');
+    function rp(auc1, nPos) { return L.rocPower({ auc0: 0.8, auc1: auc1, ratio: 2, data: 'discrete', b: 1, nPos: nPos }); }
+    var R1 = 'Ch. 260 Example 1 (AUC0 0.80, R 2, B 1, two-sided 0.05, rating data)';
+    check('Power, AUC1 0.825, N+ = 20', R1, 0.04806, rp(0.825, 20), 0.00001);
+    check('Power, AUC1 0.825, N+ = 500', R1, 0.43207, rp(0.825, 500), 0.00001);
+    check('Power, AUC1 0.825, N+ = 2000', R1, 0.95496, rp(0.825, 2000), 0.00001);
+    check('Power, AUC1 0.85, N+ = 100', R1, 0.34913, rp(0.85, 100), 0.00001);
+    check('Power, AUC1 0.85, N+ = 250', R1, 0.73689, rp(0.85, 250), 0.00001);
+    check('Power, AUC1 0.90, N+ = 50', R1, 0.65634, rp(0.90, 50), 0.00001);
+    check('Power, AUC1 0.90, N+ = 100', R1, 0.94738, rp(0.90, 100), 0.00001);
+
+    function rn(auc1) { return L.rocN({ auc0: 0.8, auc1: auc1, ratio: 2, data: 'discrete', b: 1, power: 0.9 }); }
+    var R2 = 'Ch. 260 Example 2 (same design, power 0.90)';
+    check('N+, AUC1 0.825', R2, 1582, rn(0.825).nPos, 0);
+    check('N-, AUC1 0.825', R2, 3164, rn(0.825).nNeg, 0);
+    check('N+, AUC1 0.85', R2, 381, rn(0.85).nPos, 0);
+    check('N+, AUC1 0.90', R2, 85, rn(0.90).nPos, 0);
+    check('Total N, AUC1 0.90', R2, 255, rn(0.90).n, 0);
+
+    var r4 = L.rocN({ auc0: 0.7995, auc1: 0.8495, ratio: 1.5, data: 'discrete', b: 1, power: 0.5 });
+    var R4 = 'Ch. 260 Example 4, validation vs Obuchowski and McClish (1997) p. 1538 (paper: 161 and 242)';
+    check('N+, AUC 0.7995 vs 0.8495, R 1.5, power 0.50', R4, 162, r4.nPos, 0);
+    check('N-', R4, 243, r4.nNeg, 0);
+    check('Power at N+ = 162', R4, 0.50262,
+      L.rocPower({ auc0: 0.7995, auc1: 0.8495, ratio: 1.5, data: 'discrete', b: 1, nPos: 162 }), 0.00001);
+
+    group('One ROC curve, continuous data: the chapter prints the variance formula but no worked example');
+    // Independent check: the printed formula should be the large-sample limit of
+    // N+ times the Hanley and McNeil (1982) variance of the AUC.
+    function hm1982(t, nPos, nNeg) {
+      var q1 = t / (2 - t), q2 = 2 * t * t / (1 + t);
+      return (t * (1 - t) + (nPos - 1) * (q1 - t * t) + (nNeg - 1) * (q2 - t * t)) / (nPos * nNeg);
+    }
+    var RC = 'Ch. 260 "Continuous Data" formula vs N+ x Hanley and McNeil (1982) SE^2 at N+ = 1e8';
+    check('V(0.58), R = 59.6', RC, 1e8 * hm1982(0.58, 1e8, 59.6e8), L.rocVarContinuous(0.58, 59.6), 1e-6);
+    check('V(0.75), R = 1', RC, 1e8 * hm1982(0.75, 1e8, 1e8), L.rocVarContinuous(0.75, 1), 1e-6);
+    check('V(0.50), R = 1 equals 1/6', 'Ch. 260 "Continuous Data" formula, hand arithmetic: 1/3 + 1/3 - 1/2', 1 / 6, L.rocVarContinuous(0.5, 1), 1e-12);
+    var rc = { auc0: 0.5, auc1: 0.7, ratio: 1, alpha: 0.05, power: 0.9 };
+    var v0 = 1 / 6, v1 = 0.7 / 1.3 + 2 * 0.49 / 1.7 - 0.49 * 2;
+    var hand = Math.pow(1.959963984540054 * Math.sqrt(v0) + 1.281551565544601 * Math.sqrt(v1), 2) / 0.04;
+    check('N+ raw, AUC 0.50 vs 0.70, R 1, power 0.90', 'Ch. 260 N+ formula with the continuous V, hand arithmetic', hand, L.rocN(rc).raw, 1e-9);
+    check('Power at that N+ returns 0.90', 'Ch. 260 power formula, round trip', 0.9,
+      L.rocPower({ auc0: 0.5, auc1: 0.7, ratio: 1, nPos: L.rocN(rc).raw }), 1e-9);
+  } catch (e) {
+    total++;
+    rows.insertAdjacentHTML('beforeend', '<tr><td colspan="5">Exception: ' + esc(e && e.stack || e) + '</td><td class="fail">FAIL</td></tr>');
+  }
+
+  var ok = total > 0 && passed === total;
+  document.getElementById('summary').textContent = (ok ? 'PASS ' : 'FAIL ') + passed + '/' + total;
+  document.getElementById('summary').className = ok ? 'pass' : 'fail';
+  document.title = ok ? 'PASS ' + passed + '/' + total : 'FAIL';
+  window.__labTests = { total: total, passed: passed, results: results };
+})();
+</script>
+</body>
+</html>

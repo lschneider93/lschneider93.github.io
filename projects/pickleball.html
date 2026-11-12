@@ -12,46 +12,27 @@
   <meta property="og:url" content="https://lschneider93.github.io/projects/pickleball.html">
   <meta property="og:image" content="https://lschneider93.github.io/assets/img/poster-full-pipeline.jpg">
   <meta name="twitter:card" content="summary_large_image">
+  <script>try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/main.css?v=20261024">
+  <link rel="stylesheet" href="../css/main.css?v=20261112">
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<nav class="site-nav" aria-label="Main">
-  <div class="nav-inner">
-    <a class="logo" href="../index.html">logan<span>.</span>schneider</a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">☰</button>
-    <ul class="nav-links" id="nav-menu">
-      <li class="nav-item-dd">
-        <button class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projects-menu">Projects</button>
-        <ul class="nav-dd" id="projects-menu">
-          <li><a href="../index.html#projects">All Projects</a></li>
-          <li><a href="cancer-research.html">Cancer Research Statistics</a></li>
-          <li><a href="pickleball.html" aria-current="page">Pickleball Analytics</a></li>
-          <li><a href="rsnodas.html">rsnodas</a></li>
-          <li><a href="../water.html">Water Dashboard</a></li>
-          <li><a href="../dashboard.html">Health Dashboard</a></li>
-          <li><a href="../citibike.html">Citi Bike</a></li>
-        </ul>
-      </li>
-      <li><a href="../resume.pdf" target="_blank" rel="noopener">Resume</a></li>
-      <li><a href="../index.html#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+<nav class="site-nav" aria-label="Main"></nav>
 
 <main id="main">
 <div class="container">
 
-<header class="page-hero">
-  <p class="eyebrow" style="opacity:1;animation:none">Case Study · Computer Vision · Jan 2026 – Present</p>
+<header class="page-hero net-host">
+  <a class="back-link" href="../index.html#projects">← All work</a><br>
+  <p class="eyebrow">Case Study · Computer Vision and Sports Statistics · Jan 2026 – Present</p>
   <h1>What can a match video reveal about a player's <em>decisions?</em></h1>
-  <p class="lede">And how can it help them improve? A computer vision pipeline that turns recorded gameplay into data on shot selection and play.</p>
+  <p class="lede">And how can it help them improve? Computer vision models and a shot-by-shot record of pro matches, with every model scored against answers I label by hand.</p>
 </header>
 
 <div class="prose">
@@ -60,15 +41,31 @@
   <dl class="qa-rows">
     <dt>Question</dt><dd>Players record their games but have no simple way to review their shot choices. Can the footage from one camera be turned into data a player can learn from?</dd>
     <dt>What I did</dt><dd>Built a computer vision pipeline that finds the ball, the players, and the court in every frame, marks each hit and bounce, places them on a court map in feet, and names serves and returns. Every model is scored against answers I label by hand, and only changes that measurably improve get kept.</dd>
-    <dt>What it shows</dt><dd>It runs end to end on a single rally from a fixed camera and produces a court map and a shot list. Shot naming beyond serves and returns, and player identity across rallies, are not yet reliable. One camera cannot measure ball height.</dd>
+    <dt>What it shows</dt><dd>Rallies are found automatically 96% of the time, and the court is located within one foot on 97% of checks. Hits are found 83% of the time. Bounces are the weak stage at 57 to 67%. The full scorecard is below.</dd>
     <dt>Why it matters</dt><dd>Coaching feedback today depends on a coach being there. A measured record of a session makes review possible for anyone with a phone on a tripod.</dd>
   </dl>
 </div>
 
+<h2>How the models score</h2>
+<p>Every number below compares a model with answers I labeled by hand. Each card says how many hand labels it was checked against.</p>
+<div class="score-grid">
+  <div class="score"><h3>Finding rallies</h3><p class="score-num">96%</p><div class="meter" aria-hidden="true"><i style="width:96%"></i></div><p class="score-what">of rallies found without help</p><p class="score-n">167 of 174 rallies, marked by hand before the model ran · Nov 2026</p></div>
+  <div class="score"><h3>Fitting the court</h3><p class="score-num">97%</p><div class="meter" aria-hidden="true"><i style="width:97%"></i></div><p class="score-what">of checked points land within one foot. The typical miss is 0.17 ft, about two inches.</p><p class="score-n">76 hand-clicked points across 11 clips · Nov 2026</p></div>
+  <div class="score"><h3>Finding hits</h3><p class="score-num">83%</p><div class="meter" aria-hidden="true"><i style="width:82.5%"></i></div><p class="score-what">of paddle hits found. When the model is confident, it is right 95% of the time (198 of 209).</p><p class="score-n">524 of 635 hits, in two games the model was not tuned on · Nov 2026</p></div>
+  <div class="score"><h3>Forehand or backhand</h3><p class="score-num">83%</p><div class="meter" aria-hidden="true"><i style="width:83.3%"></i></div><p class="score-what">of swings named correctly. On a game held back for testing: 80% (68 of 85).</p><p class="score-n">348 of 418 swings · Nov 2026</p></div>
+  <div class="score"><h3>Finding the ball</h3><p class="score-num">79%</p><div class="meter" aria-hidden="true"><i style="width:79%"></i></div><p class="score-what">of frames where the ball is visible. Scored on older clips; not yet re-run on this year's broadcasts.</p><p class="score-n">4,780 frames across 64 clips · Nov 2026</p></div>
+  <div class="score weak"><h3>Finding bounces <span class="chip chip-progress">Weak stage</span></h3><p class="score-num">57 to 67%</p><div class="meter" aria-hidden="true"><i style="width:62%"></i></div><p class="score-what">of bounces found, depending on the game. Landing spots are off by about 3 feet on a typical bounce.</p><p class="score-n">132 of 233 and 188 of 282 bounces; 89 landing spots · Nov 2026</p></div>
+</div>
+<div class="callout"><p class="work-label">What I am doing about the weak stage</p>A bounce is a small change in a fast, blurry path, and one camera cannot see ball height. Until the model is better, serve and return landing spots are placed by hand, and the model's guesses are kept out of the published stats.</div>
+
+<h2>From models to match stats</h2>
+<p>The models speed up the labeling. The record itself is checked by hand: for each shot in a pro match, who hit it, from where, where it landed, and how the rally ended. One full match is done (3 games, 129 rallies, 1,029 shots), and more are in progress.</p>
+<p><a class="btn btn-primary btn-sm" href="../playground.html">Play with the match data <span class="arrow">→</span></a></p>
+
 <h2>What it does today, and what it is meant to become</h2>
 <div class="two-col">
   <div class="col-card">
-    <span class="version-tag v2-tag">Today</span>
+    <span class="version-tag tag-now">Today</span>
     <h3>A measured rally</h3>
     <p>Give it one rally clip from a fixed camera. It finds the ball, the players, and the court; marks every hit and bounce; places each one on a court map in feet; and names the serve and the return. Every model is scored against hand-labeled answers.</p>
     <p><strong>Where it falls short:</strong></p>
@@ -81,7 +78,7 @@
     </ul>
   </div>
   <div class="col-card">
-    <span class="version-tag v1-tag">Intended</span>
+    <span class="version-tag tag-goal">Intended</span>
     <h3>A coaching tool</h3>
     <p>Record a session, upload it, and get back what a coach would tell you: which shots you chose at each moment, the patterns that won and lost rallies, and what to practice next. The steps below are the path from here to there.</p>
   </div>
@@ -175,29 +172,22 @@
 <h2>What is next</h2>
 <ul>
   <li>Finish the game splitter and the shot namer so a full session runs end to end.</li>
-  <li>Put the per-rally stats on a simple dashboard a player can read.</li>
+  <li>Improve bounce detection, the weakest stage on the scorecard.</li>
+  <li>Add more pro matches to the <a href="../playground.html">Playground</a>.</li>
   <li>Keep growing the hand-labeled truth sets, because every model improvement is checked against them.</li>
 </ul>
 
 <p class="note">The code is private while the project is active. Built with AI-assisted development tools; the design, the evaluation method, and the statistical judgment are mine.</p>
 
-<p style="margin:2.5rem 0"><a class="btn btn-primary" href="../index.html#projects">← All Projects</a></p>
+<p style="margin:2.5rem 0"><a class="btn btn-ghost" href="../index.html#projects">← All work</a></p>
 
 </div>
 </div>
 </main>
 
-<footer>
-  <div class="container">
-    <div class="foot-links">
-      <a href="../index.html">Home</a>
-      <a href="../resume.pdf" target="_blank" rel="noopener">Resume</a>
-      <a href="https://github.com/lschneider93" target="_blank" rel="noopener">GitHub</a>
-    </div>
-    <p>© <span id="year">2026</span> Logan Schneider · Built by hand with HTML, CSS, and vanilla JS.</p>
-  </div>
-</footer>
+<footer></footer>
 
 <script src="../js/site.js" defer></script>
+<script src="../js/network.js" defer></script>
 </body>
 </html>

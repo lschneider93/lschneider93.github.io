@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pickleball Playground | Logan Schneider</title>
+  <meta name="description" content="Every serve and return from one pro pickleball match, hand-labelled shot by shot. Filter by team, player, court and score to see where the ball lands.">
+  <link rel="canonical" href="https://lschneider93.github.io/playground.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pickleball Playground | Logan Schneider">
+  <meta property="og:description" content="Every serve and return from one pro pickleball match, hand-labelled shot by shot. Filter by team, player, court and score to see where the ball lands.">
+  <meta property="og:url" content="https://lschneider93.github.io/playground.html">
+  <meta property="og:image" content="https://lschneider93.github.io/assets/img/og-image.png">
+  <script>try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css?v=20261112">
+  <link rel="stylesheet" href="css/playground.css?v=20261112">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-nav" aria-label="Main"></nav>
+<main id="main">
+<section class="page-hero net-host"><div class="container">
+  <p class="eyebrow">Playground · One pro match, every serve and return</p>
+  <h1>Where do the pros <em>put the ball?</em></h1>
+  <p class="lede">I coach pickleball and label pro matches by hand, shot by shot. This is one match: 129 rallies, 1,029 shots. Pick a question or set the filters and see where each serve and return landed.</p>
+</div></section>
+
+<div class="container prose">
+
+  <p class="note pg-source"><strong>Source.</strong> These are my own hand labels, made from the public PPA Tour broadcast of the 2026 PPA Nationals mixed doubles semifinal: Ben Johns and Anna Leigh Waters against JW Johnson and Jorja Johnson. This page is not affiliated with or endorsed by the PPA.</p>
+
+  <section class="tool-card pg-card" id="explorer" aria-labelledby="pg-title">
+    <h3 id="pg-title">Court map</h3>
+    <p class="tool-sub">One mark is one ball I saw land. The server stands at the bottom, so serves land in the top half and returns come back to the bottom half.</p>
+
+    <p class="work-label" id="pg-q-label">Start with a question</p>
+    <div class="pg-presets" id="pg-presets" role="group" aria-labelledby="pg-q-label"></div>
+    <div class="pg-picker" id="pg-picker"></div>
+    <div class="result-line pg-answer" id="pg-answer" aria-live="polite" hidden></div>
+
+    <div class="pg-controls" id="pg-controls">
+      <div class="control">
+        <span class="control-label" id="pg-role-label">Show</span>
+        <div class="seg" id="pg-role" role="group" aria-labelledby="pg-role-label">
+          <button type="button" data-role="serve" aria-pressed="true">Serves</button>
+          <button type="button" data-role="return" aria-pressed="false">Returns</button>
+          <button type="button" data-role="both" aria-pressed="false">Both</button>
+        </div>
+      </div>
+      <div class="control">
+        <span class="control-label" id="pg-view-label">Count by</span>
+        <div class="seg" id="pg-view" role="group" aria-labelledby="pg-view-label">
+          <button type="button" data-view="lane" aria-pressed="true">Lane</button>
+          <button type="button" data-view="depth" aria-pressed="false">Depth</button>
+        </div>
+      </div>
+      <div class="control pg-pick"><label for="pg-game">Game</label><select id="pg-game" data-k="game"></select></div>
+      <div class="control pg-pick"><label for="pg-team">Team</label><select id="pg-team" data-k="team"></select></div>
+      <div class="control pg-pick"><label for="pg-player">Player</label><select id="pg-player" data-k="player"></select></div>
+      <div class="control pg-pick"><label for="pg-court">Serve into</label><select id="pg-court" data-k="court"></select></div>
+      <div class="control pg-pick"><label for="pg-parity">Receiving score</label><select id="pg-parity" data-k="parity"></select></div>
+      <span class="pg-break" aria-hidden="true"></span>
+      <div class="control pg-reset-wrap"><button type="button" class="filter-chip" id="pg-reset">Reset</button></div>
+    </div>
+
+    <p class="note" id="pg-error" role="alert" hidden>The match data did not load. Check your connection and reload the page.</p>
+
+    <div class="pg-stage" id="pg-stage">
+      <figure class="pg-court" id="pg-court-wrap">
+        <div id="pg-svg"><p class="pg-loading">Loading the match…</p></div>
+        <div class="pg-tip" id="pg-tip" role="status" hidden></div>
+      </figure>
+      <div class="pg-side">
+        <p class="pg-count" id="pg-count" aria-live="polite"></p>
+        <div id="pg-tables"></div>
+        <div class="chart-legend pg-legend" id="pg-legend" aria-label="Legend"></div>
+        <p class="pg-small" id="pg-foot"></p>
+      </div>
+    </div>
+  </section>
+
+  <h2>What this match shows</h2>
+  <p>Counts first, then the share. The range in brackets is a 95% interval: with this few balls, the true share could sit anywhere inside it.</p>
+  <div class="metric-tiles three static pg-findings" id="pg-findings"></div>
+  <p class="note"><strong>One match.</strong> A team's plan can change from match to match, so read these as a description of this match, not of the players in general.</p>
+
+  <h2>Words used on this page</h2>
+  <ul class="pg-glossary">
+    <li><strong>Kitchen:</strong> the 7 ft strip on each side of the net where you may not volley (hit the ball out of the air).</li>
+    <li><strong>Deep, mid, shallow:</strong> how far back the ball landed. A deep serve lands in the last 3 ft before the baseline. A deep return lands 19 ft or more past the net.</li>
+    <li><strong>Lanes:</strong> a serve must land in one 10 ft wide service court. I split it in three, named from the receiver: sideline, body, middle. Returns can land anywhere, so they use thirds of the full court.</li>
+    <li><strong>Third shot:</strong> the serving team's first shot after the return. A drop is a soft ball into the kitchen. A drive is a hard, flat one.</li>
+    <li><strong>Stacking:</strong> partners line up so each keeps a favorite side. In this match the receiving pair has to switch sides after the return whenever its own score is odd. That is read from the score, not checked on video.</li>
+  </ul>
+
+  <details class="how">
+    <summary>How this data was made</summary>
+    <div class="how-body">
+      <p>I labelled the match shot by shot from the broadcast video, using labeling tools I built: who hit each ball, what kind of shot it was, and where it landed on the court.</p>
+      <p>Computer vision models help find the ball, the players and the court. Their output is scored against my hand labels, not trusted on its own. See <a href="projects/pickleball.html">the pickleball project</a> for how that works.</p>
+      <p id="pg-how-counts">Only landings I placed by hand after seeing the bounce are on this page. Model estimates are left out.</p>
+      <p>A ball that landed out is drawn where it landed and counts in the total, but in no lane and no depth band.</p>
+      <p>The sample is one match. These numbers describe this match. They are not claims about how these players serve or return in general.</p>
+    </div>
+  </details>
+
+</div>
+</main>
+<footer></footer>
+<script src="js/site.js"></script>
+<script src="js/network.js" defer></script>
+<script src="js/playground.js" defer></script>
+</body>
+</html>

@@ -199,12 +199,17 @@
   }
 
   // WaterWatch-style flow classes. Diverging: warm is dry, gray is normal, cool is wet.
+  // Light theme uses deeper steps of the same five hues so they hold up on a pale surface.
+  var LIGHT = (document.documentElement.getAttribute('data-theme') === 'light');
+  var PAL = LIGHT
+    ? ['#B5302A', '#D98A00', '#A0A8B0', '#0E86C4', '#4B3FB5']
+    : ['#E36A6A', '#F8A44C', '#8B95A8', '#45C8E8', '#6B7CF8'];
   var CLASSES = [
-    { key: 'muchbelow', label: 'Much below normal', test: function (p) { return p < 10; }, color: '#E36A6A' },
-    { key: 'below', label: 'Below normal', test: function (p) { return p < 25; }, color: '#F8A44C' },
-    { key: 'normal', label: 'Normal', test: function (p) { return p <= 75; }, color: '#8B95A8' },
-    { key: 'above', label: 'Above normal', test: function (p) { return p <= 90; }, color: '#45C8E8' },
-    { key: 'muchabove', label: 'Much above normal', test: function () { return true; }, color: '#6B7CF8' }
+    { key: 'muchbelow', label: 'Much below normal', test: function (p) { return p < 10; }, color: PAL[0] },
+    { key: 'below', label: 'Below normal', test: function (p) { return p < 25; }, color: PAL[1] },
+    { key: 'normal', label: 'Normal', test: function (p) { return p <= 75; }, color: PAL[2] },
+    { key: 'above', label: 'Above normal', test: function (p) { return p <= 90; }, color: PAL[3] },
+    { key: 'muchabove', label: 'Much above normal', test: function () { return true; }, color: PAL[4] }
   ];
 
   function classOf(pct) {
