@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/main.css?v=20261113">
+  <link rel="stylesheet" href="../css/main.css?v=20261114">
 </head>
 <body>
 
@@ -40,23 +40,51 @@
 <div class="col-card qa-card">
   <dl class="qa-rows">
     <dt>Question</dt><dd>Players record their games but have no simple way to review their shot choices. Can the footage from one camera be turned into data a player can learn from?</dd>
-    <dt>What I did</dt><dd>Built a computer vision pipeline that finds the ball, the players, and the court in every frame, marks each hit and bounce, places them on a court map in feet, and names serves and returns. Every model is scored against answers I label by hand, and only changes that measurably improve get kept.</dd>
-    <dt>What it shows</dt><dd>Rallies are found automatically 96% of the time, and the court is located within one foot on 97% of checks. Hits are found 83% of the time. Bounces are the weak stage at 57 to 67%. The full scorecard is below.</dd>
+    <dt>What I did</dt><dd>Built a computer vision pipeline that detects the ball, the players, and the court in every frame, marks each hit and bounce, places them on a court map in feet, and names serves and returns. Every model is scored against answers I label by hand, and only changes that measurably improve get kept.</dd>
+    <dt>What it shows</dt><dd>The court is located within one foot on 97% of checks. Hits are detected 83% of the time. Bounces are the weak stage at 57 to 67%. The full scorecard is below.</dd>
     <dt>Why it matters</dt><dd>Coaching feedback today depends on a coach being there. A measured record of a session makes review possible for anyone with a phone on a tripod.</dd>
   </dl>
 </div>
 
 <h2>How the models score</h2>
-<p>Every number below compares a model with answers I labeled by hand. Each card says how many hand labels it was checked against.</p>
-<div class="score-grid">
-  <div class="score"><h3>Finding rallies</h3><p class="score-num">96%</p><div class="meter" aria-hidden="true"><i style="width:96%"></i></div><p class="score-what">of rallies found without help</p><p class="score-n">167 of 174 rallies, marked by hand before the model ran · Nov 2026</p></div>
-  <div class="score"><h3>Fitting the court</h3><p class="score-num">97%</p><div class="meter" aria-hidden="true"><i style="width:97%"></i></div><p class="score-what">of checked points land within one foot. The typical miss is 0.17 ft, about two inches.</p><p class="score-n">76 hand-clicked points across 11 clips · Nov 2026</p></div>
-  <div class="score"><h3>Finding hits</h3><p class="score-num">83%</p><div class="meter" aria-hidden="true"><i style="width:82.5%"></i></div><p class="score-what">of paddle hits found. When the model is confident, it is right 95% of the time (198 of 209).</p><p class="score-n">524 of 635 hits, in two games the model was not tuned on · Nov 2026</p></div>
-  <div class="score"><h3>Forehand or backhand</h3><p class="score-num">83%</p><div class="meter" aria-hidden="true"><i style="width:83.3%"></i></div><p class="score-what">of swings named correctly. On a game held back for testing: 80% (68 of 85).</p><p class="score-n">348 of 418 swings · Nov 2026</p></div>
-  <div class="score"><h3>Finding the ball</h3><p class="score-num">79%</p><div class="meter" aria-hidden="true"><i style="width:79%"></i></div><p class="score-what">of frames where the ball is visible. Scored on older clips; not yet re-run on this year's broadcasts.</p><p class="score-n">4,780 frames across 64 clips · Nov 2026</p></div>
-  <div class="score weak"><h3>Finding bounces <span class="chip chip-progress">Weak stage</span></h3><p class="score-num">57 to 67%</p><div class="meter" aria-hidden="true"><i style="width:62%"></i></div><p class="score-what">of bounces found, depending on the game. Landing spots are off by about 3 feet on a typical bounce.</p><p class="score-n">132 of 233 and 188 of 282 bounces; 89 landing spots · Nov 2026</p></div>
+<p>Every number compares a model with answers I labeled by hand. All five stages are measured on the same scale, 0 to 100%.</p>
+<figure class="stage-chart">
+  <div class="stage-row stage-axis" aria-hidden="true"><div></div><div class="stage-ticks"><span style="left:0">0%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span><span style="left:100%">100%</span></div></div>
+  <div class="stage-row">
+    <div class="stage-name"><b>Fitting the court</b><small>Accurate mapping to a real court (homography) for visualizations</small></div>
+    <div class="stage-track"><i style="width:97%"></i><span class="stage-val" style="left:97%">97%</span></div>
+  </div>
+  <div class="stage-row">
+    <div class="stage-name"><b>Detecting hits</b><small>The key events: knowing with confidence when a player hits the ball</small></div>
+    <div class="stage-track"><i style="width:82.5%"></i><span class="stage-val" style="left:82.5%">83%</span></div>
+  </div>
+  <div class="stage-row">
+    <div class="stage-name"><b>Classifying forehand or backhand</b><small>Naming each swing</small></div>
+    <div class="stage-track"><i style="width:83.3%"></i><span class="stage-val" style="left:83.3%">83%</span></div>
+  </div>
+  <div class="stage-row">
+    <div class="stage-name"><b>Tracking the ball</b><small>Following the ball frame by frame</small></div>
+    <div class="stage-track"><i style="width:79%"></i><span class="stage-val" style="left:79%">79%</span></div>
+  </div>
+  <div class="stage-row weak">
+    <div class="stage-name"><b>Detecting bounces</b> <span class="chip chip-progress">In progress</span><small>Where the ball lands</small></div>
+    <div class="stage-track"><i style="left:56.7%;width:10.0%"></i><span class="stage-val" style="left:66.7%">57 to 67%</span></div>
+  </div>
+</figure>
+<div class="matrix-wrap stage-table-wrap" tabindex="0" role="region" aria-label="Scorecard details">
+<table class="stage-table">
+  <thead><tr><th scope="col">Stage</th><th scope="col">Score</th><th scope="col">Checked against</th><th scope="col">Note</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Fitting the court</th><td>97% of points within one foot</td><td>76 hand-clicked points across 11 clips</td><td>The typical miss is 0.17 ft, about two inches.</td></tr>
+    <tr><th scope="row">Detecting hits</th><td>83% of paddle hits detected</td><td>524 of 635 hits, in two games the model was not tuned on</td><td>When the model is confident, it is right 95% of the time (198 of 209).</td></tr>
+    <tr><th scope="row">Classifying forehand or backhand</th><td>83% of swings named correctly</td><td>348 of 418 swings</td><td>On a game held back for testing: 80% (68 of 85).</td></tr>
+    <tr><th scope="row">Tracking the ball</th><td>79% of frames where the ball is visible</td><td>4,780 frames across 64 clips</td><td>Scored on older clips. Not yet re-run on this year's broadcasts.</td></tr>
+    <tr><th scope="row">Detecting bounces</th><td>57 to 67% of bounces detected, depending on the game</td><td>132 of 233 and 188 of 282 bounces; 89 landing spots</td><td>Landing spots are off by about 3 feet on a typical bounce.</td></tr>
+  </tbody>
+</table>
 </div>
-<div class="callout"><p class="work-label">What I am doing about the weak stage</p>A bounce is a small change in a fast, blurry path, and one camera cannot see ball height. Until the model is better, serve and return landing spots are placed by hand, and the model's guesses are kept out of the published stats.</div>
+<p class="matrix-note">Scores as of November 2026.</p>
+<div class="callout"><p class="work-label">What I am doing about bounces</p>A bounce is a small change in a fast, blurry path, and one camera cannot see ball height. Until the model is better, serve and return landing spots are placed by hand, and the model's guesses are kept out of the published stats.</div>
 
 <h2>From models to match stats</h2>
 <p>The models speed up the labeling. The record itself is checked by hand: for each shot in a pro match, who hit it, from where, where it landed, and how the rally ended. One full match is done (3 games, 129 rallies, 1,029 shots), and more are in progress.</p>
@@ -67,7 +95,7 @@
   <div class="col-card">
     <span class="version-tag tag-now">Today</span>
     <h3>A measured rally</h3>
-    <p>Give it one rally clip from a fixed camera. It finds the ball, the players, and the court; marks every hit and bounce; places each one on a court map in feet; and names the serve and the return. Every model is scored against hand-labeled answers.</p>
+    <p>Give it one rally clip from a fixed camera. It detects the ball, the players, and the court; marks every hit and bounce; places each one on a court map in feet; and names the serve and the return. Every model is scored against hand-labeled answers.</p>
     <p><strong>Where it falls short:</strong></p>
     <ul>
       <li>One camera cannot measure ball height, so lobs and dinks rely on rough guesses.</li>
@@ -85,16 +113,16 @@
 </div>
 
 <h2>Three models, one video</h2>
-<p>The pipeline opens the video once. Three models look at every frame, and each one finds one thing.</p>
+<p>The pipeline opens the video once. Three models look at every frame, and each one detects one thing.</p>
 <div class="video-grid">
   <div class="video-item"><span class="video-label">Ball</span><video controls preload="none" muted playsinline poster="../assets/img/poster-ball-tracking.jpg?v=20261022" aria-label="Demo video: ball trail rendered over a rally"><source src="../assets/video/ball-tracking.mp4?v=20261022" type="video/mp4"></video></div>
   <div class="video-item"><span class="video-label">Players</span><video controls preload="none" muted playsinline poster="../assets/img/poster-player-keypoints.jpg?v=20261022" aria-label="Demo video: player body keypoint detection during play"><source src="../assets/video/player-keypoints.mp4?v=20261022" type="video/mp4"></video></div>
   <div class="video-item"><span class="video-label">Court</span><video controls preload="none" muted playsinline poster="../assets/img/poster-court-tracking.jpg?v=20261022" aria-label="Demo video: court lines detected and drawn over the court, with a top-down court map"><source src="../assets/video/court-tracking.mp4?v=20261022" type="video/mp4"></video></div>
 </div>
 <div class="strength-rows">
-  <div class="strength-row"><b>Ball</b><span>Finds the ball in each frame, even when it is a small blur.</span></div>
-  <div class="strength-row"><b>Players</b><span>Finds each player and the points on their body (feet, hips, shoulders, wrists), so the pipeline can tell how they are standing and swinging.</span></div>
-  <div class="strength-row"><b>Court</b><span>Finds the court lines and corners, then turns the slanted court in the picture into a flat, top-down court map.</span></div>
+  <div class="strength-row"><b>Ball</b><span>Detects the ball in each frame, even when it is a small blur.</span></div>
+  <div class="strength-row"><b>Players</b><span>Detects each player and the points on their body (feet, hips, shoulders, wrists), so the pipeline can tell how they are standing and swinging.</span></div>
+  <div class="strength-row"><b>Court</b><span>Detects the court lines and corners, then turns the slanted court in the picture into a flat, top-down court map.</span></div>
 </div>
 
 <h2>How a video gets broken down</h2>
@@ -103,7 +131,7 @@
   <div class="process-step">
     <div class="step-num" aria-hidden="true">01</div>
     <h3>Split the match into games</h3>
-    <p>A recording of a session can hold several games. The first step finds where each game starts and ends.</p>
+    <p>A recording of a session can hold several games. The first step identifies where each game starts and ends.</p>
     <p><span class="chip chip-next">Next</span></p>
     <p><strong>Next:</strong> build the game splitter. Today clips are cut by hand.</p>
   </div>
@@ -116,7 +144,7 @@
   </div>
   <div class="process-step">
     <div class="step-num" aria-hidden="true">03</div>
-    <h3>Find every ball event</h3>
+    <h3>Detect every ball event</h3>
     <p>A ball event is a moment the ball is hit by a paddle or hits the ground. The pipeline follows the ball's path and flags each one.</p>
     <p><span class="chip chip-done">Working</span></p>
     <p><strong>Next:</strong> catch hits hidden behind a player, which is where most misses happen.</p>
@@ -130,7 +158,7 @@
   </div>
   <div class="process-step">
     <div class="step-num" aria-hidden="true">05</div>
-    <h3>Name each shot and find the shots that mattered</h3>
+    <h3>Name each shot and identify the shots that mattered</h3>
     <p>Each shot gets a name (serve, return, drive, drop, dink, lob). Then the pipeline looks for the shots that helped a team win or lose the rally.</p>
     <p><span class="chip chip-next">Next</span></p>
     <p><strong>Next:</strong> label a set of shots by hand so the shot names can be checked, then define what makes a shot influential.</p>

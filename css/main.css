@@ -380,16 +380,26 @@ table.data thead th{position:sticky;top:0;z-index:1}
 .illus-tag{display:inline-block;font-size:var(--fs-xs);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);border:1px dashed var(--border-strong);border-radius:5px;padding:.1rem .5rem;margin-bottom:.5rem}
 
 /* ---------- Scorecard ---------- */
-.score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:.9rem;margin:1.25rem 0}
-.score{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.15rem}
-.score h3{font-family:var(--sans);font-size:var(--fs-sm);font-weight:700;color:var(--text-dim);margin:0 0 .3rem;text-transform:uppercase;letter-spacing:.06em}
-.score .score-num{font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--text-bright);line-height:1.1;font-variant-numeric:tabular-nums}
-.score .score-what{font-size:var(--fs-sm);color:var(--text);line-height:1.5;margin:.3rem 0 .55rem}
-.score .score-n{font-size:var(--fs-xs);color:var(--text-dim);line-height:1.45}
-.meter{height:8px;border-radius:4px;background:var(--surface-tint);border:1px solid var(--border);overflow:hidden;margin:.5rem 0}
-.meter i{display:block;height:100%;background:var(--accent-fill);border-radius:0 4px 4px 0}
-.score.weak .meter i{background:var(--warm)}
-.score.weak{border-style:dashed;border-color:var(--border-strong)}
+.stage-chart{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.3rem 1.3rem;margin:1.25rem 0 1rem}
+.stage-row{display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:.4rem 1.5rem;align-items:center;padding:.7rem 0;border-top:1px solid var(--border)}
+.stage-row.stage-axis{border-top:none;padding:0 0 .2rem}
+.stage-name b{display:inline;font-size:var(--fs-base);font-weight:700;color:var(--text-bright)}
+.stage-name small{display:block;font-size:var(--fs-sm);color:var(--text-dim);line-height:1.4;margin-top:.1rem}
+.stage-name .chip{margin-left:.4rem;vertical-align:middle}
+.stage-track,.stage-ticks{position:relative;margin-right:4.2rem}
+.stage-track{height:26px;border-radius:4px;background:linear-gradient(to right,var(--chart-grid) 1px,transparent 1px) 0 0/25% 100%,var(--surface-tint);border-right:1px solid var(--chart-grid)}
+.stage-track i{position:absolute;top:3px;bottom:3px;left:0;background:var(--series-1);border-radius:0 4px 4px 0}
+.stage-row.weak .stage-track i{border-radius:4px;background:repeating-linear-gradient(135deg,var(--warm) 0 5px,transparent 5px 8px);border:2px solid var(--warm)}
+.stage-val{position:absolute;top:50%;transform:translateY(-50%);margin-left:.5rem;font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--text-bright);white-space:nowrap;font-variant-numeric:tabular-nums}
+.stage-ticks{height:1.2rem}
+.stage-ticks span{position:absolute;transform:translateX(-50%);font-size:var(--fs-xs);color:var(--text-dim)}
+.stage-table-wrap{margin-top:0}
+table.stage-table{width:100%;border-collapse:collapse;min-width:640px;font-size:var(--fs-sm)}
+table.stage-table th,table.stage-table td{padding:.55rem .8rem;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;line-height:1.45}
+table.stage-table thead th{font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim)}
+table.stage-table tbody th{color:var(--text-bright);font-weight:600}
+table.stage-table tbody tr:last-child th,table.stage-table tbody tr:last-child td{border-bottom:none}
+@media (max-width:700px){.stage-row{grid-template-columns:1fr}.stage-row.stage-axis>div:first-child{display:none}}
 
 /* ---------- Dashboards ---------- */
 .dash-tabs{display:flex;gap:.5rem;margin:1.5rem 0 1.25rem;border-bottom:1px solid var(--border-strong);flex-wrap:wrap}

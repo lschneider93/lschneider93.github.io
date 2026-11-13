@@ -6,7 +6,8 @@ Usage:
 
 Reads the hand-label tables of one match (shots.csv, rallies.csv, and
 trajectories.csv as a cross-check) and writes one small JSON file holding only
-derived values: who hit the serve or return, where it landed (feet), and the
+derived values: which player (anonymized as Player A to D) hit the serve or
+return, where it landed (feet), and the
 depth band and lane that landing falls in.
 
 What is kept out on purpose:
@@ -26,16 +27,21 @@ import sys
 MATCH = "ppa26nat_watersjohns_v_johnsonjohnson"
 NET_Y, BASELINE_Y, WIDTH = 22.0, 44.0, 20.0
 
-TEAMS = [
-    {"id": "johns_waters", "name": "Johns / Waters", "players": ["BJ", "ALW"]},
-    {"id": "johnson_johnson", "name": "Johnson / Johnson", "players": ["JW", "JO"]},
-]
-PLAYERS = {
-    "BJ": "Ben Johns",
-    "ALW": "Anna Leigh Waters",
-    "JW": "JW Johnson",
-    "JO": "Jorja Johnson",
+# The published file carries no names. The source tables use real player codes;
+# this private mapping turns them into Player A to D on export.
+SOURCE_PLAYER = {
+    "ALW": "A",  # Anna Leigh Waters
+    "BJ": "B",  # Ben Johns
+    "JO": "C",  # Jorja Johnson
+    "JW": "D",  # JW Johnson
 }
+MATCH_LABEL = "2026 pro mixed doubles match"
+
+TEAMS = [
+    {"id": "team1", "name": "Players A and B", "players": ["A", "B"]},
+    {"id": "team2", "name": "Players C and D", "players": ["C", "D"]},
+]
+PLAYERS = {"A": "Player A", "B": "Player B", "C": "Player C", "D": "Player D"}
 PLAYER_TEAM = {p: t["id"] for t in TEAMS for p in t["players"]}
 
 
@@ -125,6 +131,7 @@ def build(src):
         key = (s["game"], s["rally_id"])
         r = rallies[key]
         hitter = s["hitter"]
+        who = SOURCE_PLAYER[hitter]  # anonymized code written to the file
         x, y = float(s["to_x"]), float(s["to_y"])
         # hitter's view: flip when the hitter is on the far side of the camera
         if hitter in r["far"].split(";"):
@@ -145,8 +152,8 @@ def build(src):
         row = {
             "g": int(s["game"]),
             "id": s["rally_id"],
-            "t": PLAYER_TEAM[hitter],
-            "w": hitter,
+            "t": PLAYER_TEAM[who],
+            "w": who,
             "ct": court,
             "p": r["returning_parity"] or None,
             "x": x,
@@ -170,7 +177,7 @@ def build(src):
         out[role].append(row)
 
     return {
-        "match": "2026 PPA Nationals, mixed doubles semifinal",
+        "match": MATCH_LABEL,
         "teams": TEAMS,
         "players": PLAYERS,
         "games": sorted({int(r["game"]) for r in rallies.values()}),

@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=20261113">
-  <link rel="stylesheet" href="css/lab.css?v=20261113">
+  <link rel="stylesheet" href="css/main.css?v=20261114">
+  <link rel="stylesheet" href="css/lab.css?v=20261114">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -25,12 +25,11 @@
 <main id="main">
 <section class="page-hero net-host"><div class="container">
   <p class="eyebrow">Stats Lab · Runs in your browser</p>
-  <h1>How many patients does a study <em>need?</em></h1>
-  <p class="lede">Given certain assumptions.</p>
+  <h1 class="lab-title">How many patients does a study need to have a <em>certain power?</em></h1>
 </div></section>
 
 <div class="container prose">
-  <p class="lab-intro">Power and sample size calculations are often required in <a href="projects/cancer-research.html">cancer studies</a>. The formulas come from the NCSS PASS documentation.</p>
+  <p class="lab-intro">Power and sample size calculations are often required in <a href="projects/cancer-research.html">cancer studies</a>, and in medical data in general. The formulas come from the NCSS PASS documentation.</p>
 
   <div class="dash-tabs lab-tabs" role="tablist" aria-label="Type of analysis">
     <button class="dash-tab" role="tab" id="tab-cox" aria-controls="panel-cox" aria-selected="true">Cox regression<small>Survival analysis</small></button>
@@ -42,177 +41,179 @@
   <section class="lab-panel" id="panel-cox" role="tabpanel" aria-labelledby="tab-cox" tabindex="0">
     <div class="tool-card eq-card">
       <div class="eq-head">
-        <h2 class="lab-h">The equation</h2>
+        <h2 class="lab-h"><span data-eq-view="n">The sample size equation</span><span data-eq-view="power" hidden>The power equation</span></h2>
         <div class="seg eq-switch" role="group" aria-label="Which way to solve the equation">
           <button type="button" data-view="n" aria-pressed="true">Sample size for a given power</button>
           <button type="button" data-view="power" aria-pressed="false">Power for a given sample size</button>
         </div>
       </div>
+      <p class="eq-note">N × P is the number of events that occur.</p>
       <div data-eq-view="n">
-        <p class="formula">N = <span class="frac"><span>(z<sub>1−α/2</sub> + z<sub>1−β</sub>)<sup>2</sup></span><span>P (1 − R<sup>2</sup>) σ<sup>2</sup> (ln HR)<sup>2</sup></span></span></p>
-        <p class="eq-note">The top part divided by (1 − R<sup>2</sup>) σ<sup>2</sup> (ln HR)<sup>2</sup> is the number of events needed. Events = N × P, so patients = events ÷ P.</p>
+        <div class="formula eq-line"><span class="eq-part">N × P = <span class="frac"><span>(z<sub>1−α/2</sub> + z<sub>1−β</sub>)<sup>2</sup></span><span>(1 − R<sup>2</sup>) σ<sup>2</sup> (ln HR)<sup>2</sup></span></span></span><span class="eq-arrow" aria-label="so">⇒</span><span class="eq-part">N = <span class="frac"><span>(z<sub>1−α/2</sub> + z<sub>1−β</sub>)<sup>2</sup></span><span>P (1 − R<sup>2</sup>) σ<sup>2</sup> (ln HR)<sup>2</sup></span></span></span></div>
+        <p class="eq-note">Divide by P to get the number of patients, the sample size.</p>
       </div>
       <div data-eq-view="power" hidden>
-        <p class="formula">z<sub>1−β</sub> = √<span class="rad">N · P · (1 − R<sup>2</sup>)</span> · σ · |ln HR| − z<sub>1−α/2</sub><span class="eq-gap"></span>power = Φ(z<sub>1−β</sub>)</p>
-        <p class="eq-note">The same equation, solved for the power term. N × P is the number of events.</p>
+        <div class="formula eq-line"><span class="eq-part">z<sub>1−β</sub> = √<span class="rad">N · P · (1 − R<sup>2</sup>)</span> · σ · |ln HR| − z<sub>1−α/2</sub></span><span class="eq-arrow" aria-label="so">⇒</span><span class="eq-part">power = Φ(z<sub>1−β</sub>)</span></div>
       </div>
-      <dl class="eq-defs"><div><dt>N</dt><dd>number of patients</dd></div><div><dt>P</dt><dd>share of patients who have the event</dd></div><div><dt>σ</dt><dd>SD of the score</dd></div><div><dt>HR</dt><dd>hazard ratio per 1-unit rise in the score</dd></div><div><dt>R<sup>2</sup></dt><dd>overlap between the score and the other factors</dd></div><div><dt>α</dt><dd>chance of a false alarm, 0.05 two-sided</dd></div><div><dt>Power</dt><dd>1 − β, the chance of finding a real difference</dd></div><div><dt>z, Φ</dt><dd>a point on the standard normal curve, and the area to its left</dd></div></dl>
-      <details class="lab-more">
-        <summary>Source</summary>
-        <p>Hsieh and Lavori (2000), as given in the <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Cox_Regression.pdf" target="_blank" rel="noopener">PASS chapter "Cox Regression" (PDF)</a>. A yes or no factor split 50/50 has σ = 0.5, which gives Schoenfeld's (1983) formula.</p>
-        <p>Hsieh FY, Lavori PW. Sample-size calculations for the Cox proportional hazards regression model with nonbinary covariates. Control Clin Trials. 2000;21:552-560. Schoenfeld DA. Sample-size formula for the proportional-hazards regression model. Biometrics. 1983;39:499-503.</p>
-      </details>
-    </div>
-    <div class="tool-card study-card">
-      <p class="work-label">Numbers from this paper</p>
-      <p class="study-cite">Cuzick J, Swanson GP, Fisher G, et al. Prognostic value of an RNA expression signature derived from cell cycle proliferation genes in patients with prostate cancer: a retrospective study. Lancet Oncol. 2011;12(3):245-255. <a href="https://pubmed.ncbi.nlm.nih.gov/21310658/" target="_blank" rel="noopener">PubMed 21310658</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3091030/" target="_blank" rel="noopener">free full text</a></p>
-      <dl>
-        <dt>Hazard ratio</dt>
-        <dd>1.89 per 1-point rise in the score</dd>
-        <dt>Event rate</dt>
-        <dd>36% of patients had the cancer return by 10 years</dd>
-        <dt>SD of the score</dt>
-        <dd>0.70 <span class="assumption">assumption</span><small>The paper gives the middle half of scores, -0.30 to 0.64, but no SD. For a bell-shaped score, SD is about that width divided by 1.35.</small></dd>
-        <dt>R² with other factors</dt>
-        <dd>0 <span class="assumption">assumption</span><small>The 1.89 comes from a model with the score alone.</small></dd>
-        <dt>Alpha</dt>
-        <dd>0.05, two-sided</dd>
-      </dl>
-      <p class="study-answer" data-study="cox"></p>
-    </div>
-    <div class="tool-card">
-      <h2 class="lab-h">What each input does</h2>
-      <ul class="input-list">
-        <li><b>Hazard ratio:</b> as the hazard ratio increases, fewer events are needed for the same power. A bigger effect is easier to see. <a href="#cox-chart-hr">See it below</a></li>
-        <li><b>SD of the score:</b> as the SD increases, fewer events are needed. Patients differ more, so the difference between them is easier to see. <a href="#cox-chart-sigma">See it below</a></li>
-        <li><b>Event rate:</b> the lower the share of patients who have the event, the more patients are needed. Only events carry information. <a href="#cox-chart-eventRate">See it below</a></li>
-        <li><b>Power:</b> 80%, 85%, 90%, 95%. As we increase power we need more events, because we want to be more confident that a real difference is found. <a href="#cox-chart-power">See it below</a></li>
-        <li><b>R² with other factors:</b> held at 0. We assume the score is independent of the other factors.</li>
-        <li><b>Alpha:</b> held at 0.05, two-sided.</li>
-      </ul>
+      <div class="eq-wrap">
+        <table class="eq-table">
+          <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th><th scope="col">In this example</th></tr></thead>
+          <tbody>
+          <tr><th scope="row">N</th><td>number of patients, the sample size</td><td><span data-eq-view="n">what we solve for</span><span data-eq-view="power" hidden>what we choose</span></td></tr>
+          <tr><th scope="row">P</th><td>probability the event occurs. Out of the total sample, the share of patients who have the event</td><td>0.36</td></tr>
+          <tr><th scope="row">HR</th><td>hazard ratio</td><td>1.89</td></tr>
+          <tr><th scope="row">σ</th><td>SD of the variable (here, the score)</td><td>0.70 <span class="assumption">assumption</span></td></tr>
+          <tr><th scope="row">R<sup>2</sup></th><td>overlap between the variable and the other factors</td><td>0 <span class="assumption">assumption</span></td></tr>
+          <tr><th scope="row">α</th><td>chance of a false alarm, generally 0.05</td><td>0.05, two-sided</td></tr>
+          <tr><th scope="row">Power</th><td>1 − β, the chance of finding a real difference</td><td><span data-eq-view="n">80 to 95%</span><span data-eq-view="power" hidden>what we solve for</span></td></tr>
+          <tr><th scope="row">z, Φ</th><td>a point on the standard normal curve, and the area to its left</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="eq-more">
+        <details class="lab-more">
+          <summary>Source</summary>
+          <p>Hsieh and Lavori (2000), as given in the <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Cox_Regression.pdf" target="_blank" rel="noopener">PASS chapter "Cox Regression" (PDF)</a>. A yes or no factor split 50/50 has σ = 0.5, which gives Schoenfeld's (1983) formula.</p>
+          <p>Hsieh FY, Lavori PW. Sample-size calculations for the Cox proportional hazards regression model with nonbinary covariates. Control Clin Trials. 2000;21:552-560. Schoenfeld DA. Sample-size formula for the proportional-hazards regression model. Biometrics. 1983;39:499-503.</p>
+        </details>
+        <details class="lab-more">
+          <summary>The numbers we use come from this paper</summary>
+          <p>Cuzick J, Swanson GP, Fisher G, et al. Prognostic value of an RNA expression signature derived from cell cycle proliferation genes in patients with prostate cancer: a retrospective study. Lancet Oncol. 2011;12(3):245-255. <a href="https://pubmed.ncbi.nlm.nih.gov/21310658/" target="_blank" rel="noopener">PubMed 21310658</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3091030/" target="_blank" rel="noopener">free full text</a></p>
+          <ul class="paper-list">
+            <li><b>Hazard ratio 1.89:</b> per 1-point rise in the score.</li>
+            <li><b>P 0.36:</b> 36% of patients had the cancer return by 10 years.</li>
+            <li><b>SD 0.70, assumption:</b> the paper gives the middle half of scores, -0.30 to 0.64, but no SD. For a bell-shaped score, SD is about that width divided by 1.35.</li>
+            <li><b>R² 0, assumption:</b> the 1.89 comes from a model with the score alone.</li>
+          </ul>
+          <p class="study-answer" data-study="cox"></p>
+        </details>
+      </div>
     </div>
 
     <div data-charts="cox"></div>
-    <div class="tool-card" data-calc="cox"></div>
+    <div class="tool-card" data-try="cox"></div>
   </section>
 
   <!-- ======================= LOGISTIC ======================= -->
   <section class="lab-panel" id="panel-logistic" role="tabpanel" aria-labelledby="tab-logistic" tabindex="0" hidden>
     <div class="tool-card eq-card">
       <div class="eq-head">
-        <h2 class="lab-h">The equation</h2>
+        <h2 class="lab-h"><span data-eq-view="n">The sample size equation</span><span data-eq-view="power" hidden>The power equation</span></h2>
         <div class="seg eq-switch" role="group" aria-label="Which way to solve the equation">
           <button type="button" data-view="n" aria-pressed="true">Sample size for a given power</button>
           <button type="button" data-view="power" aria-pressed="false">Power for a given sample size</button>
         </div>
       </div>
+      <p class="eq-note">This form is for a variable on a number scale.</p>
       <div data-eq-view="n">
-        <p class="formula">N = <span class="frac"><span>(z<sub>1−α/2</sub> + z<sub>1−β</sub>)<sup>2</sup></span><span>P<sub>0</sub> (1 − P<sub>0</sub>) (1 − R<sup>2</sup>) (ln OR)<sup>2</sup></span></span></p>
-        <p class="eq-note">This is for a score on a number scale. P<sub>0</sub> (1 − P<sub>0</sub>) is largest when P<sub>0</sub> is 50%, so that is where the fewest people are needed.</p>
+        <div class="formula eq-line"><span class="eq-part">N = <span class="frac"><span>(z<sub>1−α/2</sub> + z<sub>1−β</sub>)<sup>2</sup></span><span>P<sub>0</sub> (1 − P<sub>0</sub>) (1 − R<sup>2</sup>) (ln OR)<sup>2</sup></span></span></span></div>
+        <p class="eq-note">P<sub>0</sub> (1 − P<sub>0</sub>) is largest when P<sub>0</sub> is 50%, so that is where the fewest people are needed.</p>
       </div>
       <div data-eq-view="power" hidden>
-        <p class="formula">z<sub>1−β</sub> = √<span class="rad">N · P<sub>0</sub> (1 − P<sub>0</sub>) · (1 − R<sup>2</sup>)</span> · |ln OR| − z<sub>1−α/2</sub><span class="eq-gap"></span>power = Φ(z<sub>1−β</sub>)</p>
-        <p class="eq-note">The same equation, solved for the power term.</p>
+        <div class="formula eq-line"><span class="eq-part">z<sub>1−β</sub> = √<span class="rad">N · P<sub>0</sub> (1 − P<sub>0</sub>) · (1 − R<sup>2</sup>)</span> · |ln OR| − z<sub>1−α/2</sub></span><span class="eq-arrow" aria-label="so">⇒</span><span class="eq-part">power = Φ(z<sub>1−β</sub>)</span></div>
       </div>
-      <dl class="eq-defs"><div><dt>N</dt><dd>number of people</dd></div><div><dt>P<sub>0</sub></dt><dd>chance of the outcome for a person with an average score</dd></div><div><dt>OR</dt><dd>odds ratio per 1 SD rise in the score</dd></div><div><dt>R<sup>2</sup></dt><dd>overlap between the score and the other factors</dd></div><div><dt>α</dt><dd>chance of a false alarm, 0.05 two-sided</dd></div><div><dt>Power</dt><dd>1 − β, the chance of finding a real difference</dd></div><div><dt>z, Φ</dt><dd>a point on the standard normal curve, and the area to its left</dd></div></dl>
-      <details class="lab-more">
-        <summary>Formula for a yes or no predictor</summary>
-        <p class="formula">N = <span class="frac"><span>[ z<sub>1−α/2</sub> √<span class="rad"><span class="bar">P</span> (1 − <span class="bar">P</span>) / R</span> + z<sub>1−β</sub> √<span class="rad">P<sub>0</sub> (1 − P<sub>0</sub>) + P<sub>1</sub> (1 − P<sub>1</sub>) (1 − R) / R</span> ]<sup>2</sup></span><span>(P<sub>0</sub> − P<sub>1</sub>)<sup>2</sup> (1 − R) (1 − R<sup>2</sup>)</span></span></p>
-        <p>P<sub>0</sub> and P<sub>1</sub> are the chance of the outcome without and with the factor. R is the share of people who have the factor. <span class="bar">P</span> = (1 − R) P<sub>0</sub> + R P<sub>1</sub>. This page charts the number-scale formula only.</p>
-      </details>
-      <details class="lab-more">
-        <summary>Source</summary>
-        <p>Hsieh, Bloch and Larsen (1998), as given in the <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Logistic_Regression-Legacy.pdf" target="_blank" rel="noopener">PASS chapter "Logistic Regression (Legacy)" (PDF)</a>.</p>
-        <p>Hsieh FY, Bloch DA, Larsen MD. A simple method of sample size calculation for linear and logistic regression. Stat Med. 1998;17:1623-1634.</p>
-      </details>
-    </div>
-    <div class="tool-card study-card">
-      <p class="work-label">Numbers from this paper</p>
-      <p class="study-cite">Mavaddat N, Michailidou K, Dennis J, et al. Polygenic risk scores for prediction of breast cancer and breast cancer subtypes. Am J Hum Genet. 2019;104(1):21-34. <a href="https://pubmed.ncbi.nlm.nih.gov/30554720/" target="_blank" rel="noopener">PubMed 30554720</a> · <a href="https://doi.org/10.1016/j.ajhg.2018.11.002" target="_blank" rel="noopener">DOI</a></p>
-      <dl>
-        <dt>Odds ratio</dt>
-        <dd>1.61 per 1 SD rise in the score</dd>
-        <dt>Baseline chance</dt>
-        <dd>1.7% <span class="assumption">assumption</span><small>The paper reports 3,215 new breast cancers among 190,040 UK Biobank women, which is 1.7%. Using it as the chance for a woman with an average score is a planning choice.</small></dd>
-        <dt>R² with other factors</dt>
-        <dd>0 <span class="assumption">assumption</span><small>Treats the score as unrelated to the other factors in the model.</small></dd>
-        <dt>Alpha</dt>
-        <dd>0.05, two-sided</dd>
-      </dl>
-      <p class="study-answer" data-study="logistic"></p>
-    </div>
-    <div class="tool-card">
-      <h2 class="lab-h">What each input does</h2>
-      <ul class="input-list">
-        <li><b>Odds ratio:</b> as the odds ratio increases, fewer people are needed for the same power. A bigger effect is easier to see. <a href="#logistic-chart-or">See it below</a></li>
-        <li><b>Baseline chance of the outcome:</b> the further the chance is below 50%, the more people are needed. A rare outcome gives few cases to learn from. <a href="#logistic-chart-p0">See it below</a></li>
-        <li><b>Power:</b> 80%, 85%, 90%, 95%. As we increase power we need more people, because we want to be more confident that a real difference is found. <a href="#logistic-chart-power">See it below</a></li>
-        <li><b>R² with other factors:</b> held at 0. We assume the score is independent of the other factors.</li>
-        <li><b>Alpha:</b> held at 0.05, two-sided.</li>
-      </ul>
+      <div class="eq-wrap">
+        <table class="eq-table">
+          <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th><th scope="col">In this example</th></tr></thead>
+          <tbody>
+          <tr><th scope="row">N</th><td>number of people, the sample size</td><td><span data-eq-view="n">what we solve for</span><span data-eq-view="power" hidden>what we choose</span></td></tr>
+          <tr><th scope="row">P<sub>0</sub></th><td>probability of the outcome for a person with an average value of the variable</td><td>0.017 <span class="assumption">assumption</span></td></tr>
+          <tr><th scope="row">OR</th><td>odds ratio per 1 SD rise in the variable</td><td>1.61</td></tr>
+          <tr><th scope="row">R<sup>2</sup></th><td>overlap between the variable and the other factors</td><td>0 <span class="assumption">assumption</span></td></tr>
+          <tr><th scope="row">α</th><td>chance of a false alarm, generally 0.05</td><td>0.05, two-sided</td></tr>
+          <tr><th scope="row">Power</th><td>1 − β, the chance of finding a real difference</td><td><span data-eq-view="n">80 to 95%</span><span data-eq-view="power" hidden>what we solve for</span></td></tr>
+          <tr><th scope="row">z, Φ</th><td>a point on the standard normal curve, and the area to its left</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="eq-more">
+        <details class="lab-more">
+          <summary>Source</summary>
+          <p>Hsieh, Bloch and Larsen (1998), as given in the <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Logistic_Regression-Legacy.pdf" target="_blank" rel="noopener">PASS chapter "Logistic Regression (Legacy)" (PDF)</a>.</p>
+          <p>Hsieh FY, Bloch DA, Larsen MD. A simple method of sample size calculation for linear and logistic regression. Stat Med. 1998;17:1623-1634.</p>
+        </details>
+        <details class="lab-more">
+          <summary>The numbers we use come from this paper</summary>
+          <p>Mavaddat N, Michailidou K, Dennis J, et al. Polygenic risk scores for prediction of breast cancer and breast cancer subtypes. Am J Hum Genet. 2019;104(1):21-34. <a href="https://pubmed.ncbi.nlm.nih.gov/30554720/" target="_blank" rel="noopener">PubMed 30554720</a> · <a href="https://doi.org/10.1016/j.ajhg.2018.11.002" target="_blank" rel="noopener">DOI</a></p>
+          <ul class="paper-list">
+            <li><b>Odds ratio 1.61:</b> per 1 SD rise in the genetic risk score.</li>
+            <li><b>P<sub>0</sub> 0.017, assumption:</b> the paper reports 3,215 new breast cancers among 190,040 UK Biobank women, which is 1.7%. Using it as the chance for a woman with an average score is a planning choice.</li>
+            <li><b>R² 0, assumption:</b> treats the score as unrelated to the other factors in the model.</li>
+          </ul>
+          <p class="study-answer" data-study="logistic"></p>
+        </details>
+        <details class="lab-more">
+          <summary>Formula for a yes or no variable</summary>
+          <p class="formula">N = <span class="frac"><span>[ z<sub>1−α/2</sub> √<span class="rad"><span class="bar">P</span> (1 − <span class="bar">P</span>) / R</span> + z<sub>1−β</sub> √<span class="rad">P<sub>0</sub> (1 − P<sub>0</sub>) + P<sub>1</sub> (1 − P<sub>1</sub>) (1 − R) / R</span> ]<sup>2</sup></span><span>(P<sub>0</sub> − P<sub>1</sub>)<sup>2</sup> (1 − R) (1 − R<sup>2</sup>)</span></span></p>
+          <p>P<sub>0</sub> and P<sub>1</sub> are the chance of the outcome without and with the factor. R is the share of people who have the factor. <span class="bar">P</span> = (1 − R) P<sub>0</sub> + R P<sub>1</sub>. The charts on this page use the number-scale formula only.</p>
+        </details>
+      </div>
     </div>
 
     <div data-charts="logistic"></div>
-    <div class="tool-card" data-calc="logistic"></div>
+    <div class="tool-card" data-try="logistic"></div>
   </section>
 
   <!-- ======================= AUC ======================= -->
   <section class="lab-panel" id="panel-auc" role="tabpanel" aria-labelledby="tab-auc" tabindex="0" hidden>
     <div class="tool-card eq-card">
       <div class="eq-head">
-        <h2 class="lab-h">The equation</h2>
+        <h2 class="lab-h"><span data-eq-view="n">The sample size equation</span><span data-eq-view="power" hidden>The power equation</span></h2>
         <div class="seg eq-switch" role="group" aria-label="Which way to solve the equation">
           <button type="button" data-view="n" aria-pressed="true">Sample size for a given power</button>
           <button type="button" data-view="power" aria-pressed="false">Power for a given sample size</button>
         </div>
       </div>
+      <p class="eq-note">N<sub>+</sub> is the number of people with the disease.</p>
       <div data-eq-view="n">
-        <p class="formula">N<sub>+</sub> = <span class="frac"><span>[ z<sub>1−α/2</sub> √<span class="rad">V(AUC<sub>0</sub>)</span> + z<sub>1−β</sub> √<span class="rad">V(AUC<sub>1</sub>)</span> ]<sup>2</sup></span><span>(AUC<sub>1</sub> − AUC<sub>0</sub>)<sup>2</sup></span></span></p>
-        <p class="eq-note">N<sub>+</sub> is the number of people with the disease. People without it = R × N<sub>+</sub>, so the total is N<sub>+</sub> × (1 + R).</p>
+        <div class="formula eq-line"><span class="eq-part">N<sub>+</sub> = <span class="frac"><span>[ z<sub>1−α/2</sub> √<span class="rad">V(AUC<sub>0</sub>)</span> + z<sub>1−β</sub> √<span class="rad">V(AUC<sub>1</sub>)</span> ]<sup>2</sup></span><span>(AUC<sub>1</sub> − AUC<sub>0</sub>)<sup>2</sup></span></span></span><span class="eq-arrow" aria-label="so">⇒</span><span class="eq-part">total = N<sub>+</sub> (1 + R)</span></div>
+        <p class="eq-note">Multiply by 1 + R to get the total number of people.</p>
       </div>
       <div data-eq-view="power" hidden>
-        <p class="formula">z<sub>1−β</sub> = <span class="frac"><span>(AUC<sub>1</sub> − AUC<sub>0</sub>) √<span class="rad">N<sub>+</sub></span> − z<sub>1−α/2</sub> √<span class="rad">V(AUC<sub>0</sub>)</span></span><span>√<span class="rad">V(AUC<sub>1</sub>)</span></span></span><span class="eq-gap"></span>power = Φ(z<sub>1−β</sub>)</p>
-        <p class="eq-note">The same equation, solved for the power term.</p>
+        <div class="formula eq-line"><span class="eq-part">z<sub>1−β</sub> = <span class="frac"><span>(AUC<sub>1</sub> − AUC<sub>0</sub>) √<span class="rad">N<sub>+</sub></span> − z<sub>1−α/2</sub> √<span class="rad">V(AUC<sub>0</sub>)</span></span><span>√<span class="rad">V(AUC<sub>1</sub>)</span></span></span></span><span class="eq-arrow" aria-label="so">⇒</span><span class="eq-part">power = Φ(z<sub>1−β</sub>)</span></div>
       </div>
-      <dl class="eq-defs"><div><dt>N<sub>+</sub></dt><dd>number of people with the disease</dd></div><div><dt>R</dt><dd>people without the disease per person with it</dd></div><div><dt>AUC<sub>1</sub></dt><dd>the AUC you expect</dd></div><div><dt>AUC<sub>0</sub></dt><dd>the null AUC, 0.50 for a coin flip</dd></div><div><dt>V(θ)</dt><dd>variance term for an AUC of θ, from Hanley and McNeil</dd></div><div><dt>α</dt><dd>chance of a false alarm, 0.05 two-sided</dd></div><div><dt>Power</dt><dd>1 − β, the chance of finding a real difference</dd></div><div><dt>z, Φ</dt><dd>a point on the standard normal curve, and the area to its left</dd></div></dl>
-      <p class="eq-note">For a score on a smooth scale, V uses the Hanley and McNeil variance:</p>
-      <p class="formula">V(θ) = <span class="frac"><span>θ</span><span>R (2 − θ)</span></span> + <span class="frac"><span>2θ<sup>2</sup></span><span>1 + θ</span></span> − <span class="frac"><span>θ<sup>2</sup> (1 + R)</span><span>R</span></span></p>
-      <details class="lab-more">
-        <summary>Source</summary>
-        <p>One ROC curve tested against a null AUC, as given in the <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Tests_for_One_ROC_Curve.pdf" target="_blank" rel="noopener">PASS chapter "Tests for One ROC Curve" (PDF)</a>.</p>
-        <p>Hanley JA, McNeil BJ. The meaning and use of the area under a receiver operating characteristic (ROC) curve. Radiology. 1982;143:29-36. Obuchowski NA, McClish DK. Sample size determination for diagnostic accuracy studies involving binormal ROC curve indices. Stat Med. 1997;16:1529-1542.</p>
-      </details>
-    </div>
-    <div class="tool-card study-card">
-      <p class="work-label">Numbers from this paper</p>
-      <p class="study-cite">Rockhill B, Spiegelman D, Byrne C, Hunter DJ, Colditz GA. Validation of the Gail et al. model of breast cancer risk prediction and implications for chemoprevention. J Natl Cancer Inst. 2001;93(5):358-366. <a href="https://pubmed.ncbi.nlm.nih.gov/11238697/" target="_blank" rel="noopener">PubMed 11238697</a> · <a href="https://doi.org/10.1093/jnci/93.5.358" target="_blank" rel="noopener">DOI</a></p>
-      <dl>
-        <dt>AUC</dt>
-        <dd>0.58, reported as the concordance statistic</dd>
-        <dt>Without cancer per case</dt>
-        <dd>59.6, from 1,354 breast cancer cases among 82,109 women</dd>
-        <dt>Null AUC</dt>
-        <dd>0.50 <span class="assumption">assumption</span><small>A coin flip. It is the usual "no skill" mark to beat.</small></dd>
-        <dt>Type of score</dt>
-        <dd>Smooth scale <span class="assumption">assumption</span><small>The risk estimate is a number, so the continuous-data formula applies.</small></dd>
-        <dt>Alpha</dt>
-        <dd>0.05, two-sided</dd>
-      </dl>
-      <p class="study-answer" data-study="auc"></p>
-    </div>
-    <div class="tool-card">
-      <h2 class="lab-h">What each input does</h2>
-      <ul class="input-list">
-        <li><b>Expected AUC:</b> the further the AUC is above 0.50, the fewer people are needed. A better score is easier to tell from a coin flip. <a href="#auc-chart-auc1">See it below</a></li>
-        <li><b>People without the disease per person with it:</b> the more there are, the fewer people with the disease are needed. The gain is small past about 10, and the total keeps growing. <a href="#auc-chart-ratio">See it below</a></li>
-        <li><b>Power:</b> 80%, 85%, 90%, 95%. As we increase power we need more people, because we want to be more confident that a real difference is found. <a href="#auc-chart-power">See it below</a></li>
-        <li><b>Null AUC:</b> held at 0.50, a coin flip.</li>
-        <li><b>Alpha:</b> held at 0.05, two-sided.</li>
-      </ul>
+      <div class="eq-wrap">
+        <table class="eq-table">
+          <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th><th scope="col">In this example</th></tr></thead>
+          <tbody>
+          <tr><th scope="row">N<sub>+</sub></th><td>number of people with the disease, the sample size on the charts</td><td><span data-eq-view="n">what we solve for</span><span data-eq-view="power" hidden>what we choose</span></td></tr>
+          <tr><th scope="row">R</th><td>people without the disease per person with it</td><td>59.6</td></tr>
+          <tr><th scope="row">AUC<sub>1</sub></th><td>the AUC we expect</td><td>0.58</td></tr>
+          <tr><th scope="row">AUC<sub>0</sub></th><td>the null AUC, the mark to beat</td><td>0.50, a coin flip <span class="assumption">assumption</span></td></tr>
+          <tr><th scope="row">V(θ)</th><td>variance term for an AUC of θ</td><td>smooth-scale form <span class="assumption">assumption</span></td></tr>
+          <tr><th scope="row">α</th><td>chance of a false alarm, generally 0.05</td><td>0.05, two-sided</td></tr>
+          <tr><th scope="row">Power</th><td>1 − β, the chance of finding a real difference</td><td><span data-eq-view="n">80 to 95%</span><span data-eq-view="power" hidden>what we solve for</span></td></tr>
+          <tr><th scope="row">z, Φ</th><td>a point on the standard normal curve, and the area to its left</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="eq-more">
+        <details class="lab-more">
+          <summary>Source</summary>
+          <p>One ROC curve tested against a null AUC, as given in the <a href="https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Tests_for_One_ROC_Curve.pdf" target="_blank" rel="noopener">PASS chapter "Tests for One ROC Curve" (PDF)</a>.</p>
+          <p>Hanley JA, McNeil BJ. The meaning and use of the area under a receiver operating characteristic (ROC) curve. Radiology. 1982;143:29-36. Obuchowski NA, McClish DK. Sample size determination for diagnostic accuracy studies involving binormal ROC curve indices. Stat Med. 1997;16:1529-1542.</p>
+        </details>
+        <details class="lab-more">
+          <summary>The numbers we use come from this paper</summary>
+          <p>Rockhill B, Spiegelman D, Byrne C, Hunter DJ, Colditz GA. Validation of the Gail et al. model of breast cancer risk prediction and implications for chemoprevention. J Natl Cancer Inst. 2001;93(5):358-366. <a href="https://pubmed.ncbi.nlm.nih.gov/11238697/" target="_blank" rel="noopener">PubMed 11238697</a> · <a href="https://doi.org/10.1093/jnci/93.5.358" target="_blank" rel="noopener">DOI</a></p>
+          <ul class="paper-list">
+            <li><b>AUC 0.58:</b> reported as the concordance statistic.</li>
+            <li><b>R 59.6:</b> from 1,354 breast cancer cases among 82,109 women.</li>
+            <li><b>Null AUC 0.50, assumption:</b> a coin flip. It is the usual "no skill" mark to beat.</li>
+            <li><b>Smooth-scale variance, assumption:</b> the risk estimate is a number, so the continuous-data formula applies.</li>
+          </ul>
+          <p class="study-answer" data-study="auc"></p>
+        </details>
+        <details class="lab-more">
+          <summary>The variance term V(θ)</summary>
+          <p>For a variable on a smooth scale, V uses the Hanley and McNeil variance.</p>
+          <p class="formula">V(θ) = <span class="frac"><span>θ</span><span>R (2 − θ)</span></span> + <span class="frac"><span>2θ<sup>2</sup></span><span>1 + θ</span></span> − <span class="frac"><span>θ<sup>2</sup> (1 + R)</span><span>R</span></span></p>
+        </details>
+      </div>
     </div>
 
     <div data-charts="auc"></div>
-    <div class="tool-card" data-calc="auc"></div>
+    <div class="tool-card" data-try="auc"></div>
   </section>
 
   <p class="note">These are planning formulas. Treat the answers as a starting point, and add room for dropouts.</p>
@@ -221,6 +222,6 @@
 <footer></footer>
 <script src="js/site.js"></script>
 <script src="js/network.js" defer></script>
-<script src="js/lab/power.js?v=20261113"></script><script src="js/lab/lab.js?v=20261113"></script>
+<script src="js/lab/power.js?v=20261114"></script><script src="js/lab/lab.js?v=20261114"></script>
 </body>
 </html>

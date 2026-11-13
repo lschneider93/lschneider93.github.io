@@ -176,9 +176,9 @@
     {key: 'courts', q: 'Right court vs left court', view: 'lane',
       a: {court: 'right'}, b: {court: 'left'}},
     {key: 'one', q: 'One player: right court vs left court', view: 'lane', pick: 'one',
-      a: {player: 'BJ', court: 'right'}, b: {player: 'BJ', court: 'left'}},
+      a: {player: 'B', court: 'right'}, b: {player: 'B', court: 'left'}},
     {key: 'two', q: 'Player vs player', view: 'lane', pick: 'two',
-      a: {player: 'BJ'}, b: {player: 'JW'}},
+      a: {player: 'B'}, b: {player: 'D'}},
     {key: 'parity', q: 'Receiving team on an odd score vs an even score', view: 'lane',
       a: {parity: 'odd'}, b: {parity: 'even'}}
   ];
@@ -574,7 +574,8 @@
       what: 'serves landed deep, in the last 3 ft before the baseline. That is ' + pct(bc.deep, bc.n) + '.',
       small: '95% range ' + ci(bc.deep, bc.n) + '. Most serves landed mid: ' + bc.mid + ' of ' + bc.n + '.'});
 
-    var lc = SE.laneCounts(S), cb = SE.shareCompare(lc.left.sideline, lc.left.n, lc.right.middle, lc.right.n);
+    var lc = SE.laneCounts(S);
+    var cb = SE.shareCompare(lc.left.sideline, lc.left.n, lc.right.middle, lc.right.n);
     out.push({id: 'backhand', num: lc.left.sideline + ' of ' + lc.left.n + ' <small>vs ' + lc.right.middle + ' of ' + lc.right.n + '</small>',
       what: 'serves went to the receiver\'s backhand side in the left court (' + pct(lc.left.sideline, lc.left.n) + ') against the right court (' + pct(lc.right.middle, lc.right.n) + ').',
       small: gapWordsSigned(cb) + ' All four players are right-handed.'});
@@ -707,7 +708,7 @@
     renderFindings();
   }
 
-  fetch('data/pickleball/serves_returns.json')
+  fetch('data/pickleball/serves_returns.json?v=20261114')
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(start)
     .catch(function (err) { if (window.console) console.warn('playground data failed to load', err); fail(); });
