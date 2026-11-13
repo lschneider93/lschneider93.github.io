@@ -114,6 +114,15 @@ def build(src):
         if s["role"] == "third" and s["meta_source"] == "human" and s["type"] in ("drop", "drive"):
             third_type[(s["game"], s["rally_id"])] = s["type"]
 
+    # a missed serve: it landed out, or it is the only shot of its rally
+    per_rally = {}
+    for s in shots:
+        per_rally[(s["game"], s["rally_id"])] = per_rally.get((s["game"], s["rally_id"]), 0) + 1
+    serve_faults = sum(
+        1 for s in shots
+        if s["role"] == "serve" and (s["to_kind"] == "out" or per_rally[(s["game"], s["rally_id"])] == 1)
+    )
+
     out = {"serve": [], "return": []}
     skipped = {"serve": {"no_landing": 0, "estimated": 0}, "return": {"no_landing": 0, "estimated": 0}}
     totals = {"serve": 0, "return": 0}
@@ -184,6 +193,7 @@ def build(src):
         "n_rallies": len(rallies),
         "n_shots": len(shots),
         "totals": totals,
+        "serve_faults": serve_faults,
         "not_counted": skipped,
         "serves": out["serve"],
         "returns": out["return"],

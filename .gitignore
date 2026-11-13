@@ -5,3 +5,6 @@ data/citibike/raw/
 
 # Design reference material (screenshots of other portfolios, palette previews)
 _reference/
+
+# Post drafts and saved images (not published)
+drafts/
