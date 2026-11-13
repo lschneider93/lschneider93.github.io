@@ -1,26 +1,6 @@
-// Homepage only: project filter chips and the skills-by-project matrix.
+// Homepage only: the skills-by-project matrix.
 (function () {
   'use strict';
-
-  // ---- filter chips ----
-  var bar = document.getElementById('work-filters');
-  var cards = Array.prototype.slice.call(document.querySelectorAll('.work-card[data-cat]'));
-  if (bar && cards.length) {
-    var chips = Array.prototype.slice.call(bar.querySelectorAll('.filter-chip'));
-    chips.forEach(function (chip) {
-      var f = chip.getAttribute('data-filter');
-      var n = f === 'all' ? cards.length : cards.filter(function (c) {
-        return c.getAttribute('data-cat').split(' ').indexOf(f) !== -1;
-      }).length;
-      chip.querySelector('.count').textContent = n;
-      chip.addEventListener('click', function () {
-        chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
-        cards.forEach(function (c) {
-          c.hidden = !(f === 'all' || c.getAttribute('data-cat').split(' ').indexOf(f) !== -1);
-        });
-      });
-    });
-  }
 
   // ---- skills by project matrix ----
   var table = document.getElementById('skill-matrix');
