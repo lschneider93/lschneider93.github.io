@@ -1,6 +1,6 @@
 // Hero background: a drifting sample of points joined to their near
-// neighbors. The cursor behaves like a new observation: nearby points lean
-// toward it and their links light up in the accent color.
+// neighbors. The cursor pushes nearby points away, like a ripple, and their
+// links light up in the accent color.
 // Plain canvas, no library. Pauses when hidden or off screen, draws a single
 // still frame when the visitor prefers reduced motion.
 (function () {
@@ -22,12 +22,14 @@
   var mouse = { x: -9999, y: -9999, on: false };
   var running = false, visible = true, raf = 0;
   var col = {};
+  var MAXV = 1.6;          // px per frame, so a fast cursor cannot fling points
 
   function readColors() {
     var cs = getComputedStyle(document.documentElement);
     col.dot = cs.getPropertyValue('--net-dot').trim() || 'rgba(157,171,191,.55)';
     col.line = cs.getPropertyValue('--net-line').trim() || '157,171,191';
     col.hot = cs.getPropertyValue('--net-hot').trim() || '110,231,183';
+    col.alpha = parseFloat(cs.getPropertyValue('--net-alpha')) || 0.22;
   }
 
   function size() {
@@ -55,12 +57,14 @@
       var p = pts[i];
       if (mouse.on) {
         var dx = mouse.x - p.x, dy = mouse.y - p.y, d2 = dx * dx + dy * dy;
-        if (d2 < REACH * REACH && d2 > 400) {
-          var d = Math.sqrt(d2), pull = (1 - d / REACH) * 0.012;
-          p.vx += (dx / d) * pull; p.vy += (dy / d) * pull;
+        if (d2 < REACH * REACH && d2 > 0.01) {
+          var d = Math.sqrt(d2), push = (1 - d / REACH) * 0.02;
+          p.vx -= (dx / d) * push; p.vy -= (dy / d) * push;
         }
       }
       p.vx *= 0.992; p.vy *= 0.992;
+      var v = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+      if (v > MAXV) { p.vx *= MAXV / v; p.vy *= MAXV / v; }
       var sp = Math.abs(p.vx) + Math.abs(p.vy);
       if (sp < 0.08) { p.vx += (Math.random() - 0.5) * 0.05; p.vy += (Math.random() - 0.5) * 0.05; }
       p.x += p.vx; p.y += p.vy;
@@ -80,7 +84,7 @@
         dx = a.x - b.x; if (dx > LINK || dx < -LINK) continue;
         dy = a.y - b.y; if (dy > LINK || dy < -LINK) continue;
         d2 = dx * dx + dy * dy; if (d2 > L2) continue;
-        var alpha = (1 - d2 / L2) * 0.22, rgb = col.line;
+        var alpha = (1 - d2 / L2) * col.alpha, rgb = col.line;
         if (mouse.on) {
           var mx = (a.x + b.x) / 2 - mouse.x, my = (a.y + b.y) / 2 - mouse.y, m2 = mx * mx + my * my;
           if (m2 < R2) { rgb = col.hot; alpha = Math.min(0.85, alpha + (1 - m2 / R2) * 0.6); }

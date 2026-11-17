@@ -41,6 +41,7 @@
   --net-dot:rgba(157,171,191,0.55);
   --net-line:157,171,191;
   --net-hot:110,231,183;
+  --net-alpha:.22;
 
   /* legacy aliases, used by older page markup */
   --bg-card:var(--surface);
@@ -81,16 +82,16 @@
   --text-dim:#4E6172;
   --text-bright:#17232F;
   --accent:#0E6655;                       /* deep mint, readable as text */
-  --accent-fill:#A3E4D7;
-  --on-accent:#17232F;
-  --accent-soft:rgba(163,228,215,0.38);
+  --accent-fill:#0E6655;                  /* same deep mint as a fill, so buttons and rules are not pale */
+  --on-accent:#FFFFFF;
+  --accent-soft:rgba(14,102,85,0.13);
   --accent-glow:rgba(14,102,85,0.18);
   --accent-2:#3F6079;                     /* slate blue */
   --warm:#9A5B00;
   --danger:#B3261E;
-  --border:rgba(44,62,80,0.14);
-  --border-strong:rgba(44,62,80,0.3);
-  --border-accent:rgba(14,102,85,0.4);
+  --border:rgba(44,62,80,0.24);
+  --border-strong:rgba(44,62,80,0.45);
+  --border-accent:rgba(14,102,85,0.6);
   --shadow:0 14px 40px rgba(44,62,80,0.12);
   --series-1:#12A150;
   --series-2:#0072B2;
@@ -98,9 +99,10 @@
   --series-4:#7A5CC2;
   --chart-grid:rgba(44,62,80,0.12);
   --chart-land:#E8E0D5;
-  --net-dot:rgba(74,107,130,0.5);
-  --net-line:74,107,130;
+  --net-dot:rgba(44,62,80,0.7);
+  --net-line:44,62,80;
   --net-hot:14,102,85;
+  --net-alpha:.42;
   color-scheme:light;
 }
 
